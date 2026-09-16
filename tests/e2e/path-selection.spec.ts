@@ -5,14 +5,14 @@ test.describe("Path selection screen (User Story 1)", () => {
     await page.goto("/");
 
     const cards = page.getByRole("list").getByRole("link");
-    // 4 published launch paths — business-meat stays hidden while pending.
-    await expect(cards).toHaveCount(4);
-    await expect(page.getByRole("heading", { name: "Verdant" })).toBeVisible();
+    // 5 published launch paths (see spec.md Delta: Verdant→Remote Rancher, Business/Meat→Beef).
+    await expect(cards).toHaveCount(5);
+    await expect(page.getByRole("heading", { name: "Remote Rancher" })).toBeVisible();
 
-    await page.getByRole("link", { name: /Verdant/ }).click();
+    await page.getByRole("link", { name: /Remote Rancher/ }).click();
 
-    await expect(page).toHaveURL("/paths/verdant");
-    await expect(page.getByRole("heading", { name: "Verdant" })).toBeVisible();
+    await expect(page).toHaveURL("/paths/remote-rancher");
+    await expect(page.getByRole("heading", { name: "Remote Rancher" })).toBeVisible();
   });
 
   test("pressing back after selecting a path returns to the selection screen", async ({ page }) => {
@@ -23,11 +23,11 @@ test.describe("Path selection screen (User Story 1)", () => {
     await page.goBack();
 
     await expect(page).toHaveURL("/");
-    await expect(page.getByRole("list").getByRole("link")).toHaveCount(4);
+    await expect(page.getByRole("list").getByRole("link")).toHaveCount(5);
   });
 
-  test("a pending path (business-meat) has no reachable public URL", async ({ page }) => {
-    const response = await page.goto("/paths/business-meat");
+  test("an unknown/pending path has no reachable public URL", async ({ page }) => {
+    const response = await page.goto("/paths/does-not-exist");
     expect(response?.status()).toBe(404);
   });
 });

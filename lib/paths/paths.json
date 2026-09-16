@@ -2,61 +2,66 @@
   {
     "id": "el-tapir",
     "title": "El Tapir",
-    "description": "Beef and live cattle from Paraguay, rooted in the land.",
-    "longDescription": "El Tapir brings together beef, live cattle, and a practical approach to land stewardship — every project starts with understanding the land and the animals on it.",
+    "description": "The group's own working farm in Paraguay — open to visitors by appointment.",
+    "longDescription": "El Tapir is the group's own farm, currently expanding. It's the one fully named reference behind Orbolo's wider network of partner ranches — come see the cattle and the land for yourself.",
     "image": {
       "src": "/images/paths/el-tapir.svg",
-      "alt": "Placeholder art for El Tapir, an Orbolo path centered on beef and live cattle from Paraguay"
+      "alt": "Placeholder art for El Tapir, Orbolo's own working farm in Paraguay"
     },
     "destination": "/paths/el-tapir",
-    "targetAudience": "Consumers and distributors sourcing beef and live cattle",
+    "targetAudience": "Visitors and landowners",
     "order": 1
   },
   {
     "id": "orbolo-bridge",
     "title": "Orbolo Bridge",
-    "description": "Connecting Paraguayan cattle stewardship with global partners.",
-    "longDescription": "Orbolo Bridge is the ecosystem's connective layer — linking on-the-ground land stewardship in Paraguay with the partners and markets that depend on it.",
+    "description": "Education, site visits, and the non-profit work behind Orbolo's main business.",
+    "longDescription": "Orbolo Bridge is the home for education and site visits for organisations, alongside the non-profit activities that support the group's main business. Small today, built to grow.",
     "image": {
       "src": "/images/paths/orbolo-bridge.svg",
-      "alt": "Placeholder art for Orbolo Bridge, an Orbolo path connecting Paraguayan cattle stewardship with global partners"
+      "alt": "Placeholder art for Orbolo Bridge, Orbolo's education and non-profit arm"
     },
     "destination": "/paths/orbolo-bridge",
-    "targetAudience": "Partners and institutions working with Orbolo across borders",
+    "targetAudience": "Organisations and educational visitors",
     "order": 2
   },
   {
-    "id": "verdant",
-    "title": "Verdant",
-    "description": "Local stewardship, rooted in the land and nature.",
-    "longDescription": "Verdant is where local knowledge of the land and the animals meets a practical, on-the-ground approach to stewardship — good business starts with living land.",
+    "id": "remote-rancher",
+    "title": "Remote Rancher",
+    "description": "Own cattle on a working Paraguayan ranch — released for deployment at 60% committed.",
+    "longDescription": "Remote Rancher lets you own cattle on a working ranch in Paraguay. Our Paraguayan operating company buys, tags, raises and sells them under the Orbolo Code, and pays you when the cycle closes. No capital is called before a ranch is released at 60% committed.",
     "image": {
-      "src": "/images/paths/verdant.svg",
-      "alt": "Placeholder art for Verdant, an Orbolo path focused on local land and nature stewardship"
+      "src": "/images/paths/remote-rancher.svg",
+      "alt": "Placeholder art for Remote Rancher, Orbolo's cattle-ownership offer for investors"
     },
-    "destination": "/paths/verdant",
-    "targetAudience": "Visitors interested in Orbolo's land stewardship practice",
+    "destination": "/paths/remote-rancher",
+    "targetAudience": "Investors",
     "order": 3
   },
   {
     "id": "ganaderia-a-pasto",
     "title": "Ganadería a Pasto",
-    "description": "Pasture-based cattle ranching across Paraguay's open land.",
-    "longDescription": "Ganadería a Pasto follows Paraguay's predominantly flat, low-relief terrain — pasture-based cattle ranching practiced on the ground, not imposed on it.",
+    "description": "Pasture-based cattle ranching — how Orbolo grows its supply across Paraguay.",
+    "longDescription": "Ganadería a Pasto is the technical arm behind Orbolo's supply: pasture-based cattle ranching practiced across Paraguay's predominantly flat, open land.",
     "image": {
       "src": "/images/paths/ganaderia-a-pasto.svg",
-      "alt": "Placeholder art for Ganadería a Pasto, an Orbolo path focused on pasture-based cattle ranching"
+      "alt": "Placeholder art for Ganadería a Pasto, Orbolo's pasture-based ranching arm"
     },
     "destination": "/paths/ganaderia-a-pasto",
-    "targetAudience": "Ranchers and buyers interested in pasture-based cattle practices",
+    "targetAudience": "Technical partners and ranchers",
     "order": 4
   },
   {
-    "id": "business-meat",
-    "title": "",
-    "description": "",
-    "image": { "src": "", "alt": "" },
-    "destination": "",
+    "id": "beef",
+    "title": "Beef",
+    "description": "Grass-fed Paraguayan beef, sold at conventional market prices today.",
+    "longDescription": "Today Orbolo sources grass-fed beef from the Paraguayan market under the MPCS standard and sells it at conventional market prices. A traceable, aligned supply is being built from a large producer alliance — trade with us now and get first pick as it comes online.",
+    "image": {
+      "src": "/images/paths/beef.svg",
+      "alt": "Placeholder art for Beef, Orbolo's beef-trading offer"
+    },
+    "destination": "/paths/beef",
+    "targetAudience": "Beef buyers and importers",
     "order": 5
   }
 ]

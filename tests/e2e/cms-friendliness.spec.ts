@@ -9,7 +9,7 @@ test.describe("CMS-friendliness (User Story 4)", () => {
   // own "cms-mutation" Playwright project (see playwright.config.ts), which
   // depends on chromium/mobile-chrome finishing first, so no other test is
   // concurrently hitting "/" while paths.json is being rewritten.
-  test("adding a path to paths.json, and completing business-meat, changes the grid with zero component changes", async ({ page }) => {
+  test("adding a path, and completing a previously-pending entry, changes the grid with zero component changes", async ({ page }) => {
     test.setTimeout(60_000);
     const original = readFileSync(PATHS_JSON, "utf-8");
 
@@ -22,7 +22,7 @@ test.describe("CMS-friendliness (User Story 4)", () => {
           id: "sixth-path-e2e",
           title: "Sixth Path",
           description: "A sixth path added purely via configuration.",
-          image: { src: "/images/paths/verdant.svg", alt: "Sixth path placeholder image" },
+          image: { src: "/images/paths/remote-rancher.svg", alt: "Sixth path placeholder image" },
           destination: "/paths/sixth-path-e2e",
           order: 6,
         },
@@ -30,27 +30,48 @@ test.describe("CMS-friendliness (User Story 4)", () => {
       writeFileSync(PATHS_JSON, JSON.stringify(withSixthPath, null, 2));
       await expect(async () => {
         await page.goto("/", { waitUntil: "networkidle" });
-        await expect(page.getByRole("list").getByRole("link")).toHaveCount(5);
+        await expect(page.getByRole("list").getByRole("link")).toHaveCount(6);
       }).toPass({ timeout: 15_000 });
       await expect(page.getByRole("heading", { name: "Sixth Path" })).toBeVisible();
 
-      const withBusinessMeatCompleted = withSixthPath.map((entry: { id: string }) =>
-        entry.id === "business-meat"
-          ? {
-              ...entry,
-              title: "Business & Meat",
-              description: "Business-facing meat purchasing, now configured.",
-              image: { src: "/images/paths/verdant.svg", alt: "Business meat placeholder image" },
-              destination: "/paths/business-meat",
-            }
-          : entry,
-      );
-      writeFileSync(PATHS_JSON, JSON.stringify(withBusinessMeatCompleted, null, 2));
+      // A fresh, still-pending 7th entry (not tied to any real product) —
+      // proves the FR-018 pending/hidden mechanism independently of whether
+      // any real launch path happens to be pending right now.
+      const withSeventhPathPending = [
+        ...withSixthPath,
+        {
+          id: "seventh-path-e2e",
+          title: "",
+          description: "",
+          image: { src: "", alt: "" },
+          destination: "",
+          order: 7,
+        },
+      ];
+      writeFileSync(PATHS_JSON, JSON.stringify(withSeventhPathPending, null, 2));
       await expect(async () => {
         await page.goto("/", { waitUntil: "networkidle" });
         await expect(page.getByRole("list").getByRole("link")).toHaveCount(6);
       }).toPass({ timeout: 15_000 });
-      await expect(page.getByRole("heading", { name: "Business & Meat" })).toBeVisible();
+      await expect(page.getByRole("heading", { name: "Seventh Path" })).not.toBeVisible();
+
+      const withSeventhPathCompleted = withSeventhPathPending.map((entry: { id: string }) =>
+        entry.id === "seventh-path-e2e"
+          ? {
+              ...entry,
+              title: "Seventh Path",
+              description: "A seventh path, completed purely via configuration.",
+              image: { src: "/images/paths/remote-rancher.svg", alt: "Seventh path placeholder image" },
+              destination: "/paths/seventh-path-e2e",
+            }
+          : entry,
+      );
+      writeFileSync(PATHS_JSON, JSON.stringify(withSeventhPathCompleted, null, 2));
+      await expect(async () => {
+        await page.goto("/", { waitUntil: "networkidle" });
+        await expect(page.getByRole("list").getByRole("link")).toHaveCount(7);
+      }).toPass({ timeout: 15_000 });
+      await expect(page.getByRole("heading", { name: "Seventh Path" })).toBeVisible();
     } finally {
       writeFileSync(PATHS_JSON, original);
     }

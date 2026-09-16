@@ -18,11 +18,22 @@
 - Q: When a visitor selects a path, is the transition a real URL navigation (browser back returns to selection) or an in-page state/overlay change with no URL change? → A: Real URL navigation — each destination is its own route/page; back button returns to the selection screen.
 - Q: Does SC-004 need a numeric engagement/conversion target now, or should it be dropped for this phase given no business baseline exists? → A: Drop SC-004's numeric target for this phase — success is defined by SC-001–SC-003 only; analytics instrumentation is out of scope here.
 
+## Delta — 2026-09-16 (orbolo-website-brief.md)
+
+**Source**: `.specify/references/orbolo-website-brief.md`, a full builder brief for the Orbolo site that arrived after this spec's initial authoring. Per Constitution Principle VII, this is folded in as an explicit delta rather than silently rewritten. **Scope decision (user-confirmed)**: this feature keeps its premise (a gamified path-selection landing screen) and its technical stack (Next.js). The brief's own site architecture (conventional multi-page nav: Invest · Beef · Land · The Code · About) and technical stack (Astro, Firebase Hosting, Sanity/Payload CMS) are noted but **NOT** adopted here — only the compatible content changes below are folded in.
+
+- **Modified**: The "Verdant" path is retired per the brief (*"Product name: Remote Rancher. Verdant is retired."*) and replaced by **Remote Rancher** — Orbolo's investor-facing cattle-ownership offer (`id: remote-rancher`).
+- **Modified**: The "Business/Meat" path, previously an intentional placeholder (FR-018), is now fully defined per the brief as **Beef** — Orbolo's beef-trading offer (`id: beef`). It transitions from pending to published; it is no longer a placeholder.
+- **Modified**: El Tapir, Orbolo Bridge, and Ganadería a Pasto keep their `id`/destination but get refreshed card copy sourced from the brief's richer descriptions of each (user-confirmed scope: refresh all five, not just the two renamed paths).
+- **Added**: A content voice/compliance constraint (FR-024) reflecting the brief's non-negotiable copy rules (§17, §B2) — applies to all path card content, present and future.
+- **Added**: More specific photography direction from the brief's Design Direction section (§B1), folded into FR-019.
+- **Removed**: Nothing removed from the launch set — Verdant and Business/Meat are renamed/redefined in place, not deleted; the set is still 5 paths, all published (no path is pending in the live data as of this delta, though the pending/hidden mechanism itself, FR-018, remains a first-class ongoing capability).
+
 ## User Scenarios & Testing *(mandatory)*
 
 ### User Story 1 - Discover and select a path (Priority: P1)
 
-A first-time visitor lands on the Orbolo website and, instead of a conventional homepage, is presented with the set of available paths (El Tapir, Orbolo Bridge, Verdant, Ganadería a Pasto, Business/Meat) as visually prominent cards. The visitor reads each card's title and short description, picks the one that matches what they're looking for, and is guided into that path's corresponding section.
+A first-time visitor lands on the Orbolo website and, instead of a conventional homepage, is presented with the set of available paths (El Tapir, Orbolo Bridge, Remote Rancher, Ganadería a Pasto, Beef) as visually prominent cards. The visitor reads each card's title and short description, picks the one that matches what they're looking for, and is guided into that path's corresponding section.
 
 **Why this priority**: This is the entire premise of the project — without it there is no "choose your path" experience, just a list of links. It is the smallest slice that already delivers the core value: a visitor identifying and reaching the right part of the Orbolo ecosystem through an intentional, branded selection moment rather than generic navigation.
 
@@ -31,7 +42,7 @@ A first-time visitor lands on the Orbolo website and, instead of a conventional 
 **Acceptance scenarios**:
 
 1. **Given** a first-time visitor arrives at the Orbolo website, **When** the page finishes loading, **Then** they see a path-selection screen with one card per configured path (not a traditional homepage).
-2. **Given** the visitor is viewing the path-selection screen, **When** they click/tap a card (e.g. "Verdant"), **Then** the site transitions them into that path's corresponding section ("Verdant"), with a transition that communicates progression rather than an abrupt page jump.
+2. **Given** the visitor is viewing the path-selection screen, **When** they click/tap a card (e.g. "Remote Rancher"), **Then** the site transitions them into that path's corresponding section ("Remote Rancher"), with a transition that communicates progression rather than an abrupt page jump.
 3. **Given** a path is added or removed in the data configuration, **When** the selection screen is reloaded, **Then** the number and content of displayed cards changes accordingly, with no need to modify the card component's code.
 
 ---
@@ -70,16 +81,16 @@ A visitor on desktop, tablet, or mobile needs the path-selection experience to a
 
 ### User Story 4 - Update path content without touching component code (Priority: P3)
 
-A content owner needs to add, remove, or edit a path (title, description, image, destination, target audience) — including finalizing the still-TBD Business/Meat path — purely by editing configuration/content data, without modifying the `PathCard` or `PathGrid` component logic.
+A content owner needs to add, remove, or edit a path (title, description, image, destination, target audience) — including finalizing a still-pending path, the way "Business/Meat" (now "Beef") originally was — purely by editing configuration/content data, without modifying the `PathCard` or `PathGrid` component logic.
 
-**Why this priority**: Explicitly required by the "CMS-friendliness" and "separation of concerns" sections, and directly unblocks finalizing Path 5, which is currently a placeholder. Lower priority than the user-facing stories because it's an internal/operational capability rather than something an end visitor experiences directly.
+**Why this priority**: Explicitly required by the "CMS-friendliness" and "separation of concerns" sections. Lower priority than the user-facing stories because it's an internal/operational capability rather than something an end visitor experiences directly.
 
-**Independent test**: Can be tested by editing only the path configuration data (e.g. adding a 6th path or finalizing Path 5's title/image/destination) and confirming the change appears correctly on the site with zero edits to component source files.
+**Independent test**: Can be tested by editing only the path configuration data (e.g. adding a 6th path, or taking a pending entry from incomplete to complete) and confirming the change appears correctly on the site with zero edits to component source files.
 
 **Acceptance scenarios**:
 
 1. **Given** a content editor updates a path's title, image, or destination in the data configuration, **When** the site reloads, **Then** the corresponding card reflects the change with no modification to the `PathCard` component.
-2. **Given** the "Business/Meat" path still has its name and destination pending, **When** the editor fills in those fields in the configuration, **Then** the card moves from placeholder state to final state with no code changes.
+2. **Given** a path's configuration still has its name and destination pending (as "Business/Meat" originally did, before being finalized as "Beef" — see Delta), **When** the editor fills in those fields, **Then** the card moves from hidden/pending state to published state with no code changes.
 
 ---
 
@@ -87,7 +98,7 @@ A content owner needs to add, remove, or edit a path (title, description, image,
 
 - If a card's image fails to load (broken URL, missing asset), the card falls back to a shared branded background (moodboard color/texture) and remains fully selectable, with title and description still visible (resolved — see Clarifications).
 - How does the grid behave with fewer than 5 configured paths, or more than 5 (e.g. a sixth path added in the future)?
-- The "Business/Meat" path stays hidden from the grid entirely while its fields are incomplete (resolved — see Clarifications); it does not block deployment of the other paths.
+- Any path stays hidden from the grid entirely while its fields are incomplete (resolved — see Clarifications); it does not block deployment of the other paths. "Business/Meat" was the original example of this; it is now published as "Beef" (see Delta), and no path in the current launch set is pending.
 - How does the system handle a rapid double selection (double-click/double-tap) during the transition to the destination section?
 - Since each destination is a real route (resolved — see Clarifications), the system MUST provide a non-JS-dependent navigation path (a real anchor `href` per card) so selection still works with JavaScript disabled, even though the animated transition itself requires JS.
 - How does the experience behave on slow connections, given that each card depends on a prominent image?
@@ -101,7 +112,7 @@ A content owner needs to add, remove, or edit a path (title, description, image,
 - **FR-002**: The system MUST represent each path in the Orbolo ecosystem as a visually prominent card that includes an image, title, short description, and an interactive hover/focus state.
 - **FR-003**: The system MUST follow the visual language of the provided moodboard (typography, color palette, visual hierarchy, mood, spacing/composition, and overall art direction), and MUST avoid introducing colors, fonts, or styles that conflict with it. *(See the Assumptions note on the moodboard's location.)*
 - **FR-004**: The system MUST guide the user, after selecting a card, into the corresponding section/product/service, with a transition that communicates progression ("enters the ecosystem → sees the paths → identifies their objective → selects → progresses").
-- **FR-005**: The system MUST implement the cards as a reusable, generic `PathCard` component, with no business logic specific to any individual path (El Tapir, Verdant, Orbolo Bridge, etc.).
+- **FR-005**: The system MUST implement the cards as a reusable, generic `PathCard` component, with no business logic specific to any individual path (El Tapir, Remote Rancher, Orbolo Bridge, etc.).
 - **FR-006**: The system MUST generate the set of cards from configuration data (conceptual structure `PathCard { id, title, description, image, destination, targetAudience }`), not via duplicated UI per path.
 - **FR-007**: The system MUST support mouse, keyboard, and touch/mobile interaction for navigating and selecting a path.
 - **FR-008**: The system MUST display visible hover, focus, and selected/active states for each card.
@@ -114,12 +125,13 @@ A content owner needs to add, remove, or edit a path (title, description, image,
 - **FR-015**: The system MUST provide appropriate alt text for each card's image.
 - **FR-016**: The system MUST maintain sufficient color contrast and MUST NOT communicate information (e.g. selected state) through color alone.
 - **FR-017**: The system MUST respect the user's operating system/browser "reduced motion" preference in transition animations.
-- **FR-018**: The system MUST support the "Business/Meat" path as one more configuration entry. While its name, description, image, and destination remain pending, the system MUST exclude it from the rendered `PathGrid` (the grid displays only entries with complete, valid configuration) rather than showing a placeholder card; once its fields are filled in, it MUST appear automatically with no code changes.
-- **FR-019**: Images across the different cards do NOT need to share the same type of landscape or composition. Images MUST be authentic photographs of Paraguay, and, given that Paraguayan terrain is predominantly flat/low-relief, the system MUST NOT force uniform terrain type (e.g. imposing mountainous landscapes) across paths. Visual coherence with the moodboard must come from consistent photographic treatment (color palette, framing, tone), not from forced landscape similarity.
+- **FR-018**: The system MUST support any path as a configuration entry whose name, description, image, or destination are still pending. Such an entry MUST be excluded from the rendered `PathGrid` (the grid displays only entries with complete, valid configuration) rather than showing a placeholder card; once its fields are filled in, it MUST appear automatically with no code changes. *(The "Business/Meat" path that originally motivated this requirement is now fully defined as "Beef" — see Delta — but the underlying mechanism remains a first-class, ongoing capability for any future path.)*
+- **FR-019**: Images across the different cards do NOT need to share the same type of landscape or composition. Images MUST be authentic photographs of Paraguay, and, given that Paraguayan terrain is predominantly flat/low-relief, the system MUST NOT force uniform terrain type (e.g. imposing mountainous landscapes) across paths. Visual coherence with the moodboard must come from consistent photographic treatment (color palette, framing, tone), not from forced landscape similarity. Per the brief's Design Direction (§B1, see Delta), photography should show real animals on real pasture, wide horizons, low sun, people doing the work, and — for Beef — the trading side (cold store, boxed beef, container loading); a consistent warm, slightly desaturated grade; no phone-snap quality; every photo captioned; anonymised subjects kept unidentifiable where the brief requires it.
 - **FR-020**: Each path's long-form text (description and any extended copy beyond the short title) MUST be loaded from an external data source, decoupled from component code. In this initial phase, that source MUST be a JSON configuration file versioned in the repository. The architecture MUST isolate access to that data (e.g. behind a data interface/service) so that source can be replaced in the future by a Firebase database with no structural changes to `PathCard` or `PathGrid`.
 - **FR-021**: If a path card's configured image fails to load, the system MUST render a shared branded fallback background in its place (not a broken-image icon), keeping the card's title, description, and selectability fully intact.
 - **FR-022**: Every path's `destination` MUST resolve to an internal route within this site; the selection-to-destination transition MUST NOT perform an external/cross-domain redirect.
 - **FR-023**: Each path card MUST be a real link (a semantic anchor with a real `href` to its destination route), so selecting a path is a genuine navigation: the browser "back" button returns the visitor to the selection screen, and selection remains functional (without the animated transition) if JavaScript is disabled.
+- **FR-024**: All path card copy (title, description, longDescription) MUST comply with the brief's voice rules (`.specify/references/orbolo-website-brief.md` §B2, §17 — see Delta): no banned terms outside a glossary context (*sustainable, holistic, impact, journey, solution, ecosystem, unlock, seamless, leverage, empower, passionate, premium*); never describe today's beef as "regenerative"; never describe investor returns as "guaranteed"; and never phrase Orbolo as collecting or managing investor capital ("Orbolo facilitates"/"the Paraguayan operating company" — never "invest with Orbolo" or "Orbolo manages your investment").
 
 ### Non-goals *(mandatory)*
 
@@ -127,7 +139,7 @@ A content owner needs to add, remove, or edit a path (title, description, image,
 - Any interaction depending exclusively on hover — excluded to avoid breaking keyboard/touch accessibility.
 - A "conventional video game" aesthetic or feel — gamification must be subtle and sophisticated, not literal.
 - Simply scaling the desktop layout to produce the mobile version, when doing so would harm usability.
-- Finalizing, at this stage, the definitive name, description, image, and destination for the "Business/Meat" path — left as pending configuration, not a decision of this spec.
+- Adopting the brief's full site architecture (conventional multi-page nav: Invest · Beef · Land · The Code · About) or its technical stack (Astro, Firebase Hosting, Sanity/Payload CMS) — explicitly out of scope for this feature per the Delta's scope decision; only compatible content changes are folded in.
 - Redesigning the base components (`PathCard`, `PathGrid`) every time the path ecosystem changes — the architecture must absorb those changes via data.
 - Forcing images across paths to share the same type of landscape or terrain (e.g. mountainous) — they must be authentic photographs of Paraguay, whose terrain is predominantly flat.
 - Coupling each path's long-form text to component code, or assuming the current data source (JSON) is permanent — it must stay isolated to allow migrating to Firebase without touching the UI.
@@ -136,7 +148,7 @@ A content owner needs to add, remove, or edit a path (title, description, image,
 ### Key Entities *(include if feature involves data)*
 
 - **PathCard**: Represents a selectable path in the Orbolo ecosystem. Attributes: `id`, `title`, `description`, `image` (replaceable reference, not coupled to the UI), `destination` (an internal route/section of this site — never an external URL), `targetAudience`.
-- **Path Configuration (collection)**: The ordered list of `PathCard` entries feeding the `PathGrid`; it is the source of truth for content, decoupled from presentation and interaction logic, and is what a content editor modifies to add/remove/edit paths (currently includes: El Tapir, Orbolo Bridge, Verdant, Ganadería a Pasto, Business/Meat). In this initial phase it lives in a JSON file versioned in the repository; access to this data must sit behind a layer/service that allows that source to be replaced by a Firebase database later with no changes to UI components.
+- **Path Configuration (collection)**: The ordered list of `PathCard` entries feeding the `PathGrid`; it is the source of truth for content, decoupled from presentation and interaction logic, and is what a content editor modifies to add/remove/edit paths (currently includes: El Tapir, Orbolo Bridge, Remote Rancher, Ganadería a Pasto, Beef — see Delta for the Verdant→Remote Rancher and Business/Meat→Beef changes). In this initial phase it lives in a JSON file versioned in the repository; access to this data must sit behind a layer/service that allows that source to be replaced by a Firebase database later with no changes to UI components.
 
 ## Success Criteria *(mandatory)*
 
@@ -150,8 +162,9 @@ A content owner needs to add, remove, or edit a path (title, description, image,
 ## Assumptions
 
 - The moodboard referenced as the design reference was not included as an attached file in this round; it is assumed to be available in the project's own reference folder (e.g. `.specify/` or `references/`), as indicated when this document was generated. The planning agent MUST locate it there before fixing design tokens (typography, palette, spacing).
-- The five listed paths (El Tapir, Orbolo Bridge, Verdant, Ganadería a Pasto, Business/Meat) are the initial launch set; the architecture must support adding or removing paths purely via configuration, without assuming the number "5" is fixed.
-- The "Business/Meat" path is a deliberate placeholder: its final name, description, image, and destination will be defined later and must not be hardcoded anywhere in the code. Until that data is complete, the path-selection screen launches with 4 visible cards, not 5; the "Business/Meat" entry appears automatically once its configuration is filled in.
+- The five listed paths (El Tapir, Orbolo Bridge, Remote Rancher, Ganadería a Pasto, Beef — see Delta) are the current launch set; the architecture must support adding or removing paths purely via configuration, without assuming the number "5" is fixed.
+- **Resolved (see Delta)**: the "Business/Meat" placeholder is now fully defined as "Beef", so all 5 launch paths are published; no path in the current data is pending. The pending/hidden mechanism (FR-018) remains fully supported for any path added later with incomplete fields.
+- **Added (see Delta)**: `.specify/references/orbolo-website-brief.md` is a second content/positioning reference alongside the moodboard PDF — the moodboard governs visual art direction, the brief governs product naming, audience framing, and copy voice rules (FR-024).
 - **Resolved**: each path's "destination" is an internal route/section of this Orbolo Next.js site — no path redirects to an external domain or subdomain. This keeps the selection-to-destination transition a consistent client-side animated navigation for every path.
 - **Resolved**: the technical stack is fixed by the project constitution (`.specify/memory/constitution.md`, Additional Constraints): TypeScript (strict) · Next.js App Router · React · Tailwind CSS · Framer Motion · pnpm · Vitest · Playwright. This satisfies the earlier open question on framework choice and unblocks `/speckit-plan`.
 - **Resolved**: the content source for long-form text (and, by extension, the rest of `PathCard`'s fields) will be a JSON configuration file versioned in the repository during this initial phase. The data-access layer must be designed so that JSON can be replaced by a Firebase database in a later phase with no changes required to `PathCard` or `PathGrid` — the earlier `[NEEDS CLARIFICATION]` on content source no longer applies.

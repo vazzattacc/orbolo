@@ -191,6 +191,23 @@ Task: "Playwright e2e path-selection flow in tests/e2e/path-selection.spec.ts"
 
 ---
 
+## Phase 8: Content Delta — `orbolo-website-brief.md` (2026-09-16)
+
+**Source**: `spec.md`'s Delta section. **Scope** (user-confirmed): content-only — rename Verdant→Remote Rancher, define Business/Meat→Beef, refresh all five cards' copy per the brief; the brief's site architecture and tech stack (Astro/Firebase) are explicitly NOT adopted.
+
+- [X] T044 Update `lib/paths/paths.json`: rename the `verdant` entry to `id: "remote-rancher"` / `title: "Remote Rancher"` / `destination: "/paths/remote-rancher"` with new description/longDescription/targetAudience sourced from the brief's Home "two cards" and Invest hero copy (§B4, §B5), compliant with FR-024's voice rules
+- [X] T045 Update `lib/paths/paths.json`: complete the `business-meat` entry as `id: "beef"` / `title: "Beef"` / `destination: "/paths/beef"` (now published, not pending) with description/longDescription/targetAudience sourced from the brief's Beef hero copy (§B6), compliant with FR-024
+- [X] T046 [P] Refresh `el-tapir`, `orbolo-bridge`, and `ganaderia-a-pasto` entries' `description`/`longDescription`/`targetAudience` in `lib/paths/paths.json` using the brief's richer language (§6 "Page specifications", §8 "Partners"), compliant with FR-024
+- [X] T047 [P] Rename `public/images/paths/verdant.svg` → `remote-rancher.svg`; add a new `public/images/paths/beef.svg` placeholder gradient distinct in hue from the other four (per `research.md` §7's palette restraint — cream/forest tones only, no new invented accent colors)
+- [X] T048 Update `tests/e2e/path-selection.spec.ts`, `tests/e2e/no-js-navigation.spec.ts`, and `tests/e2e/keyboard-accessibility.spec.ts`: replace "Verdant"/`/paths/verdant` references with "Remote Rancher"/`/paths/remote-rancher`, and update published-card-count assertions from 4 to 5 (Beef is no longer pending)
+- [X] T049 Rewrite `tests/e2e/path-selection.spec.ts`'s "pending path has no reachable public URL" test to use a generic nonexistent id (e.g. `/paths/does-not-exist`) instead of `/paths/business-meat`, since Beef is no longer pending
+- [X] T050 Rewrite `tests/e2e/cms-friendliness.spec.ts`'s second scenario (completing a pending entry) to add-then-complete a fresh synthetic pending fixture entry instead of `business-meat`, since Beef now starts already published
+- [X] T051 Run `pnpm run verify` and fix any failures until it passes clean with the renamed/refreshed content (Constitution Principle II)
+
+**Checkpoint**: All content matches `orbolo-website-brief.md` per the Delta's confirmed scope; full verification suite green.
+
+---
+
 ## Implementation Strategy
 
 ### MVP First (User Story 1 Only)

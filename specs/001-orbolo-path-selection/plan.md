@@ -6,7 +6,7 @@
 
 ## Summary
 
-Build the Orbolo site's first-load experience: a data-driven "choose your path" grid (`PathGrid` of `PathCard`s) instead of a conventional homepage, styled per the provided moodboard. Path content (El Tapir, Orbolo Bridge, Verdant, Ganadería a Pasto, and the still-pending Business/Meat path) lives in a versioned `paths.json`, accessed only through a `PathRepository` isolation layer so it can later be swapped for Firebase with no component changes. Selecting a card is a real internal navigation (`/paths/{id}`) to a shared destination-stub template — not a client-only overlay — satisfying the clarified back-button and no-JS requirements. The grid and cards are fully keyboard/touch operable, respect reduced-motion, and adapt (not scale) across desktop/tablet/mobile. Full per-path destination *content* beyond the shared stub is explicitly out of scope for this feature (see `research.md` §2) — this feature delivers the selection mechanism and the navigation contract, not the five products' full pages.
+Build the Orbolo site's first-load experience: a data-driven "choose your path" grid (`PathGrid` of `PathCard`s) instead of a conventional homepage, styled per the provided moodboard. Path content (El Tapir, Orbolo Bridge, Remote Rancher, Ganadería a Pasto, and Beef — see `spec.md`'s Delta for the Verdant→Remote Rancher and Business/Meat→Beef renames) lives in a versioned `paths.json`, accessed only through a `PathRepository` isolation layer so it can later be swapped for Firebase with no component changes. Selecting a card is a real internal navigation (`/paths/{id}`) to a shared destination-stub template — not a client-only overlay — satisfying the clarified back-button and no-JS requirements. The grid and cards are fully keyboard/touch operable, respect reduced-motion, and adapt (not scale) across desktop/tablet/mobile. Full per-path destination *content* beyond the shared stub is explicitly out of scope for this feature (see `research.md` §2) — this feature delivers the selection mechanism and the navigation contract, not the five products' full pages.
 
 ## Technical Context
 
@@ -26,7 +26,7 @@ Build the Orbolo site's first-load experience: a data-driven "choose your path" 
 
 **Constraints**: Real internal routes only (no external redirects, FR-022) · no interaction hover-only (FR-009) · reduced-motion respected (FR-017) · WCAG-adequate contrast, no color-only signaling (FR-016) · images must be authentic Paraguay photography, not forced into one terrain type (FR-019)
 
-**Scale/Scope**: 4 published paths at launch (a 5th, Business/Meat, present but hidden until complete); architecture must not assume the count is fixed at 4 or 5 (FR-006, SC-001)
+**Scale/Scope**: 5 published paths at launch (El Tapir, Orbolo Bridge, Remote Rancher, Ganadería a Pasto, Beef); architecture must not assume the count is fixed at 5 (FR-006, SC-001)
 
 ## Constitution Check
 
@@ -92,7 +92,7 @@ components/
 lib/
 └── paths/
     ├── types.ts              # PathCard / PathImage interfaces (contracts/data-layer.md)
-    ├── paths.json             # Versioned content — the 5 paths, 4 published + business-meat pending
+    ├── paths.json             # Versioned content — the 5 paths, all published (see spec.md Delta)
     └── path-repository.ts      # getPublishedPaths() / getPathById() — sole JSON access point
 
 public/

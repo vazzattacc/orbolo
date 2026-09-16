@@ -31,11 +31,11 @@ pnpm run verify   # next lint && tsc --noEmit && vitest run && playwright test
 Each maps to an acceptance scenario in `spec.md`; each should also exist as an automated Playwright/Vitest test per Constitution Principle II before the feature is considered done (tracked in `tasks.md`).
 
 1. **Grid renders from data (User Story 1, SC-001)**
-   - Load `/`. Confirm one card per *published* entry in `lib/paths/paths.json` (4 at initial launch — El Tapir, Orbolo Bridge, Verdant, Ganadería a Pasto — with Business/Meat hidden per its pending fields).
+   - Load `/`. Confirm one card per *published* entry in `lib/paths/paths.json` (5 at current launch — El Tapir, Orbolo Bridge, Remote Rancher, Ganadería a Pasto, Beef — see `spec.md` Delta for the Verdant→Remote Rancher and Business/Meat→Beef renames).
    - Edit `paths.json` to add a 6th complete entry. Reload. Confirm 6 cards render with zero changes to `PathCard.tsx`/`PathGrid.tsx`.
 
 2. **Selection navigates (User Story 1)**
-   - Click the "Verdant" card. Confirm the URL changes to `/paths/verdant` and the destination stub renders Verdant's title/description.
+   - Click the "Remote Rancher" card. Confirm the URL changes to `/paths/remote-rancher` and the destination stub renders Remote Rancher's title/description.
    - Press the browser Back button. Confirm you return to `/` (selection screen).
 
 3. **Keyboard-only flow (User Story 2, SC-002)**
@@ -49,7 +49,7 @@ Each maps to an acceptance scenario in `spec.md`; each should also exist as an a
    - Resize/emulate desktop, tablet, and mobile viewports. Confirm the layout adapts (column count, image treatment, touch-target size) rather than uniformly scaling the desktop layout.
 
 6. **CMS-friendliness (User Story 4)**
-   - Fill in `business-meat`'s remaining fields in `paths.json`. Reload `/`. Confirm the card now appears with no component code changes.
+   - Add a new entry to `paths.json` with its required fields left empty (a pending path). Reload `/`. Confirm it does not appear. Fill in its remaining fields. Reload `/`. Confirm the card now appears with no component code changes.
 
 7. **Broken image fallback (Edge case, FR-021)**
    - Point one entry's `image.src` at a non-existent file. Reload. Confirm the card shows the shared branded fallback background, remains selectable, and still navigates correctly.

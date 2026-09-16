@@ -16,7 +16,7 @@ export default async function DestinationPage({ params }: DestinationPageProps) 
   const path = await getPathById(pathId);
 
   // A pending path has no reachable public URL — treated the same as "not
-  // found" so an unfinished entry (e.g. business-meat) can't be reached by
+  // found" so an unfinished entry can't be reached by
   // guessing its URL (FR-018).
   if (!path || !isPathPublished(path)) {
     notFound();

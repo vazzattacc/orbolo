@@ -5,7 +5,7 @@ test.describe("Keyboard accessibility (User Story 2)", () => {
     await page.goto("/");
     const cards = page.getByRole("list").getByRole("link");
     const count = await cards.count();
-    expect(count).toBe(4);
+    expect(count).toBe(5);
 
     // Tab through the document until the first card receives focus.
     for (let i = 0; i < 10; i++) {

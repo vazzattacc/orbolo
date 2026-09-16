@@ -10,7 +10,7 @@ interface PathGridProps {
 }
 ```
 
-- Purely presentational: receives data, renders one `PathCard` per entry. Contains no data-fetching, no knowledge of JSON/Firebase, no per-path conditional logic (no `if (path.id === 'verdant')` branches anywhere — that would violate FR-005).
+- Purely presentational: receives data, renders one `PathCard` per entry. Contains no data-fetching, no knowledge of JSON/Firebase, no per-path conditional logic (no `if (path.id === 'remote-rancher')` branches anywhere — that would violate FR-005).
 - Responsive layout (desktop/tablet/mobile) lives here via Tailwind responsive classes (FR-010/011) — not in `PathCard`.
 - Renders nothing (empty grid, no error) when `paths` is an empty array — the spec's edge case "fewer than 5 configured paths" must not crash or show placeholder cards.
 

@@ -6,11 +6,11 @@ test.describe("No-JS navigation (Edge case, FR-023)", () => {
     const page = await context.newPage();
 
     await page.goto("/");
-    await expect(page.getByRole("list").getByRole("link")).toHaveCount(4);
+    await expect(page.getByRole("list").getByRole("link")).toHaveCount(5);
 
-    await page.getByRole("link", { name: /Verdant/ }).click();
-    await expect(page).toHaveURL("/paths/verdant");
-    await expect(page.getByRole("heading", { name: "Verdant" })).toBeVisible();
+    await page.getByRole("link", { name: /Remote Rancher/ }).click();
+    await expect(page).toHaveURL("/paths/remote-rancher");
+    await expect(page.getByRole("heading", { name: "Remote Rancher" })).toBeVisible();
 
     await context.close();
   });

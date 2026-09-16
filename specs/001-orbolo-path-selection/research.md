@@ -71,6 +71,10 @@ The broken-image fallback (`research.md` §5) was updated to a tonal forest grad
 
 - **Status**: Left open, per constitution ("**[NOT YET DECIDED — confirm before the first production deploy]**"). Not a blocker for this feature's plan/tasks/implementation, since it only affects hosting configuration, not application architecture. Vercel remains the constitution's noted natural default for this Next.js stack.
 
+## 10. Content delta from `orbolo-website-brief.md` (2026-09-16)
+
+A full builder brief arrived after this research was written. Per `spec.md`'s Delta section, the architecture/routing decisions above (§§1–9) are unaffected — this was a content-only change: the path originally seeded as `verdant` is renamed to `remote-rancher`, and the path originally seeded pending as `business-meat` (§4 above) is now published as `beef`. Any references above to "Verdant" or "Business/Meat" as current examples are historical — see `spec.md`'s Delta and `data-model.md` for the current launch set.
+
 ## Outcome
 
 All Technical Context fields are resolved (no `NEEDS CLARIFICATION` remain). Proceeding to Phase 1.

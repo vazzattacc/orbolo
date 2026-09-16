@@ -48,7 +48,7 @@ test.describe("Responsive layout (User Story 3)", () => {
     expect(portraitColumns).toBeGreaterThanOrEqual(1);
 
     await page.setViewportSize({ width: 1194, height: 834 });
-    await expect(page.getByRole("list").getByRole("link")).toHaveCount(4);
+    await expect(page.getByRole("list").getByRole("link")).toHaveCount(5);
     const landscapeColumns = await columnCount(page);
     expect(landscapeColumns).toBeGreaterThanOrEqual(portraitColumns);
   });
