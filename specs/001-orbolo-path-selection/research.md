@@ -54,6 +54,13 @@ Extracted from `.specify/references/Orbolo_Editorial_Continuous.pdf` (single-pag
 - **Composition**: generous whitespace, thin hairline-bordered photo cards (not heavy shadows/rounded-card-UI), editorial full-bleed photography sections alternating with cream text sections, physical-product mockups (canvas tote, kraft box) reinforcing a natural/sustainable, non-"video-game" tone — directly supports the constitution's "subtle, sophisticated gamification, not literal" non-goal.
 - **Rationale**: FR-003 requires the site to follow this moodboard's visual language; extracting concrete tokens now lets `data-model.md`/Tailwind config reference real values instead of placeholders.
 
+**Addendum — corrected by the `image-to-code` skill pass during implementation (Constitution Principle X):** a closer read of the actual moodboard corrected three assumptions from the original hypothesis above:
+1. The "ORBOLO" wordmark itself is **bold tracked sans-serif**, not serif — the serif face is reserved for smaller tracked-caps captions (e.g. "HELIOS EXT ROSLINDALE") and the pull-quote, not the primary logotype. Implementation now sets the site's `<h1>ORBOLO</h1>` in `font-body font-bold tracking-widest2`, and reserves `font-display` (serif) for `PathCard`/destination-page titles — matching the board's "serif caps for place names" convention, since path titles (Verdant, El Tapir, …) are exactly that.
+2. The flat UI palette is **cream + deep forest green only** — gold/sky/tan tones appear exclusively inside photography, never as flat fills or accent colors. The originally-hypothesized `gold`/`sky` Tailwind tokens were invented, not sourced from the board, and have been removed; the underline accent and focus ring now use `cream` (on the dark card) instead.
+3. Cards/photos in the board are separated by **whitespace, not visible borders** — the initial `border border-forest/20` on `PathCard`'s root was dropped in favor of grid `gap-*` spacing alone.
+
+The broken-image fallback (`research.md` §5) was updated to a tonal forest gradient instead of the original invented sky→gold→forest gradient, for the same palette-fidelity reason.
+
 ## 8. Runtime data validation
 
 - **Decision**: No runtime schema-validation library (e.g. zod) is introduced. `paths.json` is authored/versioned by the team (not user-submitted), and is statically typed via a shared `PathCard` TypeScript interface that the JSON is asserted against at import time (`satisfies PathCard[]`).
