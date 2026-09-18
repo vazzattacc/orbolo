@@ -1,0 +1,28 @@
+---
+import { getRulesBySlug } from "@/lib/content/rules";
+import { localizedPath, type Locale } from "@/i18n/routing";
+
+interface Props {
+  ruleSlugs: string[];
+  locale: Locale;
+}
+const { ruleSlugs, locale } = Astro.props;
+
+const rules = await getRulesBySlug(ruleSlugs, locale);
+---
+
+<section class="mx-auto max-w-6xl px-4 py-16 sm:px-6" aria-labelledby="code-heading">
+  <h2 id="code-heading" class="font-display text-3xl">The Code, in five lines</h2>
+  <ol class="mt-6 flex flex-col gap-3">
+    {
+      rules.map((rule) => (
+        <li class="border-l-2 border-verified pl-4">
+          <span class="text-verified">{rule.number}.</span> {rule.rule}
+        </li>
+      ))
+    }
+  </ol>
+  <a href={localizedPath(locale, "/the-code")} class="mt-6 inline-block underline">
+    Read the full Code
+  </a>
+</section>

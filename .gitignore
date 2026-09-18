@@ -1,17 +1,11 @@
+# Astro
+dist/
+.astro/
+
 # Node
 node_modules/
 npm-debug.log*
 pnpm-debug.log*
-
-# Next.js
-.next/
-out/
-next-env.d.ts
-
-# Build output
-dist/
-build/
-*.tsbuildinfo
 
 # Testing
 coverage/
@@ -30,3 +24,4 @@ Thumbs.db
 .vscode/
 .idea/
 *.swp
+*.tsbuildinfo

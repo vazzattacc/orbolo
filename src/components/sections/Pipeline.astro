@@ -1,0 +1,29 @@
+---
+import { getPublishedRanches } from "@/lib/content/ranches";
+import RanchCard from "@/components/RanchCard.astro";
+import type { Locale } from "@/i18n/routing";
+
+interface Props {
+  ranchSlugs: string[];
+  locale: Locale;
+}
+const { ranchSlugs, locale } = Astro.props;
+
+const allRanches = await getPublishedRanches();
+const ranches = ranchSlugs.length > 0 ? allRanches.filter((ranch) => ranchSlugs.includes(ranch.codename)) : allRanches;
+---
+
+<section id="pipeline" class="mx-auto max-w-6xl px-4 py-16 sm:px-6" aria-labelledby="pipeline-heading">
+  <h2 id="pipeline-heading" class="font-display text-3xl">Deployment pipeline</h2>
+  {
+    ranches.length === 0 ? (
+      <p class="mt-4 text-ink/60">No ranches are open for commitment right now — check back soon.</p>
+    ) : (
+      <div class="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2">
+        {ranches.map((ranch) => (
+          <RanchCard ranch={ranch} locale={locale} />
+        ))}
+      </div>
+    )
+  }
+</section>

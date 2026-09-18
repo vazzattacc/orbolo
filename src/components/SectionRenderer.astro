@@ -1,0 +1,56 @@
+---
+import type { Section } from "@/lib/content/pages";
+import type { Locale } from "@/i18n/routing";
+import Hero from "@/components/sections/Hero.astro";
+import Loop from "@/components/sections/Loop.astro";
+import NumbersRow from "@/components/sections/NumbersRow.astro";
+import AudienceCards from "@/components/sections/AudienceCards.astro";
+import PartnerStrip from "@/components/sections/PartnerStrip.astro";
+import CodeStrip from "@/components/sections/CodeStrip.astro";
+import Pipeline from "@/components/sections/Pipeline.astro";
+import Roadmap from "@/components/sections/Roadmap.astro";
+import WhereWeAre from "@/components/sections/WhereWeAre.astro";
+import TextBlock from "@/components/sections/TextBlock.astro";
+import Arguments from "@/components/sections/Arguments.astro";
+import Faq from "@/components/sections/Faq.astro";
+import FormEmbed from "@/components/sections/FormEmbed.astro";
+import CtaSplit from "@/components/sections/CtaSplit.astro";
+
+interface Props {
+  section: Section;
+  locale: Locale;
+}
+const { section, locale } = Astro.props;
+---
+
+{
+  section.type === "hero" ? (
+    <Hero {...section} />
+  ) : section.type === "loop" ? (
+    <Loop {...section} />
+  ) : section.type === "numbers" ? (
+    <NumbersRow metricKeys={section.metricKeys} />
+  ) : section.type === "audienceCards" ? (
+    <AudienceCards cards={section.cards} />
+  ) : section.type === "partnerStrip" ? (
+    <PartnerStrip partnerSlugs={section.partnerSlugs} />
+  ) : section.type === "codeStrip" ? (
+    <CodeStrip ruleSlugs={section.ruleSlugs} locale={locale} />
+  ) : section.type === "pipeline" ? (
+    <Pipeline ranchSlugs={section.ranchSlugs} locale={locale} />
+  ) : section.type === "roadmap" ? (
+    <Roadmap milestoneSlugs={section.milestoneSlugs} />
+  ) : section.type === "whereWeAre" ? (
+    <WhereWeAre {...section} />
+  ) : section.type === "text" ? (
+    <TextBlock {...section} />
+  ) : section.type === "arguments" ? (
+    <Arguments {...section} />
+  ) : section.type === "faq" ? (
+    <Faq items={section.items} />
+  ) : section.type === "formEmbed" ? (
+    <FormEmbed formId={section.formId} audience={section.audience} />
+  ) : section.type === "ctaSplit" ? (
+    <CtaSplit {...section} />
+  ) : null
+}

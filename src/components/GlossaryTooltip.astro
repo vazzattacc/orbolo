@@ -1,0 +1,30 @@
+---
+// Native <details>/<summary> — keyboard-operable and touch-friendly with no
+// JS and no hover dependency (research.md §3: no framework runtime).
+import { getGlossaryTerm } from "@/lib/content/glossary";
+import type { Locale } from "@/i18n/routing";
+
+interface Props {
+  term: string;
+  locale?: Locale;
+}
+const { term, locale = "en" } = Astro.props;
+const definition = await getGlossaryTerm(term, locale);
+---
+
+{
+  definition ? (
+    <details class="relative inline-block align-baseline marker:content-none [&::-webkit-details-marker]:hidden">
+      <summary class="cursor-pointer underline decoration-dotted underline-offset-2 outline-none focus-visible:ring-2 focus-visible:ring-ink">
+        {term}
+      </summary>
+      <div class="absolute z-10 mt-1 w-64 border border-ink/20 bg-paper p-3 text-sm normal-case leading-snug shadow-none">
+        <p>{definition.definition}</p>
+        <p class="mt-1 text-ink/60">Measured by: {definition.measuredBy}</p>
+        <p class="mt-1 text-ink/60">Not: {definition.notThis}</p>
+      </div>
+    </details>
+  ) : (
+    <span>{term}</span>
+  )
+}

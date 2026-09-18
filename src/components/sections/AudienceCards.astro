@@ -1,0 +1,53 @@
+---
+import { getMetricValue } from "@/lib/content/metrics";
+
+interface Card {
+  title: string;
+  description: string;
+  metricKeys: string[];
+  ctaLabel: string;
+  ctaHref: string;
+}
+interface Props {
+  cards: Card[];
+}
+const { cards } = Astro.props;
+
+const cardsWithMetrics = await Promise.all(
+  cards.map(async (card) => ({
+    ...card,
+    metrics: (await Promise.all(card.metricKeys.map((key) => getMetricValue(key)))).filter(
+      (metric): metric is NonNullable<typeof metric> => metric !== undefined,
+    ),
+  })),
+);
+---
+
+<section class="mx-auto max-w-6xl px-4 py-16 sm:px-6" aria-label="Choose your path">
+  <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+    {
+      cardsWithMetrics.map((card) => (
+        <article class="flex flex-col gap-4 border border-ink/15 p-6">
+          <h2 class="font-display text-2xl">{card.title}</h2>
+          <p class="text-ink/70">{card.description}</p>
+          {card.metrics.length > 0 && (
+            <dl class="grid grid-cols-3 gap-2 text-sm">
+              {card.metrics.map((metric) => (
+                <div>
+                  <dd class="font-display text-lg tabular-nums">{metric.value}</dd>
+                  <dt class="text-xs text-ink/50">{metric.label}</dt>
+                </div>
+              ))}
+            </dl>
+          )}
+          <a
+            href={card.ctaHref}
+            class="mt-auto w-fit border border-ink px-4 py-2 outline-none hover:bg-ink/5 focus-visible:ring-2 focus-visible:ring-ink focus-visible:ring-offset-2"
+          >
+            {card.ctaLabel}
+          </a>
+        </article>
+      ))
+    }
+  </div>
+</section>

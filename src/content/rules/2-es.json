@@ -1,0 +1,8 @@
+{
+  "number": "2",
+  "rule": "No se solicita capital a ningún inversionista antes de que un rancho alcance el 60% comprometido bajo cartas de intención firmadas.",
+  "verifiedHow": "La página pública del pipeline muestra el conteo de compromiso en vivo, derivado de las cartas de intención, para cada rancho.",
+  "verifier": "vet-audit-partner",
+  "terms": [],
+  "locale": "es"
+}

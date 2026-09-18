@@ -1,79 +1,80 @@
 import { test, expect } from "@playwright/test";
-import { readFileSync, writeFileSync } from "node:fs";
-import path from "node:path";
+import { existsSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { join } from "node:path";
 
-const PATHS_JSON = path.resolve(__dirname, "../../lib/paths/paths.json");
+const CONTENT_DIR = join(import.meta.dirname, "../../src/content");
+const METRIC_FILE = join(CONTENT_DIR, "metrics/remote-rancher-metric-1.json");
+const LOI_FILE = join(CONTENT_DIR, "lois/loi-cms-test.json");
 
-test.describe("CMS-friendliness (User Story 4)", () => {
-  // Mutates the real content file (and restores it afterwards). Runs in its
-  // own "cms-mutation" Playwright project (see playwright.config.ts), which
-  // depends on chromium/mobile-chrome finishing first, so no other test is
-  // concurrently hitting "/" while paths.json is being rewritten.
-  test("adding a path, and completing a previously-pending entry, changes the grid with zero component changes", async ({ page }) => {
-    test.setTimeout(60_000);
-    const original = readFileSync(PATHS_JSON, "utf-8");
+test.describe("CMS-friendliness (User Story 6)", () => {
+  test.setTimeout(60_000);
+
+  test("adding a sourced Metric makes it appear on Home with zero component changes", async ({ page }) => {
+    expect(existsSync(METRIC_FILE)).toBe(false); // currently pending, per spec.md Assumptions
 
     try {
-      const paths = JSON.parse(original);
-
-      const withSixthPath = [
-        ...paths,
-        {
-          id: "sixth-path-e2e",
-          title: "Sixth Path",
-          description: "A sixth path added purely via configuration.",
-          image: { src: "/images/paths/remote-rancher.svg", alt: "Sixth path placeholder image" },
-          destination: "/paths/sixth-path-e2e",
-          order: 6,
-        },
-      ];
-      writeFileSync(PATHS_JSON, JSON.stringify(withSixthPath, null, 2));
-      await expect(async () => {
-        await page.goto("/", { waitUntil: "networkidle" });
-        await expect(page.getByRole("list").getByRole("link")).toHaveCount(6);
-      }).toPass({ timeout: 15_000 });
-      await expect(page.getByRole("heading", { name: "Sixth Path" })).toBeVisible();
-
-      // A fresh, still-pending 7th entry (not tied to any real product) —
-      // proves the FR-018 pending/hidden mechanism independently of whether
-      // any real launch path happens to be pending right now.
-      const withSeventhPathPending = [
-        ...withSixthPath,
-        {
-          id: "seventh-path-e2e",
-          title: "",
-          description: "",
-          image: { src: "", alt: "" },
-          destination: "",
-          order: 7,
-        },
-      ];
-      writeFileSync(PATHS_JSON, JSON.stringify(withSeventhPathPending, null, 2));
-      await expect(async () => {
-        await page.goto("/", { waitUntil: "networkidle" });
-        await expect(page.getByRole("list").getByRole("link")).toHaveCount(6);
-      }).toPass({ timeout: 15_000 });
-      await expect(page.getByRole("heading", { name: "Seventh Path" })).not.toBeVisible();
-
-      const withSeventhPathCompleted = withSeventhPathPending.map((entry: { id: string }) =>
-        entry.id === "seventh-path-e2e"
-          ? {
-              ...entry,
-              title: "Seventh Path",
-              description: "A seventh path, completed purely via configuration.",
-              image: { src: "/images/paths/remote-rancher.svg", alt: "Seventh path placeholder image" },
-              destination: "/paths/seventh-path-e2e",
-            }
-          : entry,
+      writeFileSync(
+        METRIC_FILE,
+        JSON.stringify(
+          {
+            key: "remote-rancher-metric-1",
+            label: "Ranches in the pipeline",
+            value: "1",
+            asOfDate: "2026-09-17",
+            source: "Internal pipeline count (CMS-friendliness test fixture)",
+          },
+          null,
+          2,
+        ),
       );
-      writeFileSync(PATHS_JSON, JSON.stringify(withSeventhPathCompleted, null, 2));
+
       await expect(async () => {
-        await page.goto("/", { waitUntil: "networkidle" });
-        await expect(page.getByRole("list").getByRole("link")).toHaveCount(7);
+        await page.goto("/en/", { waitUntil: "networkidle" });
+        await expect(page.getByText("Ranches in the pipeline")).toBeVisible();
       }).toPass({ timeout: 15_000 });
-      await expect(page.getByRole("heading", { name: "Seventh Path" })).toBeVisible();
     } finally {
-      writeFileSync(PATHS_JSON, original);
+      rmSync(METRIC_FILE, { force: true });
     }
+
+    // Confirm it's gone again after removing the fixture (omit-if-missing).
+    await expect(async () => {
+      await page.goto("/en/", { waitUntil: "networkidle" });
+      await expect(page.getByText("Ranches in the pipeline")).toHaveCount(0);
+    }).toPass({ timeout: 15_000 });
+  });
+
+  test("updating Ranch 04's LOI data changes the pipeline's committed count with zero component changes", async ({ page }) => {
+    await page.goto("/en/invest", { waitUntil: "networkidle" });
+    await expect(page.getByText("Committed under LOI: 260 / 400 head")).toBeVisible();
+
+    try {
+      writeFileSync(
+        LOI_FILE,
+        JSON.stringify(
+          {
+            id: "loi-cms-test",
+            ranch: "Ranch 04",
+            signerEmail: "cms-test@example.com",
+            headCount: 40,
+            signedDate: "2026-09-16",
+            converted: false,
+          },
+          null,
+          2,
+        ),
+      );
+
+      await expect(async () => {
+        await page.goto("/en/invest", { waitUntil: "networkidle" });
+        await expect(page.getByText("Committed under LOI: 300 / 400 head")).toBeVisible();
+      }).toPass({ timeout: 15_000 });
+    } finally {
+      rmSync(LOI_FILE, { force: true });
+    }
+
+    await expect(async () => {
+      await page.goto("/en/invest", { waitUntil: "networkidle" });
+      await expect(page.getByText("Committed under LOI: 260 / 400 head")).toBeVisible();
+    }).toPass({ timeout: 15_000 });
   });
 });

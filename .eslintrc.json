@@ -1,4 +1,13 @@
 {
-  "extends": ["next/core-web-vitals"],
-  "ignorePatterns": ["tests/e2e/**"]
+  "extends": ["eslint:recommended", "plugin:astro/recommended"],
+  "env": { "node": true, "es2022": true, "browser": true },
+  "parserOptions": { "ecmaVersion": 2022, "sourceType": "module" },
+  "overrides": [
+    {
+      "files": ["*.astro"],
+      "parser": "astro-eslint-parser",
+      "parserOptions": { "parser": "@typescript-eslint/parser", "extraFileExtensions": [".astro"] }
+    }
+  ],
+  "ignorePatterns": ["dist/", "tests/e2e/**", ".astro/"]
 }

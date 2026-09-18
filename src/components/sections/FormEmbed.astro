@@ -1,0 +1,41 @@
+---
+// Forms are Google Forms embeds (brief §12) — this feature does not build
+// its own form backend. `formId` is a Google Forms ID configured in content;
+// left blank in fixture/demo content until a real form exists.
+interface Props {
+  formId: string;
+  audience: "investor" | "buyer" | "landowner" | "general";
+}
+const { formId, audience } = Astro.props;
+
+const audienceLabel: Record<Props["audience"], string> = {
+  investor: "Investor inquiry",
+  buyer: "Buyer inquiry",
+  landowner: "Landowner inquiry",
+  general: "General inquiry",
+};
+
+const formUrl = formId ? `https://docs.google.com/forms/d/e/${formId}/viewform?embedded=true` : undefined;
+---
+
+<section id={`form-${audience}`} class="mx-auto max-w-6xl px-4 py-12 sm:px-6" data-audience={audience}>
+  <div class="max-w-2xl">
+    <h2 class="font-display text-2xl">{audienceLabel[audience]}</h2>
+    {
+      formUrl ? (
+        <>
+          <iframe src={formUrl} title={audienceLabel[audience]} class="mt-4 h-[600px] w-full border border-ink/10" loading="lazy">
+            Loading…
+          </iframe>
+          <p class="mt-2 text-sm">
+            <a href={formUrl.replace("?embedded=true", "")} class="underline">
+              Open this form in a new tab
+            </a>
+          </p>
+        </>
+      ) : (
+        <p class="mt-4 text-ink/60">Form not yet configured for this audience.</p>
+      )
+    }
+  </div>
+</section>

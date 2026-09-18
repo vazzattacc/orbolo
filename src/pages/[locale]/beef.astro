@@ -1,0 +1,29 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import SectionRenderer from "@/components/SectionRenderer.astro";
+import GlossaryTooltip from "@/components/GlossaryTooltip.astro";
+import { getPage } from "@/lib/content/pages";
+import { LOCALES, type Locale } from "@/i18n/routing";
+
+export function getStaticPaths() {
+  return LOCALES.map((locale) => ({ params: { locale } }));
+}
+
+const { locale } = Astro.params as { locale: Locale };
+const page = await getPage("beef", locale);
+if (!page) return Astro.redirect("/en/beef");
+---
+
+<BaseLayout locale={locale} title={page.title} description={page.seoDescription} path="/beef" isFallback={page.isFallback}>
+  {page.sections.map((section, index) => (
+    <>
+      <SectionRenderer section={section} locale={locale} />
+      {index === 0 && (
+        <div class="mx-auto max-w-6xl px-4 pt-4 text-sm text-ink/50 sm:px-6">
+          Key terms on this page: <GlossaryTooltip term="grass-fed" /> · <GlossaryTooltip term="grass-finished" /> ·{" "}
+          <GlossaryTooltip term="MPCS standard" />. See the <a href={`/${locale}/glossary`} class="underline">full Glossary</a>.
+        </div>
+      )}
+    </>
+  ))}
+</BaseLayout>

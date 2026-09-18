@@ -1,0 +1,9 @@
+{
+  "id": "loi-002",
+  "ranch": "Ranch 04",
+  "signerEmail": "investor-b@example.com",
+  "headCount": 100,
+  "ticket": 50000,
+  "signedDate": "2026-09-12",
+  "converted": false
+}

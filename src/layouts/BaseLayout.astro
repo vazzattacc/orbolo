@@ -1,0 +1,84 @@
+---
+import Nav from "@/components/Nav.astro";
+import Footer from "@/components/Footer.astro";
+import { hreflangLinks, type Locale } from "@/i18n/routing";
+import "@/styles/global.css";
+
+interface Props {
+  locale: Locale;
+  title: string;
+  description?: string;
+  /** Non-locale-prefixed path, used to generate hreflang alternates. */
+  path: string;
+  /** T060: true when getPage() served the default-locale fallback — shown
+   * as an explicit notice, never presented silently as a finished translation. */
+  isFallback?: boolean;
+}
+const { locale, title, description, path, isFallback = false } = Astro.props;
+---
+
+<html lang={locale}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title} · Orbolo</title>
+    {description && <meta name="description" content={description} />}
+    {hreflangLinks(path).map((link) => <link rel="alternate" hreflang={link.hreflang} href={link.href} />)}
+    <meta property="og:title" content={title} />
+    {description && <meta property="og:description" content={description} />}
+    {/* Design Direction §B1: an authoritative serif for headlines (Fraunces),
+        a clean grotesk for body/numbers (Inter) — tailwind.config.mjs names
+        these families, so they must actually be loaded or the whole site
+        silently falls back to system fonts. */}
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    {/* Fraunces uses display=optional (not swap): headings are large, so a
+        later font swap causes a visible layout shift (SC-008's Lighthouse
+        CLS component) — optional accepts the system-serif fallback on a
+        slow connection instead of reflowing after load. Inter (body text)
+        keeps swap, where the fallback-to-webfont size delta is smaller. */}
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;1,400&display=optional"
+    />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" />
+    {/* Visual Identity Delta (FR-044/FR-045, plan.md Design System): two
+        accent-only faces, never layout-critical LCP content, so both use
+        display=swap rather than Fraunces's display=optional. */}
+    {/* "Archivo Expanded" is not a real Google Fonts family name (confirmed
+        via a direct API request, which 400s); Archivo is a variable font
+        with a registered wdth axis, requested here at wdth=125 (the API's
+        max for this family) to get a genuinely `font-stretch: expanded`
+        face, verified in the raw returned @font-face rule, not assumed. */}
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@125,700;125,800&display=swap"
+    />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&display=swap" />
+  </head>
+  <body class="min-h-screen bg-paper pb-14 font-body text-ink antialiased sm:pb-0">
+    <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:bg-ink focus:px-4 focus:py-2 focus:text-paper">
+      Skip to content
+    </a>
+    <Nav locale={locale} />
+    {
+      isFallback && (
+        <p class="bg-accent/10 px-4 py-2 text-center text-sm text-ink" role="status">
+          {locale === "es"
+            ? "Esta página aún no está disponible en español — mostrando la versión en inglés."
+            : locale === "de"
+              ? "Diese Seite ist noch nicht auf Deutsch verfügbar — englische Version wird angezeigt."
+              : "This page is not yet available in your language."}
+        </p>
+      )
+    }
+    <main id="main">
+      <slot />
+    </main>
+    <Footer locale={locale}>
+      <Fragment slot="contracting-entity-line">
+        <slot name="contracting-entity-line" />
+      </Fragment>
+    </Footer>
+  </body>
+</html>

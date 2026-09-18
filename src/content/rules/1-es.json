@@ -1,0 +1,8 @@
+{
+  "number": "1",
+  "rule": "Todos los animales en Remote Rancher están etiquetados y son trazables a un rancho identificado.",
+  "verifiedHow": "Etiqueta física en la oreja más un registro en el libro de hato, revisado en cada informe trimestral.",
+  "verifier": "vet-audit-partner",
+  "terms": [],
+  "locale": "es"
+}

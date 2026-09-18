@@ -7,7 +7,7 @@ export default defineConfig({
   retries: process.env.CI ? 2 : 0,
   reporter: "list",
   use: {
-    baseURL: "http://127.0.0.1:3000",
+    baseURL: "http://127.0.0.1:4321",
     trace: "on-first-retry",
   },
   projects: [
@@ -22,10 +22,9 @@ export default defineConfig({
       testIgnore: /cms-friendliness\.spec\.ts/,
     },
     {
-      // Mutates the shared lib/paths/paths.json content file, so it runs
-      // alone, after every other project has finished, to avoid racing
-      // concurrent requests to "/" against other tests' assumptions about
-      // the steady-state published-path count.
+      // Mutates real content files (and restores them afterwards) — runs
+      // alone, after every other project finishes, so no other test races
+      // it while content is being rewritten (mirrors 001's cms-mutation setup).
       name: "cms-mutation",
       use: { ...devices["Desktop Chrome"] },
       testMatch: /cms-friendliness\.spec\.ts/,
@@ -34,7 +33,7 @@ export default defineConfig({
   ],
   webServer: {
     command: "pnpm dev",
-    url: "http://127.0.0.1:3000",
+    url: "http://127.0.0.1:4321",
     reuseExistingServer: !process.env.CI,
     timeout: 120_000,
   },

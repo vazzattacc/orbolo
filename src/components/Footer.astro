@@ -1,0 +1,40 @@
+---
+import { localizedPath, type Locale } from "@/i18n/routing";
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+
+// FR-001 footer set, plus FR-022: The Code / Glossary / Contact reachable
+// from every page via this footer regardless of primary-nav presence.
+const links = [
+  { label: "Glossary", href: localizedPath(locale, "/glossary") },
+  { label: "The Opportunity", href: localizedPath(locale, "/the-opportunity") },
+  { label: "Data room", href: "https://dataroom.orbolo.com" },
+  { label: "Contact", href: localizedPath(locale, "/contact") },
+  { label: "Orbolo Bridge", href: localizedPath(locale, "/orbolo-bridge") },
+  { label: "Blog", href: localizedPath(locale, "/blog") },
+];
+---
+
+<footer class="border-t border-ink/10">
+  <div class="mx-auto flex max-w-6xl flex-col gap-4 px-4 py-8 sm:px-6">
+    <nav aria-label="Footer">
+      <ul class="flex flex-wrap gap-x-6 gap-y-2">
+        {
+          links.map((link) => (
+            <li>
+              <a href={link.href} class="hover:underline focus-visible:underline">
+                {link.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+    <p class="text-sm text-ink/60">
+      <slot name="contracting-entity-line" />
+    </p>
+  </div>
+</footer>

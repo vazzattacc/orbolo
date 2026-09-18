@@ -1,0 +1,23 @@
+{
+  "codename": "Ranch 04",
+  "region": "Boquerón",
+  "hectares": 1200,
+  "system": "rotational grazing",
+  "yearsInHolisticManagement": 3,
+  "mpcsStatus": "member",
+  "checklist": {
+    "mpcsMember": true,
+    "minYearsTransition": true,
+    "waterSecurity": true,
+    "deforestationFreeSatellite": true,
+    "contractInPlace": true
+  },
+  "threshold": 400,
+  "cycleLength": "18 months",
+  "opensDate": "2026-06-01",
+  "updatedDate": "2026-09-16",
+  "manualStatus": "",
+  "photos": [],
+  "ownerConsentNamed": false,
+  "ownerConsentPhotographed": false
+}

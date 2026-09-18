@@ -1,0 +1,40 @@
+---
+import { getAllRules } from "@/lib/content/rules";
+import { getAllPartners } from "@/lib/content/partners";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { LOCALES, type Locale } from "@/i18n/routing";
+
+export function getStaticPaths() {
+  return LOCALES.map((locale) => ({ params: { locale } }));
+}
+const { locale } = Astro.params as { locale: Locale };
+
+const [rules, partners] = await Promise.all([getAllRules(locale), getAllPartners()]);
+const sortedRules = [...rules].sort((a, b) => Number(a.data.number) - Number(b.data.number));
+const partnerByName = new Map<string, (typeof partners)[number]["data"]>(partners.map((p) => [p.id, p.data]));
+---
+
+<BaseLayout locale={locale} title="The Code" description="Every rule, and who verifies it." path="/the-code">
+  <section class="mx-auto max-w-6xl px-4 py-16 sm:px-6">
+    <div class="max-w-3xl">
+      <h1 class="font-display text-4xl">The Code</h1>
+      <p class="mt-2 text-ink/70">{sortedRules.length} rules. Every rule has a name next to it.</p>
+      <ol class="mt-8 flex flex-col gap-8">
+        {
+          sortedRules.map((rule) => {
+            const verifier = partnerByName.get(rule.data.verifier);
+            return (
+              <li class="border-t border-ink/10 pt-6">
+                <p class="text-lg">
+                  <span class="text-verified">{rule.data.number}.</span> {rule.data.rule}
+                </p>
+                <p class="mt-2 text-sm text-ink/60">Verified how: {rule.data.verifiedHow}</p>
+                <p class="mt-1 text-sm text-verified">Verified by: {verifier?.name ?? "verifier pending"}</p>
+              </li>
+            );
+          })
+        }
+      </ol>
+    </div>
+  </section>
+</BaseLayout>

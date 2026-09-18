@@ -1,0 +1,7 @@
+{
+  "number": "5",
+  "rule": "Every tag number issued is checked against the herd register before it is shown on this site.",
+  "verifiedHow": "Cross-check between the tagging provider's register and our own records.",
+  "verifier": "traceability-partner",
+  "terms": []
+}

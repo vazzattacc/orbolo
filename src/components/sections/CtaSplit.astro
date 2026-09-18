@@ -1,0 +1,29 @@
+---
+interface Item {
+  label: string;
+  href: string;
+}
+interface Props {
+  heading?: string;
+  items: Item[];
+}
+const { heading, items } = Astro.props;
+---
+
+<section class="mx-auto max-w-6xl px-4 py-16 sm:px-6" aria-labelledby="cta-split-heading">
+  {heading && <h2 id="cta-split-heading" class="font-display text-3xl">{heading}</h2>}
+  <ul class="mt-6 flex flex-wrap gap-4" role="list">
+    {
+      items.map((item) => (
+        <li>
+          <a
+            href={item.href}
+            class="block border border-ink px-6 py-3 outline-none hover:bg-ink/5 focus-visible:ring-2 focus-visible:ring-ink focus-visible:ring-offset-2"
+          >
+            {item.label}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</section>

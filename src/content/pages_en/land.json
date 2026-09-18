@@ -1,0 +1,7 @@
+{
+  "slug": "land",
+  "title": "Land",
+  "status": "published",
+  "seoDescription": "El Tapir, our own farm in Paraguay, plus the anonymised partner ranches and Ganadería a Pasto — how the group grows its supply.",
+  "sectionsJson": "[{\"type\":\"hero\",\"headline\":\"Come and see the cattle.\",\"deck\":\"El Tapir is the group's own farm — the one fully named reference behind our wider network of partner ranches.\",\"buttons\":[{\"label\":\"Work with us\",\"href\":\"#form-landowner\"}]},{\"type\":\"text\",\"heading\":\"El Tapir\",\"body\":\"El Tapir is the group's own working farm in Paraguay, open to visitors by appointment. It is currently expanding — a specific hectare target and date are pending and will be published here once confirmed.\\n\\nIt is the one fully named reference that vouches for our wider, anonymised pipeline of partner ranches.\"},{\"type\":\"pipeline\",\"ranchSlugs\":[]},{\"type\":\"text\",\"heading\":\"Ganadería a Pasto\",\"body\":\"Ganadería a Pasto is how the group grows its supply: pasture-based cattle ranching practiced across Paraguay's predominantly flat, open land — not a separate product, but the technical arm behind everything else on this site.\"},{\"type\":\"formEmbed\",\"formId\":\"\",\"audience\":\"landowner\"}]"
+}

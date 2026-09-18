@@ -1,0 +1,84 @@
+---
+import type { RanchView } from "@/lib/content/ranches";
+import { localizedPath, type Locale } from "@/i18n/routing";
+
+interface Props {
+  ranch: RanchView;
+  locale: Locale;
+}
+const { ranch, locale } = Astro.props;
+
+const percent = ranch.threshold > 0 ? Math.min(100, Math.round((ranch.committedUnderLoi / ranch.threshold) * 100)) : 0;
+
+const ctaByStatus: Record<RanchView["status"], string> = {
+  Planned: "Coming soon",
+  "Due diligence": "In due diligence",
+  "Open for LOI": "Sign a Letter of Intent",
+  Released: "Sign a Letter of Intent",
+  Filling: "Sign a Letter of Intent",
+  Full: "Fully committed",
+  Deployed: "Deployed",
+};
+
+const checklistLabels: [keyof RanchView["checklist"], string][] = [
+  ["mpcsMember", "MPCS member"],
+  ["minYearsTransition", "Minimum years in transition"],
+  ["waterSecurity", "Water security"],
+  ["deforestationFreeSatellite", "Deforestation-free by satellite"],
+  ["contractInPlace", "Contract in place"],
+];
+---
+
+<article class="flex flex-col gap-3 border border-ink/15 p-5" data-ranch-status={ranch.status}>
+  <div class="flex items-baseline justify-between gap-2">
+    <h3 class="font-display text-xl">{ranch.displayName}</h3>
+    <span class="text-xs uppercase tracking-wide text-verified">{ranch.status}</span>
+  </div>
+  <p class="text-sm text-ink/70">
+    {ranch.region} · {ranch.hectares} ha · {ranch.system}
+  </p>
+  <ul class="flex flex-wrap gap-x-4 gap-y-1 text-xs text-ink/60" role="list">
+    {
+      checklistLabels.map(([key, label]) => (
+        <li aria-label={`${label}: ${ranch.checklist[key] ? "yes" : "not yet"}`}>
+          <span aria-hidden="true">{ranch.checklist[key] ? "✓" : "—"}</span> {label}
+        </li>
+      ))
+    }
+  </ul>
+
+  <div>
+    <div class="h-2 w-full bg-ink/10" role="progressbar" aria-valuenow={percent} aria-valuemin={0} aria-valuemax={100}>
+      <div class="h-2 bg-verified" style={`width: ${percent}%`} />
+    </div>
+    <p class="mt-1 text-sm tabular-nums">
+      Committed under LOI: {ranch.committedUnderLoi} / {ranch.threshold} head
+    </p>
+    <p class="text-xs text-ink/50">
+      This ranch is released for deployment at 60% under signed LOI and keeps filling to 100%. No capital is
+      called before release.
+    </p>
+  </div>
+
+  <p class="text-xs text-ink/50">
+    Cycle: {ranch.cycleLength ?? "—"} · Opens {ranch.opensDate ?? "—"} · Updated {ranch.updatedDate}
+  </p>
+
+  {
+    ranch.status === "Full" || ranch.status === "Deployed" || ranch.status === "Planned" ? (
+      <span class="mt-2 inline-block w-fit border border-ink/30 px-4 py-2 text-ink/40" aria-disabled="true">
+        {ctaByStatus[ranch.status]}
+      </span>
+    ) : (
+      // Sign a Letter of Intent happens inside the full (NDA-gated) data
+      // room, per FR-026/FR-028 — this starts that flow at the light-room
+      // entry point on the Invest page, not a dead in-place button.
+      <a
+        href={`${localizedPath(locale, "/invest")}#form-investor`}
+        class="mt-2 inline-block w-fit border border-ink px-4 py-2 outline-none focus-visible:ring-2 focus-visible:ring-ink focus-visible:ring-offset-2 hover:bg-ink/5"
+      >
+        {ctaByStatus[ranch.status]}
+      </a>
+    )
+  }
+</article>

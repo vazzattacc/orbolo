@@ -1,0 +1,8 @@
+{
+  "number": "6",
+  "rule": "Cada número que se muestra en este sitio lleva una fecha y una fuente — ninguna cifra se publica sin ambas.",
+  "verifiedHow": "Cada Métrica se remonta a un documento del data room; las cifras sin fuente quedan excluidas estructuralmente de cada página, no solo corregidas en la revisión.",
+  "verifier": "vet-audit-partner",
+  "terms": [],
+  "locale": "es"
+}

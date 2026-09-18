@@ -1,0 +1,32 @@
+---
+import { getMetricValue } from "@/lib/content/metrics";
+
+interface Props {
+  metricKeys: string[];
+}
+const { metricKeys } = Astro.props;
+
+// FR-031: a Metric missing asOfDate/source is never rendered — filter, not error.
+const metrics = (await Promise.all(metricKeys.map((key) => getMetricValue(key)))).filter(
+  (metric): metric is NonNullable<typeof metric> => metric !== undefined,
+);
+---
+
+{
+  metrics.length > 0 && (
+    <dl class="grid grid-cols-1 gap-6 sm:grid-cols-3" role="list">
+      {metrics.map((metric) => (
+        <div>
+          <dt class="text-sm text-ink/60">{metric.label}</dt>
+          <dd class="font-display text-3xl tabular-nums">
+            {metric.value}
+            {metric.unit && <span class="ml-1 text-lg text-ink/70">{metric.unit}</span>}
+          </dd>
+          <p class="mt-1 text-xs text-ink/50">
+            As of {metric.asOfDate} · {metric.source}
+          </p>
+        </div>
+      ))}
+    </dl>
+  )
+}

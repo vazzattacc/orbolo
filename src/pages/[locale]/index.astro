@@ -1,0 +1,30 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import SectionRenderer from "@/components/SectionRenderer.astro";
+import Hero from "@/components/sections/Hero.astro";
+import { getPage } from "@/lib/content/pages";
+import { LOCALES, type Locale } from "@/i18n/routing";
+
+export function getStaticPaths() {
+  return LOCALES.map((locale) => ({ params: { locale } }));
+}
+
+const { locale } = Astro.params as { locale: Locale };
+const page = await getPage("home", locale);
+
+if (!page) {
+  return Astro.redirect("/en/");
+}
+---
+
+<BaseLayout locale={locale} title={page.title} description={page.seoDescription} path="/" isFallback={page.isFallback}>
+  {
+    /* FR-044: the Home hero gets the bold-extended "declaration" treatment,
+       Home being this site's single most prominent statement moment — a
+       page-level presentational choice, not a change to SectionRenderer's
+       generic per-type contract used by every other page. */
+    page.sections.map((section) =>
+      section.type === "hero" ? <Hero {...section} emphasis /> : <SectionRenderer section={section} locale={locale} />,
+    )
+  }
+</BaseLayout>

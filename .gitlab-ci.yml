@@ -1,0 +1,42 @@
+# CI/CD for the Orbolo website (Astro) — see research.md §8.
+
+stages:
+  - verify
+  - deploy
+
+variables:
+  PNPM_HOME: "$CI_PROJECT_DIR/.pnpm-store"
+
+default:
+  image: node:20
+  before_script:
+    - corepack enable
+    - pnpm install --frozen-lockfile
+
+verify:
+  stage: verify
+  script:
+    - pnpm run verify
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    - if: $CI_COMMIT_BRANCH == "main"
+
+deploy_preview:
+  stage: deploy
+  script:
+    - pnpm run build
+    - npx firebase-tools hosting:channel:deploy "mr-$CI_MERGE_REQUEST_IID" --target preview --token "$FIREBASE_TOKEN" --project "$FIREBASE_PROJECT_ID"
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+  # FIREBASE_TOKEN / FIREBASE_PROJECT_ID: masked + protected CI/CD variables (research.md §8).
+
+deploy_production:
+  stage: deploy
+  script:
+    - pnpm run build
+    - npx firebase-tools deploy --only hosting:production --token "$FIREBASE_TOKEN" --project "$FIREBASE_PROJECT_ID"
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main"
+  environment:
+    name: production
+    url: https://orbolo.com

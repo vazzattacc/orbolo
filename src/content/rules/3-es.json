@@ -1,0 +1,8 @@
+{
+  "number": "3",
+  "rule": "La carne vendida hoy se describe únicamente como lo que verificablemente es hoy — alimentada a pasto bajo el estándar MPCS — y nunca se sobrevende más allá de eso (ver el Glosario para los términos que aún no hemos ganado).",
+  "verifiedHow": "Membresía MPCS y registros de auditoría por rancho, junto con las definiciones de honestidad de este mismo Glosario.",
+  "verifier": "mpcs",
+  "terms": ["grass-fed", "regenerative"],
+  "locale": "es"
+}

@@ -1,0 +1,55 @@
+---
+import { localizedPath, type Locale } from "@/i18n/routing";
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+
+// FR-001: primary nav + highlighted "Invest in a herd" button.
+const links = [
+  { label: "Invest", href: localizedPath(locale, "/invest") },
+  { label: "Beef", href: localizedPath(locale, "/beef") },
+  { label: "Land", href: localizedPath(locale, "/land") },
+  { label: "The Code", href: localizedPath(locale, "/the-code") },
+  { label: "About", href: localizedPath(locale, "/about") },
+];
+---
+
+<header class="border-b border-ink/10">
+  <nav class="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4 px-4 py-4 sm:px-6" aria-label="Primary">
+    <a href={localizedPath(locale, "/")} class="font-semibold tracking-wide">ORBOLO</a>
+    {/* Always in the DOM and keyboard/screen-reader reachable on every
+        viewport (brief §3 "mobile first" + FR-001) — wraps on narrow
+        screens rather than being display:none, which would remove it from
+        the accessibility tree entirely. */}
+    <ul class="flex flex-wrap items-center gap-4 sm:gap-6">
+      {
+        links.map((link) => (
+          <li>
+            <a href={link.href} class="hover:underline focus-visible:underline">
+              {link.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+    <a
+      href={localizedPath(locale, "/invest")}
+      class="rounded-none bg-ink px-4 py-2 text-paper outline-none focus-visible:ring-2 focus-visible:ring-ink focus-visible:ring-offset-2"
+    >
+      Invest in a herd
+    </a>
+  </nav>
+</header>
+
+{/* Brief §B1: "Mobile: sticky bottom bar with Invest / Beef" — quick access
+    to the two primary funnels without scrolling back to the header. */}
+<nav class="fixed inset-x-0 bottom-0 z-40 flex border-t border-ink/10 bg-paper sm:hidden" aria-label="Quick actions">
+  <a href={localizedPath(locale, "/invest")} class="flex-1 border-r border-ink/10 py-3 text-center outline-none focus-visible:ring-2 focus-visible:ring-ink">
+    Invest
+  </a>
+  <a href={localizedPath(locale, "/beef")} class="flex-1 py-3 text-center outline-none focus-visible:ring-2 focus-visible:ring-ink">
+    Beef
+  </a>
+</nav>

@@ -1,0 +1,8 @@
+{
+  "number": "5",
+  "rule": "Cada número de etiqueta emitido se verifica contra el libro de hato antes de mostrarse en este sitio.",
+  "verifiedHow": "Verificación cruzada entre el registro del proveedor de etiquetado y nuestros propios registros.",
+  "verifier": "traceability-partner",
+  "terms": [],
+  "locale": "es"
+}

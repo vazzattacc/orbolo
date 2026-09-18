@@ -1,0 +1,18 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import SectionRenderer from "@/components/SectionRenderer.astro";
+import { getPage } from "@/lib/content/pages";
+import { LOCALES, type Locale } from "@/i18n/routing";
+
+export function getStaticPaths() {
+  return LOCALES.map((locale) => ({ params: { locale } }));
+}
+
+const { locale } = Astro.params as { locale: Locale };
+const page = await getPage("about", locale);
+if (!page) return Astro.redirect("/en/about");
+---
+
+<BaseLayout locale={locale} title={page.title} description={page.seoDescription} path="/about" isFallback={page.isFallback}>
+  {page.sections.map((section) => <SectionRenderer section={section} locale={locale} />)}
+</BaseLayout>

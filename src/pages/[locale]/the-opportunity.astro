@@ -1,0 +1,89 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { getMetricValue, type MetricView } from "@/lib/content/metrics";
+import { LOCALES, type Locale } from "@/i18n/routing";
+
+export function getStaticPaths() {
+  return LOCALES.map((locale) => ({ params: { locale } }));
+}
+const { locale } = Astro.params as { locale: Locale };
+
+const exportsMetric = await getMetricValue("paraguay-exports-2026");
+const volumeMetric = await getMetricValue("q1-2026-export-volume-change");
+const revenueMetric = await getMetricValue("q1-2026-export-revenue-change");
+
+function definedOnly(metrics: (MetricView | undefined)[]): MetricView[] {
+  const result: MetricView[] = [];
+  for (const metric of metrics) {
+    if (metric) result.push(metric);
+  }
+  return result;
+}
+
+// Full version of Home's "why this, why now" summary — same 7 arguments,
+// each traceable to a data room document (FR-025). Sourced Metrics are
+// rendered as live, dated figures; everything else is marked pending real
+// data rather than invented (spec.md Assumptions). Filtering happens here,
+// in frontmatter, not in the template — Astro's template expression parser
+// doesn't support TS type-predicate syntax in inline arrow functions.
+const arguments_ = [
+  {
+    claim: "Paraguay is an established exporter. The group adds a controlled, verifiable supply layer to a working industry.",
+    metrics: definedOnly([exportsMetric]),
+    dataRoomRef: "01 Group & legal / market overview",
+  },
+  {
+    claim: "The market favors asset owners: fewer animals, more value per animal.",
+    metrics: definedOnly([volumeMetric, revenueMetric]),
+    dataRoomRef: "02 Financials / export volume vs value, Q1 2026",
+  },
+  {
+    claim: "Grass is the hedge — no feed purchases; the cost base is sun, rain, and management.",
+    metrics: definedOnly([]),
+    dataRoomRef: "02 Financials / cost per kg liveweight vs feedlot benchmark (pending publication)",
+  },
+];
+---
+
+<BaseLayout locale={locale} title="The Opportunity" description="The full case, with sources." path="/the-opportunity">
+  <section class="mx-auto max-w-6xl px-4 py-16 sm:px-6">
+    <div class="max-w-3xl">
+    <h1 class="font-display text-4xl">The Opportunity</h1>
+    <p class="mt-2 text-ink/70">The full case behind "why this, why now" — sourced and dated.</p>
+    <ol class="mt-8 flex flex-col gap-8">
+      {
+        arguments_.map((argument, index) => (
+          <li class="border-t border-ink/10 pt-6">
+            <p class="text-lg">
+              <span class="text-ink/40">{index + 1}.</span> {argument.claim}
+            </p>
+            {argument.metrics.length > 0 ? (
+              <div class="mt-2 flex flex-wrap gap-6">
+                {argument.metrics.map((metric) => (
+                  <div>
+                    <p class="font-display text-2xl tabular-nums">
+                      {metric.value}
+                      {metric.unit && <span class="ml-1 text-base text-ink/70">{metric.unit}</span>}
+                    </p>
+                    <p class="text-xs text-ink/50">
+                      As of {metric.asOfDate} · {metric.source}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <p class="mt-2 text-sm text-ink/50">Figure pending publication.</p>
+            )}
+            <p class="mt-1 text-sm text-ink/50">Data room: {argument.dataRoomRef}</p>
+          </li>
+        ))
+      }
+    </ol>
+    <p class="mt-8 text-sm text-ink/60">
+      The remaining arguments (land health as insurance, climate resilience, early entry, and the Code as the moat)
+      are summarized on <a href={`/${locale}/`} class="underline">Home</a> and detailed further as their
+      supporting data is published.
+    </p>
+    </div>
+  </section>
+</BaseLayout>

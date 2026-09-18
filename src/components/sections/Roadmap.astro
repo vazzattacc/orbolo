@@ -1,0 +1,29 @@
+---
+import { getMilestonesBySlug } from "@/lib/content/roadmap";
+
+interface Props {
+  milestoneSlugs: string[];
+}
+const { milestoneSlugs } = Astro.props;
+
+const milestones = await getMilestonesBySlug(milestoneSlugs);
+
+const stageLabel: Record<string, string> = { now: "Now", building: "Building", target: "Target" };
+---
+
+<section class="mx-auto max-w-6xl px-4 py-16 sm:px-6" aria-labelledby="roadmap-heading">
+  <h2 id="roadmap-heading" class="font-display text-3xl">Roadmap</h2>
+  <ol class="mt-6 flex flex-col gap-4">
+    {
+      milestones.map((milestone) => (
+        <li class="grid grid-cols-1 gap-1 border-t border-ink/10 pt-3 sm:grid-cols-[100px_1fr_120px]">
+          <span class="text-xs uppercase tracking-wide text-verified">{stageLabel[milestone.stage]}</span>
+          <span>{milestone.title}</span>
+          <span class="text-xs text-ink/50">
+            {milestone.status === "done" && milestone.doneDate ? `Done ${milestone.doneDate}` : `Target ${milestone.targetDate}`}
+          </span>
+        </li>
+      ))
+    }
+  </ol>
+</section>

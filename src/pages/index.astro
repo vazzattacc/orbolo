@@ -1,0 +1,27 @@
+---
+// research.md §9: a fully static site has no server to read Accept-Language,
+// so the root redirect uses the client-side equivalent (navigator.languages)
+// with a <noscript> fallback to the default locale (FR-038).
+import { LOCALES, DEFAULT_LOCALE } from "@/i18n/routing";
+---
+
+<html lang={DEFAULT_LOCALE}>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="refresh" content={`0; url=/${DEFAULT_LOCALE}/`} />
+    <title>Orbolo</title>
+    <script define:vars={{ locales: LOCALES, defaultLocale: DEFAULT_LOCALE }}>
+      const preferred = (navigator.languages || [navigator.language])
+        .map((lang) => lang.slice(0, 2).toLowerCase())
+        .find((lang) => locales.includes(lang));
+      window.location.replace(`/${preferred || defaultLocale}/`);
+    </script>
+  </head>
+  <body>
+    <noscript>
+      <p>
+        <a href={`/${DEFAULT_LOCALE}/`}>Continue to Orbolo</a>
+      </p>
+    </noscript>
+  </body>
+</html>

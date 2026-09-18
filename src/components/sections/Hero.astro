@@ -1,0 +1,67 @@
+---
+interface Props {
+  headline: string;
+  deck: string;
+  buttons: { label: string; href: string }[];
+  image?: string;
+  imageAlt?: string;
+  imageCaption?: string;
+  /** FR-045: a short cursive accent line, rendered above the headline. At
+   * most one per section — content-authored (Section.tagline), not a
+   * template invention. */
+  tagline?: string;
+  /** FR-044: the "declaration over photography" bold-extended treatment,
+   * reserved for the Home page's hero (this site's single most prominent
+   * statement moment) — a component-level presentational flag, not
+   * content, so it is passed explicitly by the page, never authored in
+   * Keystatic. */
+  emphasis?: boolean;
+}
+const { headline, deck, buttons, image, imageAlt, imageCaption, tagline, emphasis = false } = Astro.props;
+---
+
+<section class="mx-auto flex max-w-6xl flex-col gap-6 px-4 py-16 sm:px-6 sm:py-24">
+  {tagline && <p class="font-accent text-2xl text-sage sm:text-3xl">{tagline}</p>}
+  <h1
+    class={
+      emphasis
+        ? "font-display-bold max-w-3xl text-4xl uppercase leading-tight tracking-tight sm:text-6xl"
+        : "max-w-3xl font-display text-4xl leading-tight sm:text-6xl"
+    }
+  >
+    {headline}
+  </h1>
+  <p class="max-w-2xl text-lg text-ink/80 sm:text-xl">{deck}</p>
+  <div class="flex flex-wrap gap-4">
+    {
+      buttons.map((button, index) => (
+        <a
+          href={button.href}
+          class={
+            index === 0
+              ? "bg-ink px-6 py-3 text-paper outline-none focus-visible:ring-2 focus-visible:ring-ink focus-visible:ring-offset-2"
+              : "border border-ink px-6 py-3 outline-none hover:bg-ink/5 focus-visible:ring-2 focus-visible:ring-ink focus-visible:ring-offset-2"
+          }
+        >
+          {button.label}
+        </a>
+      ))
+    }
+  </div>
+  {
+    image && (
+      <figure class="mt-8">
+        <img
+          src={image}
+          alt={imageAlt ?? ""}
+          class="w-full object-cover"
+          width="1200"
+          height="675"
+          loading="eager"
+          fetchpriority="high"
+        />
+        {imageCaption && <figcaption class="mt-2 text-sm text-ink/60">{imageCaption}</figcaption>}
+      </figure>
+    )
+  }
+</section>
