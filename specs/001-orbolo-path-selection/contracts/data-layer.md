@@ -1,10 +1,35 @@
 # Contract: Path data-access layer
 
-**Module**: `lib/paths/path-repository.ts` | **Consumers**: `app/page.tsx` (PathGrid), `app/paths/[pathId]/page.tsx`
+**Collection**: `src/content.config.ts` (`paths`) | **Module**: `src/lib/paths/path-repository.ts` | **Consumer**: `src/pages/index.astro` (renders `PathGrid`)
 
-This is the *only* module in the codebase permitted to read `lib/paths/paths.json`. It is the isolation boundary required by FR-020 and Constitution Principle VIII: replacing the JSON file with a Firebase-backed source in a later phase means editing only this file's internals — its exported signatures do not change.
+The `paths` Astro Content Collection, backed by `src/content/paths/paths.json` via Astro's built-in `file()` loader, is the *only* place `paths.json` is read. `path-repository.ts` wraps `getCollection('paths')` and is the *only* module permitted to call it. This two-layer isolation is the boundary required by FR-021 and Constitution Principle VIII: replacing the JSON-backed loader with a Firebase-backed one later means editing only the collection's `loader` (and, if needed, `path-repository.ts`'s internals) — its exported signature does not change, and no `PathCard`/`PathGrid` consumer is touched.
 
-## Types (`lib/paths/types.ts`)
+## Schema (`src/content.config.ts`)
+
+```ts
+import { defineCollection, z } from 'astro:content';
+import { file } from 'astro/loaders';
+
+const paths = defineCollection({
+  loader: file('src/content/paths/paths.json'),
+  schema: z.object({
+    id: z.string().regex(/^[a-z0-9-]+$/),
+    title: z.string().min(1),
+    description: z.string().min(1),
+    image: z.object({
+      src: z.string().min(1),
+      alt: z.string().min(1),
+    }),
+    destination: z.string().startsWith('/'),
+    targetAudience: z.string().min(1),
+    order: z.number().finite().optional(),
+  }),
+});
+
+export const collections = { paths };
+```
+
+## Types (derived from the schema; re-exported from `src/lib/paths/path-repository.ts`)
 
 ```ts
 export interface PathImage {
@@ -16,28 +41,22 @@ export interface PathCard {
   id: string;
   title: string;
   description: string;
-  longDescription?: string;
   image: PathImage;
   destination: string;
-  targetAudience?: string;
+  targetAudience: string;
   order?: number;
 }
 ```
 
 ## Functions
 
-### `getPublishedPaths(): Promise<PathCard[]>`
+### `getPaths(): Promise<PathCard[]>`
 
-- Returns every `PathCard` entry whose required fields are all non-empty (see `data-model.md` "published" predicate), sorted per the ordering rule in `data-model.md`.
-- Never throws for a merely-pending entry (that's expected, normal data) — it silently excludes it.
-- Throws only on a structurally invalid file (malformed JSON, duplicate `id`, or a published entry whose `destination` doesn't match `/paths/${id}`) — a build-time content bug, not a runtime user-facing error.
-- Used by: `app/page.tsx` to render `PathGrid`.
-
-### `getPathById(id: string): Promise<PathCard | undefined>`
-
-- Returns the entry matching `id`, **regardless of published/pending state** — this is what allows the dynamic route to exist even if someone navigates directly to a not-yet-published path's URL (edge case: the route handler treats "found but pending" as `notFound()`, same as "not found at all" — a pending path has no reachable public URL).
-- Used by: `app/paths/[pathId]/page.tsx` to resolve the route param; calls Next.js `notFound()` when the result is `undefined` or the entry is pending.
+- Returns every entry in the `paths` collection, mapped from `CollectionEntry<'paths'>` to the plain `PathCard` shape above (unwrapping Astro's `entry.data`), sorted by `order` ascending where present, falling back to file order otherwise (see `data-model.md`).
+- Does **not** filter by a "published" state — unlike the prior 5-path spec, all three current entries are fully specified; there is no pending/hidden card to exclude in this revision.
+- Throws only on a schema validation failure (malformed JSON, duplicate `id`, or a `destination` that isn't schema-valid — e.g. missing the leading `/`) — a build-time content bug (`astro check`/build fails loudly), not a runtime user-facing error.
+- Used by: `src/pages/index.astro` to render `PathGrid`.
 
 ## Consumer obligation
 
-`PathCard`/`PathGrid` components and the destination page import **only** `PathCard`/`PathImage` types and these two functions — never `paths.json` directly, and never any Node `fs`/`path` APIs of their own. This is enforced by code review (Constitution Principle VIII), not by a lint rule in this initial phase.
+`PathCard`/`PathGrid` components import **only** the `PathCard`/`PathImage` types and `getPaths()` from `src/lib/paths/path-repository.ts` — never `astro:content`'s `getCollection`/`paths.json` directly, and never any Node `fs`/`path` APIs of their own. This is enforced by code review (Constitution Principle VIII), not by a lint rule in this initial phase.

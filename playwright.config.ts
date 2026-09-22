@@ -7,35 +7,34 @@ export default defineConfig({
   retries: process.env.CI ? 2 : 0,
   reporter: "list",
   use: {
-    baseURL: "http://127.0.0.1:3000",
+    baseURL: "http://localhost:4321",
     trace: "on-first-retry",
   },
   projects: [
     {
       name: "chromium",
       use: { ...devices["Desktop Chrome"] },
-      testIgnore: /cms-friendliness\.spec\.ts/,
+      testIgnore: [/reduced-motion\.spec\.ts/, /path-card-config-driven\.spec\.ts/],
     },
     {
       name: "mobile-chrome",
       use: { ...devices["Pixel 7"] },
-      testIgnore: /cms-friendliness\.spec\.ts/,
+      testIgnore: [/reduced-motion\.spec\.ts/, /path-card-config-driven\.spec\.ts/],
     },
     {
-      // Mutates the shared lib/paths/paths.json content file, so it runs
-      // alone, after every other project has finished, to avoid racing
-      // concurrent requests to "/" against other tests' assumptions about
-      // the steady-state published-path count.
-      name: "cms-mutation",
+      name: "reduced-motion",
+      use: { ...devices["Desktop Chrome"], reducedMotion: "reduce" },
+      testMatch: /reduced-motion\.spec\.ts/,
+    },
+    {
+      // Mutates the shared src/content/paths/paths.json fixture, whose
+      // changes trigger Astro dev's content-watcher to hot-reload any
+      // client currently on "/" — runs alone, after every other project,
+      // to avoid corrupting concurrent tests' navigations/DOM state.
+      name: "config-driven-mutation",
       use: { ...devices["Desktop Chrome"] },
-      testMatch: /cms-friendliness\.spec\.ts/,
-      dependencies: ["chromium", "mobile-chrome"],
+      testMatch: /path-card-config-driven\.spec\.ts/,
+      dependencies: ["chromium", "mobile-chrome", "reduced-motion"],
     },
   ],
-  webServer: {
-    command: "pnpm dev",
-    url: "http://127.0.0.1:3000",
-    reuseExistingServer: !process.env.CI,
-    timeout: 120_000,
-  },
 });

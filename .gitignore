@@ -3,13 +3,11 @@ node_modules/
 npm-debug.log*
 pnpm-debug.log*
 
-# Next.js
-.next/
-out/
-next-env.d.ts
+# Astro
+.astro/
+dist/
 
 # Build output
-dist/
 build/
 *.tsbuildinfo
 

@@ -1,0 +1,20 @@
+---
+import type { PathCard as PathCardData } from "../../lib/paths/path-repository";
+import PathCard from "./PathCard.astro";
+
+interface Props {
+  paths: PathCardData[];
+}
+
+const { paths } = Astro.props;
+---
+
+{
+  paths.length > 0 && (
+    <ul class="path-grid mx-auto grid w-full max-w-6xl grid-cols-1 gap-6 px-4 sm:grid-cols-2 lg:grid-cols-3 lg:gap-8">
+      {paths.map((path) => (
+        <PathCard path={path} />
+      ))}
+    </ul>
+  )
+}

@@ -1,0 +1,35 @@
+---
+import Layout from "../components/Layout.astro";
+import PathGrid from "../components/home/PathGrid.astro";
+import { getPaths } from "../lib/paths/path-repository";
+
+const paths = await getPaths();
+---
+
+<Layout title="Orbolo">
+  <main>
+    <section class="hero hero--background flex min-h-screen flex-col items-center justify-center gap-6 px-4 text-center">
+      <img src="/images/branding/orbolo-logo.png" alt="Orbolo" class="h-40 w-auto mb-24" />
+      <h1 class="font-subtitle text-balance max-w-3xl text-4xl text-orbolo-green sm:text-5xl">
+        Cattle, land, and capital — connected across Paraguay&rsquo;s open pasture.
+      </h1>
+      <p class="font-body max-w-2xl text-lg text-orbolo-green/80">
+        Whichever side of the ranch you&rsquo;re on, there&rsquo;s a path built for you. Scroll down to find
+        yours.
+      </p>
+    </section>
+
+    <section
+      id="paths"
+      aria-labelledby="paths-heading"
+      class="path-grid-section flex flex-col items-center gap-10 bg-orbolo-cream px-4 py-20"
+    >
+      <h2 id="paths-heading" class="font-subtitle text-balance text-3xl text-orbolo-green">
+        Find your path
+      </h2>
+      <PathGrid paths={paths} />
+    </section>
+  </main>
+
+  <script src="../scripts/path-card-flip.ts"></script>
+</Layout>

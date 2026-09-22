@@ -1,62 +1,90 @@
-# Quickstart: Validating the Path Selection Experience
+# Quickstart: Validating the Home Page Audience-Path Selector
 
-**Feature**: `001-orbolo-path-selection`
+**Feature**: `001-orbolo-path-selection` | **Date**: 2026-09-19
+
+This is a validation guide, not an implementation guide — it lists runnable scenarios that prove the feature works end-to-end. Full component/service code lives in the implementation itself; test code lives in `tests/e2e` and `tests/unit` (see `tasks.md` for the task breakdown).
 
 ## Prerequisites
 
-- Node.js + pnpm installed.
-- Repo scaffolded per `plan.md` Project Structure (created during `/speckit-implement`, not by this plan).
+- `pnpm install`
+- `pnpm run dev` — starts the Astro dev server (see `plan.md` Project Structure for the expected `astro.config.mjs`/`src/` layout once implemented)
+- `src/content/paths/paths.json` populated with the three cards from `data-model.md` (`investors`, `buyers`, `landowners`)
 
-## Setup
-
-```bash
-pnpm install
-```
-
-## Run
+## Automated verification
 
 ```bash
-pnpm dev
-# open http://localhost:3000
+pnpm run verify   # astro check && eslint . && vitest run && playwright test
 ```
 
-## Verification command (Constitution Principle II — closing condition)
+This single command is the constitution's closing condition (Principle II) — all scenarios below should also exist as Playwright specs under `tests/e2e/` and, where applicable, Vitest specs under `tests/unit/` for the data layer.
 
-```bash
-pnpm run verify   # next lint && tsc --noEmit && vitest run && playwright test
-```
+## Scenario 1 — Hero first, cards half a scroll down (User Story 1, FR-001/FR-002)
 
-## Manual/E2E validation scenarios
+1. Open `/` at a desktop viewport.
+2. **Expect**: a hero/intro renders as the first content; no cards are visible in the initial viewport.
+3. Scroll down roughly half the page height.
+4. **Expect**: the audience-selection section comes into view with exactly three cards — Investors, Buyers, Landowners — each showing an image, title, and short description on its front face.
 
-Each maps to an acceptance scenario in `spec.md`; each should also exist as an automated Playwright/Vitest test per Constitution Principle II before the feature is considered done (tracked in `tasks.md`).
+## Scenario 2 — Flip open reveals detail + "Discover more" (User Story 1, FR-004)
 
-1. **Grid renders from data (User Story 1, SC-001)**
-   - Load `/`. Confirm one card per *published* entry in `lib/paths/paths.json` (4 at initial launch — El Tapir, Orbolo Bridge, Verdant, Ganadería a Pasto — with Business/Meat hidden per its pending fields).
-   - Edit `paths.json` to add a 6th complete entry. Reload. Confirm 6 cards render with zero changes to `PathCard.tsx`/`PathGrid.tsx`.
+1. From Scenario 1's state, click the Buyers card's front face.
+2. **Expect**: the card flips (animated) to its back face, revealing the expanded description (same text as the front-face teaser, per `data-model.md`) and a "Discover more" action.
+3. **Expect**: no navigation occurred — the URL is unchanged.
 
-2. **Selection navigates (User Story 1)**
-   - Click the "Verdant" card. Confirm the URL changes to `/paths/verdant` and the destination stub renders Verdant's title/description.
-   - Press the browser Back button. Confirm you return to `/` (selection screen).
+## Scenario 3 — Flip back (FR-005)
 
-3. **Keyboard-only flow (User Story 2, SC-002)**
-   - Using only Tab/Shift+Tab/Enter, reach and activate every published card without a mouse. Confirm a visible focus indicator at each step.
-   - Confirm no card is reachable/selectable only via `:hover`.
+1. From Scenario 2's flipped state, click the card again anywhere other than "Discover more".
+2. **Expect**: the card flips back to its front-facing state.
 
-4. **Reduced motion (User Story 2)**
-   - Enable OS "reduce motion". Reload. Confirm transition/hover animation is simplified/removed, not merely slowed.
+## Scenario 4 — "Discover more" navigates (FR-006, FR-023, FR-024)
 
-5. **Responsive layout (User Story 3, SC-003)**
-   - Resize/emulate desktop, tablet, and mobile viewports. Confirm the layout adapts (column count, image treatment, touch-target size) rather than uniformly scaling the desktop layout.
+1. Flip the Buyers card open, then activate "Discover more".
+2. **Expect**: the browser navigates to the Beef destination (an internal route, not an external redirect), with a transition that communicates progression rather than an abrupt jump.
+3. Press the browser Back button.
+4. **Expect**: the visitor returns to the Home page.
 
-6. **CMS-friendliness (User Story 4)**
-   - Fill in `business-meat`'s remaining fields in `paths.json`. Reload `/`. Confirm the card now appears with no component code changes.
+## Scenario 5 — Data-driven rendering (User Story 4, FR-008/FR-015)
 
-7. **Broken image fallback (Edge case, FR-021)**
-   - Point one entry's `image.src` at a non-existent file. Reload. Confirm the card shows the shared branded fallback background, remains selectable, and still navigates correctly.
+1. Edit only `src/content/paths/paths.json` (e.g. change the Buyers card's title).
+2. Reload `/`.
+3. **Expect**: the corresponding card reflects the change with zero edits to `PathCard`/`PathGrid` component source.
 
-8. **No-JS navigation (Edge case, FR-023)**
-   - Disable JavaScript. Load `/`. Confirm each card is still a real clickable link that navigates to its destination (without the animated transition).
+## Scenario 6 — Keyboard-only flow (User Story 2, FR-009/FR-011/FR-016)
 
-## Out of scope for this quickstart
+1. Using only Tab/Shift+Tab/Enter/Space (no mouse), Tab to a card's flip trigger.
+2. Press Enter.
+3. **Expect**: the card flips open (`aria-expanded="true"` on the trigger) and focus moves to "Discover more".
+4. Press Enter again.
+5. **Expect**: navigation to that card's destination occurs.
+6. Repeat from a fresh flip: after opening, press Escape.
+7. **Expect**: the card flips back and focus returns to the flip trigger.
 
-Full destination-page content per path (beyond the shared stub template) — tracked as future feature work per `research.md` §2.
+## Scenario 7 — Touch flow (User Story 2, FR-009)
+
+1. On a touch-emulated viewport (Playwright touch emulation), tap a card.
+2. **Expect**: it flips open without any prior hover event, and tapping "Discover more" navigates.
+
+## Scenario 8 — Reduced motion (User Story 2, FR-019)
+
+1. Emulate `prefers-reduced-motion: reduce`.
+2. Flip a card open, then activate "Discover more".
+3. **Expect**: the flip transition is near-instant/non-animated, and the destination transition is likewise minimized.
+
+## Scenario 9 — Responsive layout (User Story 3, FR-012/FR-013)
+
+1. Load `/` at desktop, tablet, and mobile breakpoints.
+2. **Expect**: at each breakpoint, the card layout is purpose-fit (not a scaled clone) — readability, touch target size, image visibility, and hierarchy hold at all three, and the flip interaction remains comfortable at each.
+3. At a tablet viewport, rotate portrait → landscape.
+4. **Expect**: the layout readjusts without breaking readability, the flip interaction, or focus states.
+
+## Scenario 10 — Broken image fallback (Edge Case, FR-022)
+
+1. Point one card's `image.src` at a non-existent asset.
+2. Reload `/`.
+3. **Expect**: that card renders the shared branded fallback background (not a broken-image icon), with title, description, and flip/discover interaction fully intact.
+
+## Scenario 11 — Content validation gate (data-model.md)
+
+1. In `src/content/paths/paths.json`, set one card's `destination` to an external URL (e.g. `https://example.com`).
+2. Run `pnpm run verify` (or `astro check`).
+3. **Expect**: the build/check fails loudly (schema validation error), not a silently-shipped external redirect.

@@ -1,0 +1,70 @@
+@import "tailwindcss";
+
+/*
+ * Design tokens per .specify/memory/constitution.md (Additional Constraints,
+ * amended 2026-09-19). Colors are fixed, not referential. Typography names
+ * (HeliosExtC/Suisse Int'l/Verbena/Roslindale Cyr Deck Narrow) are
+ * referential — the constitution explicitly allows a similar-looking,
+ * free-license substitute. No licensed or substitute font FILES are bundled
+ * yet, so each role below falls back to a close system-font approximation
+ * of its intended register (extended grotesk / humanist sans / serif
+ * italic / condensed serif caps) until real font files are sourced into
+ * public/fonts/<family>/ and declared via @font-face.
+ */
+@theme {
+  --color-orbolo-green: #516b3e;
+  --color-orbolo-cream: #f8f4e9;
+
+  --font-title: "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
+  --font-body: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-quote: Georgia, "Times New Roman", serif;
+  --font-subtitle: "Trebuchet MS", "Helvetica Neue", Arial, sans-serif;
+}
+
+body {
+  background-color: var(--color-orbolo-cream);
+  color: var(--color-orbolo-green);
+  font-family: var(--font-body);
+}
+
+/* PathCard flip (research.md §3): CSS 3D transform driven by the trigger's
+   aria-expanded state, gated to near-instant under reduced motion (FR-019). */
+.path-card__flipper {
+  transform-style: preserve-3d;
+  transition: transform 0.6s ease;
+}
+
+.path-card__face {
+  backface-visibility: hidden;
+}
+
+.path-card__face--back {
+  transform: rotateY(180deg);
+}
+
+[data-flipped="true"] .path-card__flipper {
+  transform: rotateY(180deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .path-card__flipper {
+    transition-duration: 0.01ms;
+  }
+}
+
+/* Hero background photo (public/images/home/hero-background.jpg), confined
+   to the hero section only — a cream scrim keeps the green text/logo
+   legible over the photo and fades to solid cream at the bottom edge, so
+   the hero blends into the card section's plain background rather than
+   ending on a hard cut. */
+.hero--background {
+  background-image: linear-gradient(
+      to bottom,
+      color-mix(in srgb, var(--color-orbolo-cream) 20%, transparent) 0%,
+      color-mix(in srgb, var(--color-orbolo-cream) 10%, transparent) 10%,
+      var(--color-orbolo-cream) 120%
+    ),
+    url("/images/home/hero-background.jpg");
+  background-size: cover;
+  background-position: center;
+}

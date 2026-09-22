@@ -1,68 +1,74 @@
-# Phase 1 Data Model: Orbolo Website — Interactive Path Selection Experience
+# Phase 1 Data Model: Orbolo Website — Home Page Audience-Path Selector
 
-**Feature**: `001-orbolo-path-selection` | **Date**: 2026-09-14
+**Feature**: `001-orbolo-path-selection` | **Date**: 2026-09-19
 
-## Entity: PathCard
+## PathCard
 
-Represents one selectable path in the Orbolo ecosystem. Source of truth: `lib/paths/paths.json`, accessed only through `PathRepository` (see `contracts/data-layer.md`).
+Represents one selectable audience path on the Home page's selection section.
 
 | Field | Type | Required | Notes |
 |---|---|---|---|
-| `id` | `string` | yes | Stable, unique, kebab-case slug (e.g. `"el-tapir"`, `"orbolo-bridge"`, `"verdant"`, `"ganaderia-a-pasto"`, `"business-meat"`). Used as the dynamic route param (`/paths/[pathId]`) and as the React list key. Never reused for a different path once published. |
-| `title` | `string` | yes (to be *published*) | Short card headline, e.g. "Verdant". |
-| `description` | `string` | yes (to be *published*) | Short-form copy shown on the card (FR-002). Long-form/extended copy, if any, is a separate `longDescription` field consumed by the destination stub page, not the card — keeps the card's own text short per FR-002 ("short description"). |
-| `longDescription` | `string` | no | Optional extended copy rendered on the path's destination stub page (FR-020). Empty/absent is valid — the stub still renders with just `description`. |
-| `image` | `object` | yes (to be *published*) | `{ src: string; alt: string }`. `src` is a repo-relative or remote-configured image reference (never inlined/hardcoded per FR-012/013). `alt` is mandatory, non-empty (FR-015). |
-| `destination` | `string` | yes (to be *published*) | Internal route path, always of the form `/paths/{id}` (FR-022). Not a full URL — never an external domain. |
-| `targetAudience` | `string` | no | Free-text descriptor (e.g. "Consumers", "Business buyers") — informational, not currently rendered on the card; reserved for future copy/segmentation use. |
-| `order` | `number` | no | Optional explicit sort position within the grid. When absent, entries render in JSON declaration order. |
+| `id` | `string` (slug) | yes | Stable identifier; also used as the DOM id root for the flip trigger/panel pairing (`aria-controls`) |
+| `title` | `string` | yes | Front- and back-face title (e.g. "Buyers") |
+| `description` | `string` | yes | Used for both the front-face teaser and the back-face expanded text (spec: "The same `description` value is used for both") |
+| `image` | `PathImage` | yes | See below |
+| `destination` | `string` (internal path, starts with `/`) | yes | MUST resolve to an internal route of this site (FR-023) — never an external URL |
+| `targetAudience` | `string` | yes | e.g. "Investors", "Buyers", "Landowners" — the audience label, distinct from `title` which is the destination's own name (e.g. Invest/Remote Rancher) |
+| `order` | `number` | no | Optional explicit ordering; entries without it render in file order |
 
-### Derived state: *published* vs *pending*
+```ts
+export interface PathImage {
+  src: string;   // path under public/images/paths/, referenced by string per constitution Assets note
+  alt: string;   // non-empty; required for FR-017
+}
 
-A `PathCard` entry is **published** (rendered in the grid) only when `title`, `description`, `image.src`, `image.alt`, and `destination` are all non-empty strings. Any entry missing one or more of those is **pending** and is filtered out by `PathRepository.getPublishedPaths()` — it is never rendered, not even as a placeholder (resolved via Clarifications, FR-018).
+export interface PathCard {
+  id: string;
+  title: string;
+  description: string;
+  image: PathImage;
+  destination: string;
+  targetAudience: string;
+  order?: number;
+}
+```
 
-This is a computed predicate, not a stored field — there is no `status` enum. Rationale in `research.md` §4.
+Notes carried over from the spec's Key Entities section:
+- The "Discover more" label shown on a flipped card's back face is a **fixed UI string**, not a `PathCard` attribute — it is not part of this schema.
+- There is no separate `longDescription` field in this revision (unlike the prior 5-path spec's schema): the spec is explicit that front and back faces share the same `description` value.
 
 ### Validation rules
 
-- `id`: required, unique across the collection, matches `^[a-z0-9]+(-[a2-9]+)*$` (kebab-case). Enforced by a lightweight assertion in `PathRepository` at load time (throws in dev/build if violated) — not a runtime schema library (see `research.md` §8).
-- `destination`: when present, must equal `/paths/${id}` exactly. `PathRepository` derives it from `id` rather than trusting a free-typed value, so a content editor cannot accidentally point a path at an external URL or a mismatched route — this is what makes FR-022 structurally guaranteed rather than merely convention.
-- `image.alt`: when present, must be non-empty after trimming (enforces FR-015 — no empty alt text on a "complete" entry).
+Enforced at the content-collection boundary (Astro Content Collections' Zod schema, `src/content.config.ts`) so no invalid entry can reach a component:
 
-### State transitions
+- `id`: non-empty, unique across all entries, URL-safe slug (`^[a-z0-9-]+$`).
+- `title`, `description`, `targetAudience`: non-empty strings.
+- `image.src`: non-empty string; `image.alt`: non-empty string (FR-017 — alt text is mandatory, not optional).
+- `destination`: non-empty string, must start with `/` (enforces FR-023's "internal route only" at the schema level — an absolute `https://...` URL fails validation rather than silently shipping an external redirect).
+- `order`: if present, a finite number; entries are sorted by `order` ascending when present, falling back to file order for entries that omit it.
 
-There is exactly one transition: **pending → published**, triggered by a content editor filling in the remaining required fields in `paths.json`. There is no published → pending transition in normal operation (removing a path is done by deleting/emptying its entry, which is the same "pending" check evaluated fresh on next read — the model has no memory of prior state, keeping `PathRepository` stateless per request/build).
+A schema validation failure is a **build-time content bug** (malformed JSON, duplicate `id`, or an external `destination`), not a runtime user-facing error — `astro check`/the build fails loudly rather than rendering a broken card, consistent with the constitution's single-verification-command gate (`pnpm run verify`).
 
-## Entity: Path Configuration (collection)
+### Rendering completeness
 
-The ordered array of `PathCard` entries in `lib/paths/paths.json` — the literal file `PathRepository` reads. Not a separate type; documented here because the spec calls it out as its own Key Entity (source of truth, decoupled from presentation).
+Unlike the prior 5-path spec (which had a "published vs. pending" filter for the still-incomplete Business/Meat path), this revision's three cards are each fully specified from the outset — there is no partial/hidden-until-complete state to model. `PathGrid` simply renders every entry the `paths` collection returns (see `research.md` §8 for the "fewer than 3" degradation behavior); no `published` flag exists in this schema.
 
-- **Cardinality**: Zero or more entries. The grid, empty-state handling, and layout must not assume exactly 5 (FR-006, SC-001) — verified in `quickstart.md`.
-- **Ordering**: Declaration order in the JSON array, unless an entry sets `order`, in which case entries are sorted by `order` ascending (entries without `order` keep their relative declaration order, sorted after any explicit `order` values — i.e. a stable sort with unset `order` treated as `+Infinity`).
-- **Initial launch set** (per spec Assumptions): `el-tapir`, `orbolo-bridge`, `verdant`, `ganaderia-a-pasto` published at launch; `business-meat` present in the file but pending (missing `title`/`description`/`image`/`destination`) until finalized.
+## Path Configuration (collection)
 
-## Example `paths.json` shape
+The ordered list of `PathCard` entries feeding the selection section — the source of truth for content, decoupled from presentation/interaction logic (Constitution Principle VIII). Lives in `src/content/paths/paths.json`, versioned in the repository, accessed only through the `paths` Astro Content Collection + `src/lib/paths/path-repository.ts` (see `contracts/data-layer.md`).
 
-```json
-[
-  {
-    "id": "verdant",
-    "title": "Verdant",
-    "description": "Short card copy for Verdant.",
-    "longDescription": "Optional extended copy for the Verdant destination stub.",
-    "image": { "src": "/images/paths/verdant.jpg", "alt": "Descriptive alt text for Verdant's photograph" },
-    "destination": "/paths/verdant",
-    "targetAudience": "Consumers",
-    "order": 3
-  },
-  {
-    "id": "business-meat",
-    "title": "",
-    "description": "",
-    "image": { "src": "", "alt": "" },
-    "destination": ""
-  }
-]
-```
+Currently exactly three entries:
 
-The `business-meat` entry above is *pending*: `PathRepository.getPublishedPaths()` excludes it until every required field is filled in.
+| `id` | `targetAudience` | `title` | `destination` |
+|---|---|---|---|
+| `investors` | Investors | Invest (Remote Rancher) | `/invest` |
+| `buyers` | Buyers | Beef | `/beef` |
+| `landowners` | Landowners | Land | `/land` |
+
+(Exact `destination` slugs are placeholders pending confirmation against the site's real route map when the Invest/Beef/Land pages are built — this feature only requires that each resolves internally, per FR-023, not that those target pages exist yet within this feature's own scope.)
+
+## Interaction state (not persisted)
+
+Ephemeral, client-only UI state — explicitly out of the data model / configuration layer, per spec Non-goals ("Persisting a card's flipped/open state across page loads, or between visitors"):
+
+- `flipped: boolean` per card instance, always `false` on load, held in the DOM via the flip trigger's `aria-expanded` attribute — not in `PathCard` data, not in any store, not synced across visitors or reloads.
