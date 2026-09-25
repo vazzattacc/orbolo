@@ -1,0 +1,14 @@
+---
+interface Props {
+  body: string;
+}
+
+const { body } = Astro.props;
+---
+
+<section aria-labelledby="why-different-heading" class="mx-auto flex max-w-3xl flex-col gap-4 px-4 py-16">
+  <h2 id="why-different-heading" class="font-subtitle text-3xl text-orbolo-green">
+    Why supply from the group is different
+  </h2>
+  <p class="font-body text-lg text-orbolo-green/80">{body}</p>
+</section>

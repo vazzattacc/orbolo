@@ -1,0 +1,18 @@
+---
+import MetricValue from "@/components/shared/MetricValue.astro";
+
+interface Props {
+  body: string;
+  hectaresMetricKey: string;
+}
+
+const { body, hectaresMetricKey } = Astro.props;
+---
+
+<section aria-labelledby="gapp-heading" class="mx-auto flex max-w-3xl flex-col gap-4 px-4 py-16">
+  <h2 id="gapp-heading" class="font-subtitle text-3xl text-orbolo-green">Ganadería a Pasto</h2>
+  <p class="font-body text-lg text-orbolo-green/80">{body}</p>
+  <p class="font-body text-orbolo-green/80">
+    Ganadería a Pasto operates across <MetricValue metricKey={hectaresMetricKey} />.
+  </p>
+</section>

@@ -1,13 +1,17 @@
 ---
 import Layout from "../components/Layout.astro";
+import ElTapir from "../components/land/ElTapir.astro";
+import PartnerRanches from "../components/land/PartnerRanches.astro";
+import GanaderiaAPasto from "../components/land/GanaderiaAPasto.astro";
+import WorkWithUs from "../components/land/WorkWithUs.astro";
+import { getLandPage } from "../lib/land/land-repository";
+
+const page = await getLandPage();
 ---
 
 <Layout title="Land — Orbolo">
-  <main class="flex min-h-screen flex-col items-center justify-center gap-4 bg-orbolo-cream px-4 text-center">
-    <h1 class="font-subtitle text-4xl text-orbolo-green">Land</h1>
-    <p class="font-body max-w-xl text-lg text-orbolo-green/80">
-      This is a placeholder destination. The full Land page is a separate feature, out of scope
-      for the Home page audience-path selector.
-    </p>
-  </main>
+  <ElTapir {...page.elTapir} />
+  <PartnerRanches ranchSlugs={page.partnerRanches?.ranchSlugs} />
+  <GanaderiaAPasto {...page.ganaderiaAPasto} />
+  <WorkWithUs {...page.workWithUs} />
 </Layout>

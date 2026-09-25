@@ -1,0 +1,21 @@
+---
+/**
+ * The one-cross-link-per-page component for the "two roles, one contact"
+ * rule (spec.md §5): Invest -> Beef ("See where your beef is sold",
+ * FR-INV-013) and Beef -> Invest ("Own the herd behind this beef",
+ * FR-BEEF-009). Deliberately distinct from Nav's generic Contact link —
+ * this always routes between the two audience pages, never to Contact.
+ */
+interface Props {
+  label: string;
+  href: string;
+}
+
+const { label, href } = Astro.props;
+---
+
+<p class="font-body mx-auto max-w-3xl px-4 py-16 text-center text-orbolo-green">
+  <a href={href} class="underline decoration-orbolo-green/40 underline-offset-4 hover:decoration-orbolo-green">
+    {label}
+  </a>
+</p>

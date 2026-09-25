@@ -1,13 +1,35 @@
 ---
 import Layout from "../components/Layout.astro";
+import Hero from "../components/invest/Hero.astro";
+import OfferBox from "../components/invest/OfferBox.astro";
+import IsThisReal from "../components/invest/IsThisReal.astro";
+import WhoBuysAtEnd from "../components/invest/WhoBuysAtEnd.astro";
+import WhatIfNotEnough from "../components/invest/WhatIfNotEnough.astro";
+import WhatIfWrong from "../components/invest/WhatIfWrong.astro";
+import HowItWorks from "../components/invest/HowItWorks.astro";
+import DeploymentPipeline from "../components/invest/DeploymentPipeline.astro";
+import WhatYouOwn from "../components/invest/WhatYouOwn.astro";
+import WhoVerifies from "../components/invest/WhoVerifies.astro";
+import Faq from "../components/invest/Faq.astro";
+import Closing from "../components/invest/Closing.astro";
+import CrossLink from "../components/shared/CrossLink.astro";
+import { getInvestPage } from "../lib/invest/invest-repository";
+
+const page = await getInvestPage();
 ---
 
 <Layout title="Invest — Orbolo">
-  <main class="flex min-h-screen flex-col items-center justify-center gap-4 bg-orbolo-cream px-4 text-center">
-    <h1 class="font-subtitle text-4xl text-orbolo-green">Invest (Remote Rancher)</h1>
-    <p class="font-body max-w-xl text-lg text-orbolo-green/80">
-      This is a placeholder destination. The full Invest/Remote Rancher page is a separate feature,
-      out of scope for the Home page audience-path selector.
-    </p>
-  </main>
+  <Hero {...page.hero} />
+  <OfferBox {...page.offerBox} />
+  <IsThisReal {...page.isThisReal} />
+  <WhoBuysAtEnd {...page.whoBuysAtEnd} />
+  <WhatIfNotEnough {...page.whatIfNotEnough} />
+  <WhatIfWrong {...page.whatIfWrong} />
+  <HowItWorks {...page.howItWorks} />
+  <DeploymentPipeline ranchSlugs={page.deploymentPipeline?.ranchSlugs} />
+  <WhatYouOwn {...page.whatYouOwn} />
+  <WhoVerifies {...page.whoVerifies} />
+  <Faq {...page.faq} />
+  <Closing {...page.closing} />
+  <CrossLink {...page.crossLinkToBeef} />
 </Layout>

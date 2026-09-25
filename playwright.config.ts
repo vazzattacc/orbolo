@@ -14,12 +14,20 @@ export default defineConfig({
     {
       name: "chromium",
       use: { ...devices["Desktop Chrome"] },
-      testIgnore: [/reduced-motion\.spec\.ts/, /path-card-config-driven\.spec\.ts/],
+      testIgnore: [
+        /reduced-motion\.spec\.ts/,
+        /path-card-config-driven\.spec\.ts/,
+        /hidden-sections-config-driven\.spec\.ts/,
+      ],
     },
     {
       name: "mobile-chrome",
       use: { ...devices["Pixel 7"] },
-      testIgnore: [/reduced-motion\.spec\.ts/, /path-card-config-driven\.spec\.ts/],
+      testIgnore: [
+        /reduced-motion\.spec\.ts/,
+        /path-card-config-driven\.spec\.ts/,
+        /hidden-sections-config-driven\.spec\.ts/,
+      ],
     },
     {
       name: "reduced-motion",
@@ -35,6 +43,14 @@ export default defineConfig({
       use: { ...devices["Desktop Chrome"] },
       testMatch: /path-card-config-driven\.spec\.ts/,
       dependencies: ["chromium", "mobile-chrome", "reduced-motion"],
+    },
+    {
+      // Same isolation rationale as config-driven-mutation above, for the
+      // ranches/invest/beef fixtures (specs/002-page-content-specification).
+      name: "hidden-sections-mutation",
+      use: { ...devices["Desktop Chrome"] },
+      testMatch: /hidden-sections-config-driven\.spec\.ts/,
+      dependencies: ["config-driven-mutation"],
     },
   ],
 });

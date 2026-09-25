@@ -1,13 +1,27 @@
 ---
 import Layout from "../components/Layout.astro";
+import Hero from "../components/beef/Hero.astro";
+import WhatWeSellToday from "../components/beef/WhatWeSellToday.astro";
+import Promise from "../components/beef/Promise.astro";
+import Roadmap from "../components/beef/Roadmap.astro";
+import FirstPick from "../components/beef/FirstPick.astro";
+import WhySupplyDifferent from "../components/beef/WhySupplyDifferent.astro";
+import WhoVerifies from "../components/beef/WhoVerifies.astro";
+import Ctas from "../components/beef/Ctas.astro";
+import CrossLink from "../components/shared/CrossLink.astro";
+import { getBeefPage } from "../lib/beef/beef-repository";
+
+const page = await getBeefPage();
 ---
 
 <Layout title="Beef — Orbolo">
-  <main class="flex min-h-screen flex-col items-center justify-center gap-4 bg-orbolo-cream px-4 text-center">
-    <h1 class="font-subtitle text-4xl text-orbolo-green">Beef</h1>
-    <p class="font-body max-w-xl text-lg text-orbolo-green/80">
-      This is a placeholder destination. The full Beef page is a separate feature, out of scope
-      for the Home page audience-path selector.
-    </p>
-  </main>
+  <Hero {...page.hero} />
+  <WhatWeSellToday {...page.whatWeSellToday} />
+  <Promise {...page.promise} />
+  <Roadmap milestones={page.roadmap?.milestones} />
+  <FirstPick {...page.firstPick} />
+  <WhySupplyDifferent {...page.whySupplyDifferent} />
+  <WhoVerifies {...page.whoVerifies} />
+  <Ctas ctas={page.ctas} />
+  <CrossLink {...page.crossLinkToInvest} />
 </Layout>

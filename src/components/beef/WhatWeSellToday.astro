@@ -1,0 +1,14 @@
+---
+interface Props {
+  body: string;
+  noFullHistoryNote: string;
+}
+
+const { body, noFullHistoryNote } = Astro.props;
+---
+
+<section aria-labelledby="what-we-sell-heading" class="mx-auto flex max-w-3xl flex-col gap-4 px-4 py-16">
+  <h2 id="what-we-sell-heading" class="font-subtitle text-3xl text-orbolo-green">What we sell today</h2>
+  <p class="font-body text-lg text-orbolo-green/80">{body}</p>
+  <p class="font-body text-orbolo-green/80">{noFullHistoryNote}</p>
+</section>

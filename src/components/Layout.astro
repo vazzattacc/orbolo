@@ -1,5 +1,6 @@
 ---
 import { ClientRouter } from "astro:transitions";
+import Nav from "./Nav.astro";
 import "../styles/global.css";
 
 interface Props {
@@ -19,6 +20,12 @@ const { title } = Astro.props;
     <ClientRouter />
   </head>
   <body>
-    <slot />
+    <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:bg-orbolo-cream focus:px-4 focus:py-2 focus:text-orbolo-green">
+      Skip to content
+    </a>
+    <Nav />
+    <main id="main">
+      <slot />
+    </main>
   </body>
 </html>

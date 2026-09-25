@@ -1,0 +1,29 @@
+---
+interface Verifier {
+  role: string;
+  name: string;
+}
+
+interface Props {
+  codeReferenceNote: string;
+  verifiers?: Verifier[];
+}
+
+const { codeReferenceNote, verifiers } = Astro.props;
+---
+
+<section aria-labelledby="who-verifies-heading" class="mx-auto flex max-w-3xl flex-col gap-4 px-4 py-16">
+  <h2 id="who-verifies-heading" class="font-subtitle text-3xl text-orbolo-green">Who verifies what</h2>
+  <p class="font-body text-lg text-orbolo-green/80">{codeReferenceNote}</p>
+  {
+    verifiers && verifiers.length > 0 && (
+      <ul class="font-body flex flex-col gap-2 text-orbolo-green/80" role="list">
+        {verifiers.map((v) => (
+          <li>
+            <span class="font-title text-orbolo-green">{v.role}:</span> {v.name}
+          </li>
+        ))}
+      </ul>
+    )
+  }
+</section>

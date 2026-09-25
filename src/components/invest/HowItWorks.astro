@@ -1,0 +1,26 @@
+---
+interface Step {
+  step: number;
+  body: string;
+}
+
+interface Props {
+  steps: Step[];
+}
+
+const { steps } = Astro.props;
+---
+
+<section aria-labelledby="how-it-works-heading" class="mx-auto flex max-w-3xl flex-col gap-4 px-4 py-16">
+  <h2 id="how-it-works-heading" class="font-subtitle text-3xl text-orbolo-green">How it works</h2>
+  <ol class="font-body flex flex-col gap-3 text-lg text-orbolo-green/80" role="list">
+    {
+      steps.map((s) => (
+        <li class="flex gap-3">
+          <span class="font-title text-orbolo-green">{s.step}.</span>
+          <span>{s.body}</span>
+        </li>
+      ))
+    }
+  </ol>
+</section>

@@ -1,0 +1,41 @@
+---
+import { getContractingEntityName } from "@/lib/settings/settings-repository";
+
+interface Cta {
+  label: string;
+  href: string;
+}
+
+interface Props {
+  releaseLine: string;
+  ctas: Cta[];
+}
+
+const { releaseLine, ctas } = Astro.props;
+const contractingEntityName = await getContractingEntityName();
+---
+
+<section
+  id="closing"
+  aria-labelledby="closing-heading"
+  class="mx-auto flex max-w-3xl flex-col items-center gap-6 px-4 py-16 text-center"
+>
+  <h2 id="closing-heading" class="font-subtitle text-3xl text-orbolo-green">{releaseLine}</h2>
+  <div class="flex flex-wrap justify-center gap-4">
+    {
+      ctas.map((cta, index) => (
+        <a
+          href={cta.href}
+          class={
+            index === 0
+              ? "font-title rounded-full bg-orbolo-green px-6 py-3 text-orbolo-cream outline-none hover:opacity-90 focus-visible:ring-2 focus-visible:ring-orbolo-green focus-visible:ring-offset-2"
+              : "font-title rounded-full border border-orbolo-green px-6 py-3 text-orbolo-green outline-none hover:bg-orbolo-green/5 focus-visible:ring-2 focus-visible:ring-orbolo-green focus-visible:ring-offset-2"
+          }
+        >
+          {cta.label}
+        </a>
+      ))
+    }
+  </div>
+  <p class="font-body text-sm text-orbolo-green/60">Contracting entity: {contractingEntityName}</p>
+</section>

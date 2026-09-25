@@ -1,0 +1,17 @@
+[
+  {
+    "id": "land",
+    "elTapir": {
+      "intro": "El Tapir is our own farm in Paraguay’s Gran Chaco — not a partner ranch, ours. It’s currently expanding, and open to visitors by appointment.",
+      "hectaresMetricKey": "elTapirHectares"
+    },
+    "ganaderiaAPasto": {
+      "body": "Ganadería a Pasto is how we grow supply — the group’s technical arm, providing field-based advisory to ranches in transition.",
+      "hectaresMetricKey": "gappHectares"
+    },
+    "workWithUs": {
+      "ctaLabel": "Work with us",
+      "ctaHref": "/contact"
+    }
+  }
+]

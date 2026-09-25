@@ -1,0 +1,39 @@
+---
+import { getRanches } from "@/lib/ranches/ranches-repository";
+
+interface Props {
+  ranchSlugs?: string[];
+}
+
+const { ranchSlugs } = Astro.props;
+const allRanches =
+  ranchSlugs && ranchSlugs.length > 0
+    ? (await getRanches()).filter((ranch) => ranchSlugs.includes(ranch.id))
+    : [];
+// Public pipeline cards are scoped to exactly the slugs this page names —
+// see contracts/nav-and-hidden-sections.md: the whole section is absent
+// (not just empty) when there's nothing real to show (OQ-008).
+---
+
+{
+  allRanches.length > 0 && (
+    <section aria-labelledby="deployment-pipeline-heading" class="mx-auto flex max-w-3xl flex-col gap-4 px-4 py-16">
+      <h2 id="deployment-pipeline-heading" class="font-subtitle text-3xl text-orbolo-green">
+        Deployment pipeline
+      </h2>
+      <ul class="flex flex-col gap-4" role="list">
+        {allRanches.map((ranch) => (
+          <li class="flex flex-col gap-2 rounded-2xl border border-orbolo-green/15 p-4">
+            <p class="font-title text-orbolo-green">{ranch.codename}</p>
+            <p class="font-body text-sm text-orbolo-green/70">
+              {ranch.region} · {ranch.hectares} ha · {ranch.grazingSystem}
+            </p>
+            <p class="font-body text-sm text-orbolo-green/70">
+              {ranch.committedUnderLoi} / {ranch.threshold} committed · {ranch.status}
+            </p>
+          </li>
+        ))}
+      </ul>
+    </section>
+  )
+}

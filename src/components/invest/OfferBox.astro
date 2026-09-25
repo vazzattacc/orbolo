@@ -1,0 +1,16 @@
+---
+interface Props {
+  included: string[];
+  termsOnRequestNote: string;
+}
+
+const { included, termsOnRequestNote } = Astro.props;
+---
+
+<section aria-labelledby="offer-box-heading" class="mx-auto flex max-w-3xl flex-col gap-4 px-4 py-16">
+  <h2 id="offer-box-heading" class="font-subtitle text-3xl text-orbolo-green">What’s included</h2>
+  <ul class="font-body flex list-disc flex-col gap-2 pl-5 text-lg text-orbolo-green/80" role="list">
+    {included.map((item) => <li>{item}</li>)}
+  </ul>
+  <p class="font-body text-orbolo-green/80">{termsOnRequestNote}</p>
+</section>

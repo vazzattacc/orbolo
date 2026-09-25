@@ -1,0 +1,21 @@
+---
+interface Props {
+  headline: string;
+  releaseRule: string;
+  ctaLabel: string;
+  ctaHref: string;
+}
+
+const { headline, releaseRule, ctaLabel, ctaHref } = Astro.props;
+---
+
+<section class="flex flex-col items-center gap-6 bg-orbolo-cream px-4 py-20 text-center">
+  <h1 class="font-subtitle text-balance max-w-3xl text-4xl text-orbolo-green sm:text-5xl">{headline}</h1>
+  <p class="font-body max-w-2xl text-lg text-orbolo-green/80">{releaseRule}</p>
+  <a
+    href={ctaHref}
+    class="font-title rounded-full bg-orbolo-green px-6 py-3 text-orbolo-cream outline-none hover:opacity-90 focus-visible:ring-2 focus-visible:ring-orbolo-green focus-visible:ring-offset-2"
+  >
+    {ctaLabel}
+  </a>
+</section>

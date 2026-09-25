@@ -1,0 +1,30 @@
+---
+import { getMetric } from "@/lib/metrics/metrics-repository";
+
+interface Props {
+  metricKey: string;
+  /** Rendered before the value, e.g. "El Tapir is " */
+  prefix?: string;
+  /** Rendered after the value, e.g. " and growing" */
+  suffix?: string;
+}
+
+const { metricKey, prefix, suffix } = Astro.props;
+const metric = await getMetric(metricKey);
+---
+
+{
+  metric && (
+    <span class="metric-value">
+      {prefix}
+      <strong class="font-title text-orbolo-green">
+        {metric.value}
+        {metric.unit && ` ${metric.unit}`}
+      </strong>
+      {suffix}
+      <span class="ml-1 text-xs text-orbolo-green/60" title={metric.sourceDocumentRef}>
+        (as of {metric.asOfDate})
+      </span>
+    </span>
+  )
+}

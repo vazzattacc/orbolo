@@ -1,0 +1,28 @@
+---
+interface Category {
+  label: string;
+  body: string;
+}
+
+interface Props {
+  categories: Category[];
+  dataRoomNote: string;
+}
+
+const { categories, dataRoomNote } = Astro.props;
+---
+
+<section aria-labelledby="what-if-wrong-heading" class="mx-auto flex max-w-3xl flex-col gap-4 px-4 py-16">
+  <h2 id="what-if-wrong-heading" class="font-subtitle text-3xl text-orbolo-green">What if it goes wrong?</h2>
+  <dl class="font-body flex flex-col gap-4 text-orbolo-green/80">
+    {
+      categories.map((category) => (
+        <div class="flex flex-col gap-1">
+          <dt class="font-title font-semibold text-orbolo-green">{category.label}</dt>
+          <dd>{category.body}</dd>
+        </div>
+      ))
+    }
+  </dl>
+  <p class="font-body text-orbolo-green/80">{dataRoomNote}</p>
+</section>

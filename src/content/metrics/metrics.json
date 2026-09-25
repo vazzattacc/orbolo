@@ -1,0 +1,23 @@
+[
+  {
+    "id": "elTapirHectares",
+    "value": 1000,
+    "unit": "ha",
+    "asOfDate": "2026-09-23",
+    "sourceDocumentRef": "Live site fetch 2026-09-22 (/el-tapir), confirmed by Vaz 2026-09-23 (OQ-012)"
+  },
+  {
+    "id": "gappHectares",
+    "value": 35000,
+    "unit": "ha",
+    "asOfDate": "2026-09-23",
+    "sourceDocumentRef": "Live site fetch 2026-09-22 (/copy-of-el-tapir-2), confirmed by Vaz 2026-09-23 (OQ-014)"
+  },
+  {
+    "id": "animalCount",
+    "value": "500+",
+    "unit": "animals",
+    "asOfDate": "2026-09-24",
+    "sourceDocumentRef": "Vaz, direct input, 2026-09-24"
+  }
+]

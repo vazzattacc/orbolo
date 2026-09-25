@@ -1,0 +1,16 @@
+---
+interface Props {
+  releaseRuleBody: string;
+  loiExpiryBody: string;
+}
+
+const { releaseRuleBody, loiExpiryBody } = Astro.props;
+---
+
+<section aria-labelledby="what-if-not-enough-heading" class="mx-auto flex max-w-3xl flex-col gap-4 px-4 py-16">
+  <h2 id="what-if-not-enough-heading" class="font-subtitle text-3xl text-orbolo-green">
+    What if not enough people join?
+  </h2>
+  <p class="font-body text-lg text-orbolo-green/80">{releaseRuleBody}</p>
+  <p class="font-body text-orbolo-green/80">{loiExpiryBody}</p>
+</section>

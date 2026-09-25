@@ -1,0 +1,32 @@
+---
+interface Milestone {
+  stage: string;
+  body: string;
+  targetDate?: string;
+}
+
+interface Props {
+  milestones?: Milestone[];
+}
+
+const { milestones } = Astro.props;
+---
+
+{
+  milestones && milestones.length > 0 && (
+    <section aria-labelledby="roadmap-heading" class="mx-auto flex max-w-3xl flex-col gap-4 px-4 py-16">
+      <h2 id="roadmap-heading" class="font-subtitle text-3xl text-orbolo-green">
+        Roadmap
+      </h2>
+      <ol class="font-body flex flex-col gap-3 text-orbolo-green/80" role="list">
+        {milestones.map((m) => (
+          <li>
+            <span class="font-title text-orbolo-green">{m.stage}</span>
+            {m.targetDate && <span class="text-sm text-orbolo-green/60"> ({m.targetDate})</span>}
+            <p>{m.body}</p>
+          </li>
+        ))}
+      </ol>
+    </section>
+  )
+}

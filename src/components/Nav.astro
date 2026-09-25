@@ -1,0 +1,43 @@
+---
+/**
+ * Persistent top navigation bar (FR-GEN-009). The link set is a fixed,
+ * code-level list, not content (research.md §3) — it only grows when a new
+ * page actually ships, which is a code change regardless. Contact is
+ * included now even though its real destination is still pending
+ * (OQ-015) — it points at the stub page in src/pages/contact.astro.
+ *
+ * No hamburger/disclosure: five short labels simply wrap onto a second
+ * line at narrow widths, so every link stays permanently in the DOM and
+ * keyboard-reachable without a JS-driven open/close state to get wrong.
+ */
+const NAV_LINKS = [
+  { label: "Home", href: "/" },
+  { label: "Invest", href: "/invest" },
+  { label: "Beef", href: "/beef" },
+  { label: "Land", href: "/land" },
+  { label: "Contact", href: "/contact" },
+] as const;
+
+const currentPath = Astro.url.pathname;
+---
+
+<nav aria-label="Primary" class="bg-orbolo-cream px-4 py-3">
+  <ul class="mx-auto flex max-w-6xl flex-wrap items-center justify-center gap-x-8 gap-y-2" role="list">
+    {
+      NAV_LINKS.map((link) => {
+        const isActive = currentPath === link.href;
+        return (
+          <li>
+            <a
+              href={link.href}
+              aria-current={isActive ? "page" : undefined}
+              class="font-title text-lg text-orbolo-green outline-none aria-[current=page]:underline hover:underline focus-visible:ring-2 focus-visible:ring-orbolo-green"
+            >
+              {link.label}
+            </a>
+          </li>
+        );
+      })
+    }
+  </ul>
+</nav>

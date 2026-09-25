@@ -1,0 +1,28 @@
+---
+interface Item {
+  question: string;
+  answer: string;
+}
+
+interface Props {
+  items: Item[];
+}
+
+const { items } = Astro.props;
+---
+
+<section aria-labelledby="invest-faq-heading" class="mx-auto flex max-w-3xl flex-col gap-4 px-4 py-16">
+  <h2 id="invest-faq-heading" class="font-subtitle text-3xl text-orbolo-green">FAQ</h2>
+  <div class="flex flex-col gap-2">
+    {
+      items.map((item) => (
+        <details class="flex flex-col gap-2 border-b border-orbolo-green/15 py-3">
+          <summary class="font-title cursor-pointer text-orbolo-green outline-none focus-visible:ring-2 focus-visible:ring-orbolo-green">
+            {item.question}
+          </summary>
+          <p class="font-body text-orbolo-green/80">{item.answer}</p>
+        </details>
+      ))
+    }
+  </div>
+</section>

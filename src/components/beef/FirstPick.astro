@@ -1,0 +1,12 @@
+---
+interface Props {
+  body: string;
+}
+
+const { body } = Astro.props;
+---
+
+<section aria-labelledby="first-pick-heading" class="mx-auto flex max-w-3xl flex-col gap-4 px-4 py-16">
+  <h2 id="first-pick-heading" class="font-subtitle text-3xl text-orbolo-green">First pick</h2>
+  <p class="font-body text-lg text-orbolo-green/80">{body}</p>
+</section>

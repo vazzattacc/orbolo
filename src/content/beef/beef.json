@@ -1,0 +1,33 @@
+[
+  {
+    "id": "beef",
+    "hero": {
+      "headline": "Grass-fed beef from Paraguay, sold at conventional prices.",
+      "allianceNote": "We’re building a 300,000-head producer alliance, and a full traceability layer behind it."
+    },
+    "whatWeSellToday": {
+      "body": "Today we sell grass-fed Paraguayan beef under the MPCS standard, at conventional prices.",
+      "noFullHistoryNote": "A full, ear-tag-to-box traceable history isn’t available yet — we’re building that traceability layer now."
+    },
+    "promise": {
+      "body": "We sell at conventional prices and compete on resilience and scale. The better product isn’t a way to charge more — it’s how we intend to shift what conventional beef looks like."
+    },
+    "firstPick": {
+      "body": "Trade with us now, and you get first pick of the traceable, aligned supply as it comes online."
+    },
+    "whySupplyDifferent": {
+      "body": "Beef from our own herds and from producer-alliance herds is raised under the same Code — supply we control and can vouch for, not just source and hope."
+    },
+    "whoVerifies": {
+      "codeReferenceNote": "Every animal is raised, and every herd sold, under the Orbolo Code."
+    },
+    "ctas": [
+      { "label": "Get the spec sheet", "href": "/contact" },
+      { "label": "Request a sample", "href": "/contact" }
+    ],
+    "crossLinkToInvest": {
+      "label": "Own the herd behind this beef",
+      "href": "/invest"
+    }
+  }
+]

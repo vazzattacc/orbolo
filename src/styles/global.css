@@ -60,11 +60,12 @@ body {
 .hero--background {
   background-image: linear-gradient(
       to bottom,
-      color-mix(in srgb, var(--color-orbolo-cream) 20%, transparent) 0%,
-      color-mix(in srgb, var(--color-orbolo-cream) 10%, transparent) 10%,
-      var(--color-orbolo-cream) 120%
+      transparent 0%,
+      transparent 50%,
+      color-mix(in srgb, var(--color-orbolo-cream) 55%, transparent) 100%
     ),
     url("/images/home/hero-background.jpg");
+
   background-size: cover;
   background-position: center;
 }
