@@ -1,57 +1,58 @@
 # Design Map
 
 ## Spacing Scale
-8px, 12px, 16px, 24px (dominant), 32px, 40px, 80px (section break) — base unit 8px
+8px, 12px, 16px, 24px, 32px, 40px, 80px, 96px — base unit 8px, no single ratio between steps
 
 ## Font Hierarchy
-- Hero: 48px / 400 / Trebuchet MS
-- H2: 30px / 400 / Trebuchet MS
-- H3 (card title): 24px / 400 / Trebuchet MS
-- Button: 16px / 400 / Helvetica Neue
-- Eyebrow: 14px / 600 / Arial Narrow
-- Teaser/body: 14px / 400 / Helvetica Neue
+- h1: 48px / 400 / Trebuchet MS
+- h2: 30px / 400 / Trebuchet MS
+- h3: 24px / 400 / Trebuchet MS
+- body: 18px / 400 / Helvetica Neue, max-width 672px
+- eyebrow label: 14px / 600 / Arial Narrow, uppercase
 
 ## Color Palette
-- Background: `#F8F4E9`
-- Text-primary / accent: `#516B3E`
-- Text-on-accent: `#F8F4E9`
-- Text-secondary: `#516B3E` @ 80% alpha
-- No gray anywhere in the palette
+- Background: `#F8F4E9` (68.6% of sampled surface)
+- Text/fill: `#516B3E` (31.4% of sampled surface)
+- Text-on-fill: `#F8F4E9`
+- Accent (interaction-only): `#BFD55D` — 0% of resting-state surface; appears only on hover and one flip-revealed border
 
 ## Image Ratios
-- Native: 0.81:1 to 1.00:1 (varies per source photo)
-- Rendered (card): 350:224 ≈ 1.56:1, uniform `object-cover` crop regardless of native ratio
+- Hero background: full-bleed, ~3.2:1 visible crop
+- Logo: 2.26:1
+- Photographed audience card (Landowners): 1.00:1
+- Placeholder audience cards (Investors, Buyers): flat `#516B3E` fill, no photo rendered despite valid image files
 
 ## Component Tokens
-- Radius: 16px (cards) / pill `9999px` (buttons) — no intermediate value
-- Shadow: single layer, `rgba(0,0,0,0.1)`, ~2px blur — imperceptible next to the border
-- Grid: 3 columns, 32px gutter, 1152px max-width
-- Motion: `transform` only, 0.6s, `ease`; `prefers-reduced-motion` and `:focus-visible` both confirmed present
+- Radius: 16px (cards) / pill (buttons) — no intermediate value
+- Shadow: `rgba(0,0,0,0.1) 0px 1px` — single layer, PathCard faces only, near-imperceptible
+- Grid: 3 columns, 32px gutter, fixed 352px track width (`ul.path-grid`)
+- Motion: `transform 0.6s ease` (PathCard flip), respects `prefers-reduced-motion`; one stray `transition: all` also present in the render tree
+- Focus: `:focus-visible` confirmed in use site-wide
 
 ---
 
 # Taste DNA
 
-### Contrast Is a Reward, Not a Backdrop
-- **Trigger**: Deciding how much of the palette's contrast to spend on the resting page versus the interaction.
-- **Decision**: Chose flat, low-contrast green-on-cream everywhere over spending contrast anywhere before the flip.
-- **Reason**: A visitor scanning three audience options shouldn't feel pulled toward one before reading it; the contrast payoff should arrive after commitment, as confirmation.
-- **Evidence**: 2-color palette (80%/20% area split); shadows imperceptible (single-layer, 0.1 alpha); the flipped state is the only cream-on-green frame in the entire capture.
+### Accent-at-Interaction-Only
+- **Trigger**: A third brand color (`#BFD55D`) was approved for use, but it measures 1.48:1 against the cream background — unreadable as a resting fill or text color.
+- **Decision**: Confined it entirely to moments the visitor causes (a button's hover fill, a card's flip-revealed border) over using it anywhere in the page's idle state.
+- **Reason**: A color that only appears because you did something reads as feedback, not decoration — it confirms the action registered without ever asking anyone to read text on a 1.48:1 background.
+- **Evidence**: 0% static-area presence for `#BFD55D` in the DOM color sample; the token exists in `global.css` but never surfaces in a resting-state snapshot.
 
-### Two Colors, No Escape Hatch
-- **Trigger**: Needing to differentiate 3 audiences (Investors/Buyers/Landowners) visually.
-- **Decision**: Chose the same 2 hex values for every card and state over a per-audience accent color.
-- **Reason**: Three audiences inviting three brand colors is a common trap that turns a selector into a hierarchy by hue; staying inside 2 colors keeps all three paths reading as equally legitimate.
-- **Evidence**: `accentCandidates` = the same 2 values across all cards; no audience-specific hue anywhere in `domData`.
+### Two-Radius System
+- **Trigger**: Needing to distinguish "this is a container" from "this is an action" across dozens of repeated components.
+- **Decision**: Every rounded corner is exactly 16px or a full pill over a graduated radius scale that could soften different components differently.
+- **Reason**: Two shapes are enough vocabulary to be instantly legible without thinking; a third intermediate radius would ask the eye to classify a distinction nobody needs.
+- **Evidence**: `effects.radii` — 16px (9×) and pill/`9999px` (6×) are the only two values across the whole sampled tree.
 
-### The Hero Argues Before It Shows
-- **Trigger**: Opening a page about physical, photogenic things — cattle, pasture, land.
-- **Decision**: Chose ~900px of pure typography on flat cream over an image-led, photo-background hero.
-- **Reason**: A hero photo front-loads whose land/cattle you're looking at before the visitor has chosen an audience; withholding imagery until the card section means the first photo shown is already relevant to the path they're leaning toward.
-- **Evidence**: Hero is `min-h-screen` of type only; `images.length === 3`, all `role: feature`, all inside cards; zero images above the fold.
+### Single Weight Pair
+- **Trigger**: A page with 6 distinct font sizes (48px→14px) already had plenty of hierarchy machinery available from size alone.
+- **Decision**: Exactly two font weights (400, 600) for the entire page over a fuller ladder that would let size, weight, and color all carry hierarchy independently.
+- **Reason**: Stacking weight variation on top of an already-wide size range multiplies the number of "looks" a reader has to parse as meaningfully different; two weights keeps emphasis legible at a glance.
+- **Evidence**: `weightDistribution` — 400 (24×) everywhere else, 600 (9×) used only for the 3 uppercase eyebrow labels (INVESTORS/BUYERS/LANDOWNERS).
 
-### Containers Own Spacing, Elements Don't
-- **Trigger**: Laying out 3 internally-complex cards (image, eyebrow, title, teaser, plus back-face description and two buttons).
-- **Decision**: Chose `margin: 0` on every element plus `gap` on containers over per-element margin tuning.
-- **Reason**: A page whose entire content is "3 identical cards, twice" needs the 3 cards to be provably identical — gap-only spacing makes drift between them structurally impossible rather than a matter of discipline.
-- **Evidence**: `margin: 0px` on 7/7 sampled tags (section, h1, h2, h3, p, ul, button); `gap` present on `ul` and `section` instead.
+### Alignment as Mode-Switch
+- **Trigger**: The page mixes two reading modes — "here is one statement to receive" (hero) and "here are three things to compare" (the audience cards).
+- **Decision**: Center-aligned every full-bleed, singular block (hero copy, section heading, footer) but left-aligned everything living inside a bounded card, over picking one alignment site-wide.
+- **Reason**: Centering signals "there's nothing to scan, just read this," while left-alignment signals "this is a list item, compare it to its neighbors" — the alignment itself tells the visitor which mental mode to switch into before reading a word.
+- **Evidence**: Hero/heading/footer text-align center; PathCard title/description text-align left — confirmed in both the DOM sample and the screenshot.

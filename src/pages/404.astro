@@ -1,0 +1,11 @@
+---
+import Layout from "../components/Layout.astro";
+import Hero from "../components/notfound/Hero.astro";
+import { getNotFoundContent } from "../lib/notFound/not-found-repository";
+
+const content = await getNotFoundContent();
+---
+
+<Layout title="Page not found — Orbolo" noindex>
+  <Hero {...content} />
+</Layout>

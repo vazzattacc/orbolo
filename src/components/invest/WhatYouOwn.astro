@@ -6,7 +6,13 @@ interface Props {
 const { body } = Astro.props;
 ---
 
-<section aria-labelledby="what-you-own-heading" class="mx-auto flex max-w-3xl flex-col gap-4 px-4 py-16">
-  <h2 id="what-you-own-heading" class="font-subtitle text-3xl text-orbolo-green">What you own, precisely</h2>
-  <p class="font-body text-lg text-orbolo-green/80">{body}</p>
+<section
+  aria-labelledby="what-you-own-heading"
+  class="scroll-bg flex flex-col justify-center px-4 py-20"
+  style="--scroll-bg-image: url('/images/invest/what-you-own-background.jpg')"
+>
+  <div class="mx-auto flex w-full max-w-3xl flex-col gap-4">
+    <h2 id="what-you-own-heading" class="font-subtitle text-3xl text-orbolo-green">What you own, precisely</h2>
+    <p class="font-body text-lg text-orbolo-green/80">{body}</p>
+  </div>
 </section>

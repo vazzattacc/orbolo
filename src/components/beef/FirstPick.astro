@@ -6,7 +6,13 @@ interface Props {
 const { body } = Astro.props;
 ---
 
-<section aria-labelledby="first-pick-heading" class="mx-auto flex max-w-3xl flex-col gap-4 px-4 py-16">
-  <h2 id="first-pick-heading" class="font-subtitle text-3xl text-orbolo-green">First pick</h2>
-  <p class="font-body text-lg text-orbolo-green/80">{body}</p>
+<section
+  aria-labelledby="first-pick-heading"
+  class="scroll-bg flex flex-col justify-center px-4 py-20"
+  style="--scroll-bg-image: url('/images/beef/first-pick-background.jpg')"
+>
+  <div class="mx-auto flex w-full max-w-3xl flex-col gap-4">
+    <h2 id="first-pick-heading" class="font-subtitle text-3xl text-orbolo-green">First pick</h2>
+    <p class="font-body text-lg text-orbolo-green/80">{body}</p>
+  </div>
 </section>

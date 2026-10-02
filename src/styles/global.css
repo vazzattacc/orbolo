@@ -2,7 +2,7 @@
 
 /*
  * Design tokens per .specify/memory/constitution.md (Additional Constraints,
- * amended 2026-09-19). Colors are fixed, not referential. Typography names
+ * amended 2026-09-30). Colors are fixed, not referential. Typography names
  * (HeliosExtC/Suisse Int'l/Verbena/Roslindale Cyr Deck Narrow) are
  * referential — the constitution explicitly allows a similar-looking,
  * free-license substitute. No licensed or substitute font FILES are bundled
@@ -10,10 +10,22 @@
  * of its intended register (extended grotesk / humanist sans / serif
  * italic / condensed serif caps) until real font files are sourced into
  * public/fonts/<family>/ and declared via @font-face.
+ *
+ * --color-orbolo-accent (added 2026-09-30, specs/003-site-launch-essentials
+ * Scope Change): accent/fill use ONLY — background blocks, button fills,
+ * borders, decorative elements. NEVER use it as a text color (`color:` /
+ * Tailwind `text-orbolo-accent`) — it measures 1.48:1 against both the
+ * cream and (symmetrically) against itself as a background under cream
+ * text, far below WCAG AA. Vaz reviewed and accepted this 2026-09-30,
+ * scoped strictly to non-text usage. Text placed over an accent fill needs
+ * its own separately-chosen, separately-contrast-checked color — never
+ * assume `--color-orbolo-cream` or `--color-orbolo-green` is safe there
+ * without checking that specific pairing.
  */
 @theme {
   --color-orbolo-green: #516b3e;
   --color-orbolo-cream: #f8f4e9;
+  --color-orbolo-accent: #bfd55d;
 
   --font-title: "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
   --font-body: "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -68,4 +80,28 @@ body {
 
   background-size: cover;
   background-position: center;
+}
+
+/* Scroll-revealed section photography (Invest/Land, 2026-10-02 — Vaz
+   requested these two pages feel less flat/HTML-only as you scroll). Each
+   usage sets --scroll-bg-image inline; a cream wash sits between the photo
+   and the content so text keeps the same green-on-cream contrast it has
+   everywhere else, rather than sitting raw on the photo the way Home's
+   hero text does. */
+.scroll-bg {
+  position: relative;
+  background-image: var(--scroll-bg-image);
+  background-size: cover;
+  background-position: center;
+}
+
+.scroll-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: color-mix(in srgb, var(--color-orbolo-cream) 58%, transparent);
+}
+
+.scroll-bg > * {
+  position: relative;
 }

@@ -1,0 +1,38 @@
+---
+import Layout from "../components/Layout.astro";
+import { getLegalDocument } from "../lib/legal/legal-repository";
+
+// FR-LEG-004/007: if the document isn't approved (or doesn't exist), this
+// route must never fabricate legal text — it renders a minimal "not
+// available" state instead. Footer.astro already never links here in that
+// case, so a visitor only lands on this route directly/accidentally.
+const document = await getLegalDocument("privacy");
+---
+
+<Layout title="Privacy — Orbolo" noindex={!document}>
+  {
+    document ? (
+      <div class="mx-auto flex max-w-3xl flex-col gap-8 px-4 py-16">
+        <div class="flex flex-col gap-2">
+          <h1 class="font-subtitle text-4xl text-orbolo-green">Privacy</h1>
+          <p class="font-body text-sm text-orbolo-green/60">
+            {document.sourceLastUpdated ? `Last updated ${document.sourceLastUpdated}` : `Fetched ${document.fetchedOn}`}
+          </p>
+        </div>
+        {document.body.map((section) => (
+          <div class="flex flex-col gap-2">
+            <h2 class="font-subtitle text-2xl text-orbolo-green">{section.heading}</h2>
+            {section.paragraphs.map((paragraph) => (
+              <p class="font-body text-orbolo-green/80">{paragraph}</p>
+            ))}
+          </div>
+        ))}
+      </div>
+    ) : (
+      <div class="mx-auto flex max-w-2xl flex-col gap-4 px-4 py-20 text-center">
+        <h1 class="font-subtitle text-3xl text-orbolo-green">Privacy</h1>
+        <p class="font-body text-orbolo-green/80">This page isn’t available yet.</p>
+      </div>
+    )
+  }
+</Layout>

@@ -1,0 +1,32 @@
+[
+  {
+    "id": "home",
+    "route": "/",
+    "description": "Orbolo connects investors, ranches, and buyers across Paraguay — own cattle on a working ranch, or source grass-fed beef raised under the Orbolo Code.",
+    "indexable": true
+  },
+  {
+    "id": "invest",
+    "route": "/invest",
+    "description": "Own cattle on a working ranch in Paraguay, raised under the Orbolo Code. A ranch releases for deployment once 60% of its threshold is committed.",
+    "indexable": true
+  },
+  {
+    "id": "beef",
+    "route": "/beef",
+    "description": "Grass-fed beef from Paraguay, sold at conventional prices. We’re building a 300,000-head producer alliance and a full traceability layer behind it.",
+    "indexable": true
+  },
+  {
+    "id": "land",
+    "route": "/land",
+    "description": "El Tapir is Orbolo’s own farm in Paraguay’s Gran Chaco. See how Ganadería a Pasto grows supply, and find out how to work with us if you own land.",
+    "indexable": true
+  },
+  {
+    "id": "contact",
+    "route": "/contact",
+    "description": "Reach Orbolo about investing in a herd, buying grass-fed Paraguayan beef, or putting your land to work in a managed grazing partnership.",
+    "indexable": true
+  }
+]

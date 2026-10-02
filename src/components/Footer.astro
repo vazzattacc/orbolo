@@ -1,0 +1,33 @@
+---
+import { getLegalDocument } from "@/lib/legal/legal-repository";
+
+// FR-LEG-001: a link renders only when its destination page actually
+// ships — getLegalDocument() already collapses "missing" and "not yet
+// approved" into the same undefined signal (research.md §5), so this
+// component never re-checks an `approved` flag itself.
+const privacy = await getLegalDocument("privacy");
+const terms = await getLegalDocument("terms");
+---
+
+<footer aria-label="Legal" class="mx-auto flex max-w-6xl justify-center gap-6 px-4 py-6">
+  {
+    privacy && (
+      <a
+        href="/privacy"
+        class="font-body text-sm text-orbolo-green underline decoration-orbolo-green/40 underline-offset-4 outline-none hover:decoration-orbolo-accent focus-visible:ring-2 focus-visible:ring-orbolo-green"
+      >
+        Privacy
+      </a>
+    )
+  }
+  {
+    terms && (
+      <a
+        href="/terms"
+        class="font-body text-sm text-orbolo-green underline decoration-orbolo-green/40 underline-offset-4 outline-none hover:decoration-orbolo-accent focus-visible:ring-2 focus-visible:ring-orbolo-green"
+      >
+        Terms
+      </a>
+    )
+  }
+</footer>

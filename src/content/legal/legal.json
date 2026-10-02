@@ -1,0 +1,196 @@
+[
+  {
+    "id": "privacy",
+    "sourceUrl": "https://www.orbolo.com/privacy-policy",
+    "fetchedOn": "2026-10-02",
+    "body": [
+      {
+        "heading": "1. Introduction",
+        "paragraphs": [
+          "Welcome to Orbolo, your trusted source for ecosystem regeneration projects in Austria. We are committed to protecting your privacy and ensuring that your personal information is secure. This Privacy Policy explains how we collect, use, and protect your information when you use our website."
+        ]
+      },
+      {
+        "heading": "2. Information We Collect",
+        "paragraphs": [
+          "We collect various types of information to provide and improve our services, including:",
+          "Personal Information: Data you provide directly to us, such as your name, email address, phone number, and postal address.",
+          "Usage Data: Information automatically collected about how you access and use our website, such as your IP address, browser type, pages visited, and time spent on each page.",
+          "Cookies and Similar Technologies: We use cookies and similar technologies to track activity on our website and retain certain information."
+        ]
+      },
+      {
+        "heading": "3. How We Use Your Information",
+        "paragraphs": [
+          "We use the information collected for various purposes:",
+          "To provide and maintain our service.",
+          "To notify you about changes to our service.",
+          "To allow you to participate in interactive features when you choose to do so.",
+          "To provide customer support.",
+          "To gather analysis or valuable information to improve our service.",
+          "To monitor the usage of our service.",
+          "To detect, prevent, and address technical issues."
+        ]
+      },
+      {
+        "heading": "4. Sharing Your Information",
+        "paragraphs": [
+          "We do not share your personal information with third parties, except in the following circumstances:",
+          "With Your Consent: We may share your information with your explicit consent.",
+          "For Legal Compliance: When required by law or in response to valid requests by public authorities.",
+          "Service Providers: We may employ third-party companies and individuals to facilitate our service (\"Service Providers\"), who have access to your personal information only to perform these tasks on our behalf and are obligated not to disclose or use it for any other purpose."
+        ]
+      },
+      {
+        "heading": "5. Security of Your Information",
+        "paragraphs": [
+          "The security of your personal information is important to us, and we use standard security measures to protect it. However, remember that no method of transmission over the Internet or method of electronic storage is 100% secure, and we cannot guarantee its absolute security."
+        ]
+      },
+      {
+        "heading": "6. Your Rights",
+        "paragraphs": [
+          "You have the right to:",
+          "Access, update, or delete the information we have about you.",
+          "Rectify incorrect or incomplete information.",
+          "Object to the processing of your personal information.",
+          "Request the restriction of processing your personal information.",
+          "Request the transfer of your personal information.",
+          "To exercise these rights, please contact us using the contact information provided on this website."
+        ]
+      },
+      {
+        "heading": "7. Links to Other Sites",
+        "paragraphs": [
+          "Our service may contain links to other sites that are not operated by us. If you click on a third-party link, you will be directed to that third party's site. We advise you to review the Privacy Policy of every site you visit. We have no control over and assume no responsibility for the content, privacy policies, or practices of any third-party sites or services."
+        ]
+      },
+      {
+        "heading": "8. Changes to This Privacy Policy",
+        "paragraphs": [
+          "We may update our Privacy Policy periodically. We will notify you of any changes by posting the new Privacy Policy on this page. You are advised to review this Privacy Policy periodically for any changes. Changes to this Privacy Policy are effective when they are posted on this page."
+        ]
+      },
+      {
+        "heading": "9. Contact Us",
+        "paragraphs": [
+          "If you have any questions about this Privacy Policy, please contact us via email: contact@orbolo.com"
+        ]
+      }
+    ],
+    "approved": false,
+    "reviewNotes": [
+      "§1 uses the banned word \"ecosystem\" (§B2.6: sustainable, holistic, impact, journey, solution, ecosystem, unlock, seamless, leverage, empower, passionate).",
+      "§1 describes Orbolo as a source of \"ecosystem regeneration projects in Austria\" — the pre-repositioning NGO-style framing the brief explicitly retires (brief §2), not the new site's commercial-group-in-Paraguay framing.",
+      "§2/§3 describe cookie-based tracking (\"Cookies and Similar Technologies... track activity... retain certain information\") — directly conflicts with the new site's cookieless Plausible analytics and no-cookie-banner decision (FR-AN-002). This policy as written would be describing tracking the new site does not do.",
+      "No \"last updated\" or \"effective date\" appears on the source page — FR-LEG-006 requires showing the fetch date (2026-10-02) labeled as \"Fetched\", not a source-stated date.",
+      "No mechanical fixes applied beyond transcription into this site's structured format — wording is verbatim from the source."
+    ]
+  },
+  {
+    "id": "terms",
+    "sourceUrl": "https://www.orbolo.com/terms-conditions",
+    "fetchedOn": "2026-10-02",
+    "body": [
+      {
+        "heading": "1. Introduction",
+        "paragraphs": [
+          "Welcome to the Orbolo GmbH website. Orbolo is dedicated to scale the implementation of regenerative farms and securing investments for sustainable projects in Latin America and Europe. Additionally, we are committed to developing educational projects related to sustainable and regenerative practices. By accessing or using this website, you agree to comply with these Terms and Conditions. If you do not agree with them, please do not use the site."
+        ]
+      },
+      {
+        "heading": "2. Definitions",
+        "paragraphs": [
+          "Orbolo: refers to the company incorporated as Orbolo GmbH.",
+          "User: Any person who accesses or uses the website.",
+          "Services: Activities related to the implementation of regenerative farm projects and securing investments.",
+          "Investor: Any person or entity that invests capital in the projects offered through the website.",
+          "Education: Educational projects related to regenerative and sustainable agricultural practices."
+        ]
+      },
+      {
+        "heading": "3. Company Services",
+        "paragraphs": [
+          "Orbolo is dedicated to:",
+          "Implementing regenerative farm projects, enhancing biodiversity and sustainable use of natural resources.",
+          "Securing investments to finance these projects, ensuring both economic and environmental returns.",
+          "Developing and implementing educational projects focused on training in sustainable and regenerative agricultural practices.",
+          "Note: Orbolo does not offer consultancy services."
+        ]
+      },
+      {
+        "heading": "4. Investments",
+        "paragraphs": [
+          "4.1 Investment Opportunities: Orbolo offers investment opportunities in projects related to regenerative farms. The User may choose to invest under the specific conditions established for each project.",
+          "4.2 Investment Conditions: Each investment opportunity will be governed by its own specific terms, which may include return periods, interest rates, and associated risks. Orbolo does not guarantee specific returns and advises investors to conduct their own due diligence.",
+          "4.3 Risks: Investing in regenerative agricultural projects involves financial risks. The User acknowledges that the Company is not responsible for losses resulting from these investments."
+        ]
+      },
+      {
+        "heading": "5. Educational Projects",
+        "paragraphs": [
+          "Orbolo is committed to training and educating local communities and young people in regenerative agriculture, sustainable resource management, and other areas related to environmental sustainability. These educational projects are designed to foster knowledge and the long-term implementation of sustainable techniques."
+        ]
+      },
+      {
+        "heading": "6. Website Use",
+        "paragraphs": [
+          "The User agrees to use the Site legally and in accordance with these Terms and Conditions. The use of the Site for any illegal or fraudulent purposes is prohibited."
+        ]
+      },
+      {
+        "heading": "7. Intellectual Property",
+        "paragraphs": [
+          "All content available on the Site, including texts, graphics, logos, images, videos, and any other material, is the property of Orbolo and is protected by intellectual property laws. No part of the content may be copied, distributed, or used without prior written consent from Orbolo."
+        ]
+      },
+      {
+        "heading": "8. Limitation of Liability",
+        "paragraphs": [
+          "8.1 Site Use: Orbolo does not guarantee that the Site will be error-free or uninterrupted. The User accesses and uses the Site at their own risk.",
+          "8.2 Investments: Orbolo is not responsible for the profitability or financial results of investments made through the Site. Investments are subject to inherent risks, and the User is responsible for making informed decisions."
+        ]
+      },
+      {
+        "heading": "9. Data Protection",
+        "paragraphs": [
+          "Orbolo is committed to protecting Users' privacy and handling personal information in accordance with our Privacy Policy. Orbolo complies with applicable data protection regulations, such as the General Data Protection Regulation (GDPR) in Europe and other relevant legislation in Latin America."
+        ]
+      },
+      {
+        "heading": "10. Special Consideration for Austrian Law",
+        "paragraphs": [
+          "Since Orbolo is a company registered in Austria, all matters related to the interpretation, validity, and enforcement of these Terms and Conditions will be governed by Austrian law, unless otherwise stipulated. Any legal disputes arising from the use of the website or the services offered will be subject to the jurisdiction of the competent courts in Austria.",
+          "Furthermore, Orbolo complies with all applicable regulations in Austria regarding financial investments, data protection, and business operations. It is important to note that investment opportunities offered by Orbolo may not be publicly offered or sold in Austria without complying with specific exemptions from the prospectus publication requirements under the Austrian Capital Markets Act 2019 and the Austrian Alternative Financing Act."
+        ]
+      },
+      {
+        "heading": "11. Modification of Terms and Conditions",
+        "paragraphs": [
+          "Orbolo reserves the right to modify these Terms and Conditions at any time. Modifications will become effective once posted on the Site. Continued use of the Site after any changes constitutes acceptance of the modified Terms."
+        ]
+      },
+      {
+        "heading": "12. Governing Law and Jurisdiction",
+        "paragraphs": [
+          "These Terms and Conditions will be governed by Austrian law, and any dispute will be resolved by the competent courts of Austria, unless otherwise stated."
+        ]
+      },
+      {
+        "heading": "13. Contact",
+        "paragraphs": [
+          "If you have any questions or inquiries regarding these Terms and Conditions, you can contact us at contact@orbolo.com."
+        ]
+      }
+    ],
+    "approved": false,
+    "reviewNotes": [
+      "MAJOR — §§1/2/4/8/10/12 name \"Orbolo GmbH\", a company registered in Austria, as the direct investment counterparty (\"Orbolo offers investment opportunities\", \"investments made through the Site\"), governed by Austrian law and the Austrian Capital Markets Act. This directly conflicts with the new site's entire investor-funnel premise (002 FR-GEN-004 / spec.md FR-GEN3-004): the contracting party for herd ownership must always be the Paraguayan operating company, never Orbolo itself — this document describes the opposite structure entirely. This is a legal/structural conflict, not a wording fix, and almost certainly needs counsel review before any version of this Terms page ships.",
+      "§§1/3/4/5 use the banned word \"sustainable\" repeatedly (\"sustainable projects\", \"sustainable use of natural resources\", \"sustainable and regenerative practices\", \"sustainable resource management\", \"sustainable techniques\", \"environmental sustainability\") — §B2.6.",
+      "§§1/3/4/5 frame the company's work as \"regenerative farms\"/\"regenerative agricultural practices\" throughout — consistent with the pre-repositioning NGO-style voice the brief retires (§2), not reviewed/rewritten here per FR-LEG-005.",
+      "§10 ties the business to Austrian financial-instrument regulation (Austrian Capital Markets Act 2019, Austrian Alternative Financing Act) with no mention of Paraguay — an entirely different regulatory jurisdiction than the brief's operating premise.",
+      "No \"last updated\" or \"effective date\" appears on the source page — FR-LEG-006 requires showing the fetch date (2026-10-02) labeled as \"Fetched\", not a source-stated date.",
+      "No mechanical fixes applied beyond transcription into this site's structured format — wording is verbatim from the source."
+    ]
+  }
+]

@@ -18,7 +18,11 @@ const NAV_LINKS = [
   { label: "Contact", href: "/contact" },
 ] as const;
 
-const currentPath = Astro.url.pathname;
+// Astro.url.pathname is "/invest/" (trailing slash) at render time for a
+// directory-style static build, but every href above is written without
+// one — normalize so aria-current actually matches (previously silently
+// never did, except on "/").
+const currentPath = Astro.url.pathname === "/" ? "/" : Astro.url.pathname.replace(/\/$/, "");
 ---
 
 <nav aria-label="Primary" class="bg-orbolo-cream px-4 py-3">

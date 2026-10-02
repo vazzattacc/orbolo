@@ -7,7 +7,12 @@ interface Props {
 const { headline, allianceNote } = Astro.props;
 ---
 
-<section class="flex flex-col items-center gap-6 bg-orbolo-cream px-4 py-20 text-center">
-  <h1 class="font-subtitle text-balance max-w-3xl text-4xl text-orbolo-green sm:text-5xl">{headline}</h1>
-  <p class="font-body max-w-2xl text-lg text-orbolo-green/80">{allianceNote}</p>
+<section
+  class="scroll-bg flex min-h-[70vh] flex-col items-center justify-center gap-6 px-4 py-20 text-center"
+  style="--scroll-bg-image: url('/images/beef/hero-background.jpg')"
+>
+  <div class="mx-auto flex flex-col items-center gap-6">
+    <h1 class="font-subtitle text-balance max-w-3xl text-4xl text-orbolo-green sm:text-5xl">{headline}</h1>
+    <p class="font-body max-w-2xl text-lg text-orbolo-green/80">{allianceNote}</p>
+  </div>
 </section>

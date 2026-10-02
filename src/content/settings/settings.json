@@ -1,6 +1,9 @@
 [
   {
     "id": "settings",
-    "contractingEntityName": "Orbolo"
+    "contractingEntityName": "Orbolo",
+    "siteName": "Orbolo",
+    "socialImagePath": "/images/social/og-default.png",
+    "socialImageAlt": "The Orbolo wordmark on a cream background."
   }
 ]

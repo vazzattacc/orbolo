@@ -7,6 +7,9 @@ import { investPageSchema } from "./lib/invest/schema";
 import { settingsSchema } from "./lib/settings/schema";
 import { beefPageSchema } from "./lib/beef/schema";
 import { landPageSchema } from "./lib/land/schema";
+import { pageMetaSchema } from "./lib/pageMeta/schema";
+import { notFoundContentSchema } from "./lib/notFound/schema";
+import { legalDocumentSchema } from "./lib/legal/schema";
 
 const paths = defineCollection({
   loader: file("src/content/paths/paths.json"),
@@ -43,4 +46,19 @@ const land = defineCollection({
   schema: landPageSchema,
 });
 
-export const collections = { paths, metrics, ranches, invest, settings, beef, land };
+const pageMeta = defineCollection({
+  loader: file("src/content/pageMeta/pageMeta.json"),
+  schema: pageMetaSchema,
+});
+
+const notFound = defineCollection({
+  loader: file("src/content/notFound/notFound.json"),
+  schema: notFoundContentSchema,
+});
+
+const legal = defineCollection({
+  loader: file("src/content/legal/legal.json"),
+  schema: legalDocumentSchema,
+});
+
+export const collections = { paths, metrics, ranches, invest, settings, beef, land, pageMeta, notFound, legal };
