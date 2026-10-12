@@ -1,0 +1,38 @@
+---
+/**
+ * Full-screen photo hero: the photo drifts slowly behind a forest shade,
+ * the title sits top-left and the `side` slot bottom-right. `center` is for
+ * single short statements (Contact, 404); `trail` turns on the contact
+ * page's mouse trail (motion.ts).
+ */
+import type { HTMLAttributes } from "astro/types";
+
+interface Props extends HTMLAttributes<"section"> {
+  image: string;
+  center?: boolean;
+  trail?: boolean;
+  scrollCue?: boolean;
+}
+
+const { image, center = false, trail = false, scrollCue = false, class: className, ...rest } = Astro.props;
+---
+
+<section class:list={["phero", { "phero--center": center }, className]} data-trail={trail ? "" : undefined} {...rest}>
+  <div class="phero__media" aria-hidden="true">
+    <img src={image} alt="" fetchpriority="high" decoding="async" />
+  </div>
+  <div class="phero__shade" aria-hidden="true"></div>
+  <div class="phero__inner">
+    <div class="phero__title"><slot /></div>
+    {Astro.slots.has("side") && <div class="phero__side"><slot name="side" /></div>}
+  </div>
+  {
+    scrollCue && (
+      <div class="phero__scroll caps caps--sm" aria-hidden="true">
+        <i />
+        Scroll
+      </div>
+    )
+  }
+  <slot name="after" />
+</section>

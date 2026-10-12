@@ -58,6 +58,19 @@ const isNoindex = noindex || (pageMeta ? !pageMeta.indexable : false);
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
+    <meta name="theme-color" content="#36472b" />
+    <link rel="preload" href="/fonts/HeliosExtC-Bold.ttf" as="font" type="font/ttf" crossorigin />
+    <link rel="preload" href="/fonts/SuisseIntl-Book.ttf" as="font" type="font/ttf" crossorigin />
+
+    <!-- Headings wait for their character reveal only while the motion
+         script runs; if it hasn't marked them ready within 3s (blocked or
+         failed script) they simply show. -->
+    <script is:inline>
+      document.documentElement.classList.add("js");
+      setTimeout(function () {
+        document.querySelectorAll("[data-split]").forEach(function (el) { el.classList.add("is-ready"); });
+      }, 3000);
+    </script>
 
     <!-- FR-AN-001/002/003/004 (research.md §7): Plausible's own domain
          matching means a view is only ever recorded when the request
@@ -66,9 +79,10 @@ const isNoindex = noindex || (pageMeta ? !pageMeta.indexable : false);
     <script defer data-domain="orbolo.com" src="https://plausible.io/js/script.js"></script>
 
     <ClientRouter />
+    <script src="../scripts/motion.ts"></script>
   </head>
   <body>
-    <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:bg-orbolo-cream focus:px-4 focus:py-2 focus:text-orbolo-green">
+    <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[70] focus:bg-orbolo-lime focus:px-4 focus:py-2 focus:text-orbolo-forest">
       Skip to content
     </a>
     <Nav />

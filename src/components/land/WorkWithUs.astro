@@ -1,4 +1,7 @@
 ---
+import CtaCollage from "@/components/ui/CtaCollage.astro";
+import Btn from "@/components/ui/Btn.astro";
+
 interface Props {
   ctaLabel: string;
   ctaHref: string;
@@ -7,21 +10,10 @@ interface Props {
 const { ctaLabel, ctaHref } = Astro.props;
 ---
 
-<section
-  aria-labelledby="work-with-us-heading"
-  class="scroll-bg flex flex-col items-center px-4 py-20 text-center"
-  style="--scroll-bg-image: url('/images/land/work-with-us-background.jpg')"
->
-  <div class="mx-auto flex max-w-3xl flex-col items-center gap-6">
-    <h2 id="work-with-us-heading" class="font-subtitle text-3xl text-orbolo-green">Own land in Paraguay?</h2>
-    <p class="font-body text-lg text-orbolo-green/80">
-      Put idle or underused land to work in a managed grazing partnership.
-    </p>
-    <a
-      href={ctaHref}
-      class="font-title rounded-full bg-orbolo-green px-6 py-3 text-orbolo-cream outline-none hover:bg-orbolo-accent focus-visible:ring-2 focus-visible:ring-orbolo-green focus-visible:ring-offset-2"
-    >
-      {ctaLabel}
-    </a>
-  </div>
-</section>
+<CtaCollage aria-labelledby="work-with-us-heading" class="sec--rule">
+  <h2 id="work-with-us-heading" class="h2 t-lime max-w-[9em]" data-split>Own land in Paraguay?</h2>
+  <p class="caps max-w-[27em]">Bring your ranch into the system. Cattle graze under the trees, not instead of them.</p>
+  <Fragment slot="buttons">
+    <Btn href={ctaHref} label={ctaLabel} />
+  </Fragment>
+</CtaCollage>

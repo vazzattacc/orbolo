@@ -4,7 +4,7 @@ import { expect, test } from "@playwright/test";
 
 const PAGES = [
   { path: "/", label: "Home" },
-  { path: "/invest", label: "Invest" },
+  { path: "/invest", label: "Remote Rancher" },
   { path: "/beef", label: "Beef" },
   { path: "/land", label: "Land" },
 ];
@@ -30,7 +30,7 @@ test("nav links actually navigate to their target page", async ({ page }) => {
   await page.goto("/");
   const nav = page.getByRole("navigation", { name: "Primary" });
 
-  await nav.getByRole("link", { name: "Invest", exact: true }).click();
+  await nav.getByRole("link", { name: "Remote Rancher", exact: true }).click();
   await expect(page).toHaveURL(/\/invest\/?$/);
 
   await nav.getByRole("link", { name: "Beef", exact: true }).click();

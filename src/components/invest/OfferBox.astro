@@ -1,4 +1,6 @@
 ---
+import Split from "@/components/ui/Split.astro";
+
 interface Props {
   included: string[];
   termsOnRequestNote: string;
@@ -7,10 +9,23 @@ interface Props {
 const { included, termsOnRequestNote } = Astro.props;
 ---
 
-<section aria-labelledby="offer-box-heading" class="mx-auto flex max-w-3xl flex-col gap-4 px-4 py-16">
-  <h2 id="offer-box-heading" class="font-subtitle text-3xl text-orbolo-green">What’s included</h2>
-  <ul class="font-body flex list-disc flex-col gap-2 pl-5 text-lg text-orbolo-green/80" role="list">
-    {included.map((item) => <li>{item}</li>)}
-  </ul>
-  <p class="font-body text-orbolo-green/80">{termsOnRequestNote}</p>
-</section>
+<Split
+  image="/images/site/gaucho-nelore.jpg"
+  alt="A rider moves a herd of white zebu cattle across green pasture."
+  aria-labelledby="offer-box-heading"
+>
+  <h2 id="offer-box-heading" class="h2 t-lime" data-split>What’s included</h2>
+  <Fragment slot="foot">
+    <ul class="rows" role="list" data-reveal-group>
+      {
+        included.map((item, i) => (
+          <li>
+            <span class="rows__num">{String(i + 1).padStart(2, "0")}</span>
+            <span class="caps rows__text">{item}</span>
+          </li>
+        ))
+      }
+    </ul>
+    <p class="caps caps--sm">{termsOnRequestNote}</p>
+  </Fragment>
+</Split>

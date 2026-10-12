@@ -12,26 +12,26 @@ const document = await getLegalDocument("privacy");
 <Layout title="Privacy — Orbolo" noindex={!document}>
   {
     document ? (
-      <div class="mx-auto flex max-w-3xl flex-col gap-8 px-4 py-16">
-        <div class="flex flex-col gap-2">
-          <h1 class="font-subtitle text-4xl text-orbolo-green">Privacy</h1>
-          <p class="font-body text-sm text-orbolo-green/60">
+      <div class="prose-page">
+        <div class="flex flex-col gap-4">
+          <h1 class="h1 t-paper" data-split>Privacy</h1>
+          <p class="caps caps--sm t-lime">
             {document.sourceLastUpdated ? `Last updated ${document.sourceLastUpdated}` : `Fetched ${document.fetchedOn}`}
           </p>
         </div>
         {document.body.map((section) => (
-          <div class="flex flex-col gap-2">
-            <h2 class="font-subtitle text-2xl text-orbolo-green">{section.heading}</h2>
+          <section>
+            <h2 class="h3 t-lime">{section.heading}</h2>
             {section.paragraphs.map((paragraph) => (
-              <p class="font-body text-orbolo-green/80">{paragraph}</p>
+              <p class="copy">{paragraph}</p>
             ))}
-          </div>
+          </section>
         ))}
       </div>
     ) : (
-      <div class="mx-auto flex max-w-2xl flex-col gap-4 px-4 py-20 text-center">
-        <h1 class="font-subtitle text-3xl text-orbolo-green">Privacy</h1>
-        <p class="font-body text-orbolo-green/80">This page isn’t available yet.</p>
+      <div class="prose-page min-h-[70svh] content-center text-center">
+        <h1 class="h1 t-paper" data-split>Privacy</h1>
+        <p class="caps">This page isn’t available yet.</p>
       </div>
     )
   }

@@ -1,14 +1,13 @@
 ---
 import Layout from "../components/Layout.astro";
+import PhotoHero from "../components/ui/PhotoHero.astro";
 ---
 
 <Layout title="Contact — Orbolo">
-  <div class="flex min-h-screen flex-col items-center justify-center gap-4 bg-orbolo-cream px-4 text-center">
-    <h1 class="font-subtitle text-4xl text-orbolo-green">Contact</h1>
-    <p class="font-body max-w-xl text-lg text-orbolo-green/80">
-      This is a placeholder destination. The real Contact page and form are a separate feature — this stub exists so
-      the site-wide Contact link (in the top navigation bar) always resolves to a real page rather than a broken
-      link, per OQ-015.
-    </p>
-  </div>
+  <PhotoHero image="/images/site/brahman-four.jpg" trail>
+    <h1 class="h1 h1--xl t-paper" data-split>Contact</h1>
+    <Fragment slot="side">
+      <p class="lede">Own a herd, buy beef, or bring your land: this is where we talk. Our contact form is on its way.</p>
+    </Fragment>
+  </PhotoHero>
 </Layout>

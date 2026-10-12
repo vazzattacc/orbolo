@@ -4,7 +4,7 @@ import { expect, test } from "@playwright/test";
 
 const EXISTING_TITLES: Record<string, string> = {
   "/": "Orbolo",
-  "/invest": "Invest — Orbolo",
+  "/invest": "Remote Rancher — Orbolo",
   "/beef": "Beef — Orbolo",
   "/land": "Land — Orbolo",
   "/contact": "Contact — Orbolo",
@@ -38,7 +38,7 @@ test("every public page has a unique title and a unique description", async ({ p
 test("every page exposes a complete social-preview tag set", async ({ page }) => {
   await page.goto("/invest");
 
-  await expect(page.locator('meta[property="og:title"]')).toHaveAttribute("content", "Invest — Orbolo");
+  await expect(page.locator('meta[property="og:title"]')).toHaveAttribute("content", "Remote Rancher — Orbolo");
   await expect(page.locator('meta[property="og:description"]')).toHaveAttribute("content", /.+/);
   await expect(page.locator('meta[property="og:url"]')).toHaveAttribute("content", "https://orbolo.com/invest");
   await expect(page.locator('meta[property="og:type"]')).toHaveAttribute("content", "website");

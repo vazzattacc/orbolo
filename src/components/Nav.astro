@@ -6,17 +6,19 @@
  * included now even though its real destination is still pending
  * (OQ-015) — it points at the stub page in src/pages/contact.astro.
  *
- * No hamburger/disclosure: five short labels simply wrap onto a second
- * line at narrow widths, so every link stays permanently in the DOM and
- * keyboard-reachable without a JS-driven open/close state to get wrong.
+ * Layout follows the preview site's bar (links left, wordmark centre,
+ * Contact right, fixed over the hero), but without its hamburger: every
+ * link stays permanently visible and keyboard-reachable, with no JS-driven
+ * open/close state to get wrong. motion.ts only adds the scrolled backdrop
+ * and steps the bar out of the way while reading downward.
  */
 const NAV_LINKS = [
   { label: "Home", href: "/" },
-  { label: "Invest", href: "/invest" },
+  { label: "Remote Rancher", href: "/invest" },
   { label: "Beef", href: "/beef" },
   { label: "Land", href: "/land" },
-  { label: "Contact", href: "/contact" },
 ] as const;
+const CONTACT = { label: "Contact", href: "/contact" } as const;
 
 // Astro.url.pathname is "/invest/" (trailing slash) at render time for a
 // directory-style static build, but every href above is written without
@@ -25,23 +27,22 @@ const NAV_LINKS = [
 const currentPath = Astro.url.pathname === "/" ? "/" : Astro.url.pathname.replace(/\/$/, "");
 ---
 
-<nav aria-label="Primary" class="bg-orbolo-cream px-4 py-3">
-  <ul class="mx-auto flex max-w-6xl flex-wrap items-center justify-center gap-x-8 gap-y-2" role="list">
+<nav aria-label="Primary" class="nav" data-nav>
+  <div class="nav__group">
     {
-      NAV_LINKS.map((link) => {
-        const isActive = currentPath === link.href;
-        return (
-          <li>
-            <a
-              href={link.href}
-              aria-current={isActive ? "page" : undefined}
-              class="font-title text-lg text-orbolo-green outline-none aria-[current=page]:underline hover:underline focus-visible:ring-2 focus-visible:ring-orbolo-green"
-            >
-              {link.label}
-            </a>
-          </li>
-        );
-      })
+      NAV_LINKS.map((link) => (
+        <a href={link.href} class="caps ulink" aria-current={currentPath === link.href ? "page" : undefined}>
+          {link.label}
+        </a>
+      ))
     }
-  </ul>
+  </div>
+  <a class="nav__logo" href="/" aria-label="Orbolo home">
+    <img src="/images/brand/logo-paper.svg" alt="" width="470" height="219" />
+  </a>
+  <div class="nav__group nav__group--end">
+    <a href={CONTACT.href} class="caps ulink" aria-current={currentPath === CONTACT.href ? "page" : undefined}>
+      {CONTACT.label}
+    </a>
+  </div>
 </nav>

@@ -1,5 +1,7 @@
 ---
 import { getContractingEntityName } from "@/lib/settings/settings-repository";
+import CtaCollage from "@/components/ui/CtaCollage.astro";
+import Btn from "@/components/ui/Btn.astro";
 
 interface Cta {
   label: string;
@@ -15,30 +17,10 @@ const { releaseLine, ctas } = Astro.props;
 const contractingEntityName = await getContractingEntityName();
 ---
 
-<section
-  id="closing"
-  aria-labelledby="closing-heading"
-  class="scroll-bg flex flex-col items-center px-4 py-20 text-center"
-  style="--scroll-bg-image: url('/images/invest/closing-background.jpg')"
->
-  <div class="mx-auto flex max-w-3xl flex-col items-center gap-6">
-    <h2 id="closing-heading" class="font-subtitle text-3xl text-orbolo-green">{releaseLine}</h2>
-    <div class="flex flex-wrap justify-center gap-4">
-      {
-        ctas.map((cta, index) => (
-          <a
-            href={cta.href}
-            class={
-              index === 0
-                ? "font-title rounded-full bg-orbolo-green px-6 py-3 text-orbolo-cream outline-none hover:bg-orbolo-accent focus-visible:ring-2 focus-visible:ring-orbolo-green focus-visible:ring-offset-2"
-                : "font-title rounded-full border border-orbolo-green px-6 py-3 text-orbolo-green outline-none hover:bg-orbolo-green/5 focus-visible:ring-2 focus-visible:ring-orbolo-green focus-visible:ring-offset-2"
-            }
-          >
-            {cta.label}
-          </a>
-        ))
-      }
-    </div>
-    <p class="font-body text-sm text-orbolo-green/60">Contracting entity: {contractingEntityName}</p>
-  </div>
-</section>
+<CtaCollage id="closing" aria-labelledby="closing-heading" class="sec--rule">
+  <h2 id="closing-heading" class="h2 t-lime max-w-[10em]" data-split>{releaseLine}</h2>
+  <p class="caps caps--sm">Contracting entity: {contractingEntityName}</p>
+  <Fragment slot="buttons">
+    {ctas.map((cta, index) => <Btn href={cta.href} label={cta.label} variant={index === 0 ? "light" : "paper"} />)}
+  </Fragment>
+</CtaCollage>

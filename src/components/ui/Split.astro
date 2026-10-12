@@ -1,0 +1,35 @@
+---
+/**
+ * Half photo, half text. The photo settles from a slight zoom as it scrolls
+ * through (motion.ts). `reverse` puts the text on the left; `over` is a
+ * slot for a heading laid over the photo.
+ */
+import type { HTMLAttributes } from "astro/types";
+
+interface Props extends HTMLAttributes<"section"> {
+  image: string;
+  alt: string;
+  reverse?: boolean;
+  sketch?: boolean;
+}
+
+const { image, alt, reverse = false, sketch = false, class: className, ...rest } = Astro.props;
+---
+
+<section class:list={["split", { "split--reverse": reverse }, className]} {...rest}>
+  <div class="split__media">
+    <img src={image} alt={alt} loading="lazy" decoding="async" />
+    {Astro.slots.has("over") && <div class="split__over"><slot name="over" /></div>}
+  </div>
+  <div class="split__text">
+    <slot />
+    {
+      (Astro.slots.has("foot") || sketch) && (
+        <div class="split__foot">
+          <slot name="foot" />
+          {sketch && <img class="split__sketch" src="/images/site/cow-lines-lime.png" alt="" loading="lazy" />}
+        </div>
+      )
+    }
+  </div>
+</section>

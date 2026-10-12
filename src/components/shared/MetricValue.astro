@@ -15,14 +15,14 @@ const metric = await getMetric(metricKey);
 
 {
   metric && (
-    <span class="metric-value">
+    <span class="metric-value metric">
       {prefix}
-      <strong class="font-title text-orbolo-green">
+      <strong>
         {metric.value}
         {metric.unit && ` ${metric.unit}`}
       </strong>
       {suffix}
-      <span class="ml-1 text-xs text-orbolo-green/60" title={metric.sourceDocumentRef}>
+      <span class="metric__asof" title={metric.sourceDocumentRef}>
         (as of {metric.asOfDate})
       </span>
     </span>

@@ -17,7 +17,7 @@ test.describe("Invest page", () => {
       "What you own, precisely",
       "Who verifies what",
       "FAQ",
-      "Released at 60%. No capital before then.",
+      "Released at 60%. Nothing paid before then.",
     ]);
 
     await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
@@ -39,7 +39,7 @@ test.describe("Invest page", () => {
 
   test("FAQ's eligibility answer directs the visitor to contact Orbolo, not a stated rule", async ({ page }) => {
     await page.goto("/invest");
-    await page.getByText("Who’s eligible to invest?").click();
+    await page.getByText("Who can become a Remote Rancher?").click();
     await expect(page.getByText("Contact us to find out if you’re eligible.")).toBeVisible();
   });
 

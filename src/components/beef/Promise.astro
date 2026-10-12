@@ -1,4 +1,6 @@
 ---
+import Edit from "@/components/ui/Edit.astro";
+
 interface Props {
   body: string;
 }
@@ -6,7 +8,7 @@ interface Props {
 const { body } = Astro.props;
 ---
 
-<section aria-labelledby="promise-heading" class="mx-auto flex max-w-3xl flex-col gap-4 px-4 py-16">
-  <h2 id="promise-heading" class="font-subtitle text-3xl text-orbolo-green">The promise</h2>
-  <p class="font-body text-lg text-orbolo-green/80">{body}</p>
-</section>
+<Edit aria-labelledby="promise-heading" rule={false}>
+  <h2 slot="head" id="promise-heading" class="h2 t-paper" data-split>The promise</h2>
+  <p class="lede">{body}</p>
+</Edit>

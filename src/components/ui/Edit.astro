@@ -1,0 +1,20 @@
+---
+/**
+ * Editorial text section: the heading holds its place on the left while
+ * the content scrolls past on the right; one column on small screens.
+ */
+import type { HTMLAttributes } from "astro/types";
+
+interface Props extends HTMLAttributes<"section"> {
+  rule?: boolean;
+}
+
+const { rule = true, class: className, ...rest } = Astro.props;
+---
+
+<section class:list={["sec", { "sec--rule": rule }, className]} {...rest}>
+  <div class="edit">
+    <div class="edit__head"><slot name="head" /></div>
+    <div class="edit__body" data-reveal><slot /></div>
+  </div>
+</section>

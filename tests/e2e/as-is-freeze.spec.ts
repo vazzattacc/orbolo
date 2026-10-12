@@ -12,13 +12,13 @@ import { expect, test } from "@playwright/test";
 // regression guard: it pins known-good title/heading text and asserts the
 // footer is appended below existing content, never interleaved into it.
 const PAGES = [
-  { path: "/", title: "Orbolo", h1: "Cattle, land, and capital — connected across Paraguay’s open pasture." },
+  { path: "/", title: "Orbolo", h1: "You own the cattle. Our ranches raise them. Buyers get the beef." },
   {
     path: "/invest",
-    title: "Invest — Orbolo",
-    h1: "Own cattle on a working ranch in Paraguay, raised under the Orbolo Code.",
+    title: "Remote Rancher — Orbolo",
+    h1: "Be a rancher without leaving home.",
   },
-  { path: "/beef", title: "Beef — Orbolo", h1: "Grass-fed beef from Paraguay, sold at conventional prices." },
+  { path: "/beef", title: "Beef — Orbolo", h1: "Grass-fed beef from Paraguay, at conventional prices." },
   { path: "/land", title: "Land — Orbolo", h1: "El Tapir" },
   { path: "/contact", title: "Contact — Orbolo", h1: "Contact" },
 ] as const;

@@ -1,4 +1,6 @@
 ---
+import Band from "@/components/ui/Band.astro";
+
 interface Props {
   body: string;
 }
@@ -6,13 +8,11 @@ interface Props {
 const { body } = Astro.props;
 ---
 
-<section
-  aria-labelledby="first-pick-heading"
-  class="scroll-bg flex flex-col justify-center px-4 py-20"
-  style="--scroll-bg-image: url('/images/beef/first-pick-background.jpg')"
->
-  <div class="mx-auto flex w-full max-w-3xl flex-col gap-4">
-    <h2 id="first-pick-heading" class="font-subtitle text-3xl text-orbolo-green">First pick</h2>
-    <p class="font-body text-lg text-orbolo-green/80">{body}</p>
-  </div>
-</section>
+<Band image="/images/site/nelore-herd.jpg" aria-labelledby="first-pick-heading">
+  <h2 id="first-pick-heading" class="h2 t-lime" data-split>First pick</h2>
+  <Fragment slot="foot">
+    <div class="card card--glass">
+      <p class="copy">{body}</p>
+    </div>
+  </Fragment>
+</Band>

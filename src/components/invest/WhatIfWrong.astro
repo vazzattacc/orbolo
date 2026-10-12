@@ -12,17 +12,18 @@ interface Props {
 const { categories, dataRoomNote } = Astro.props;
 ---
 
-<section aria-labelledby="what-if-wrong-heading" class="mx-auto flex max-w-3xl flex-col gap-4 px-4 py-16">
-  <h2 id="what-if-wrong-heading" class="font-subtitle text-3xl text-orbolo-green">What if it goes wrong?</h2>
-  <dl class="font-body flex flex-col gap-4 text-orbolo-green/80">
+<section aria-labelledby="what-if-wrong-heading" class="sec sec--rule flex flex-col gap-[3.6em]">
+  <h2 id="what-if-wrong-heading" class="h2 t-lime max-w-[14em]" data-split>What if it goes wrong?</h2>
+  <dl class="cards cards--stagger" data-reveal-group>
     {
-      categories.map((category) => (
-        <div class="flex flex-col gap-1">
-          <dt class="font-title font-semibold text-orbolo-green">{category.label}</dt>
-          <dd>{category.body}</dd>
+      categories.map((category, i) => (
+        <div class="card">
+          <span class="card__tag caps caps--sm">Risk {String(i + 1).padStart(2, "0")}</span>
+          <dt class="h3">{category.label}</dt>
+          <dd class="copy m-0">{category.body}</dd>
         </div>
       ))
     }
   </dl>
-  <p class="font-body text-orbolo-green/80">{dataRoomNote}</p>
+  <p class="caps max-w-[40em]" data-reveal>{dataRoomNote}</p>
 </section>

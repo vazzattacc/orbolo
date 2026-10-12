@@ -1,23 +1,23 @@
 [
   {
     "id": "investors",
-    "title": "Invest (Remote Rancher)",
-    "description": "Back a working cattle operation on Paraguay's open pasture from anywhere in the world, with a transparent stake in the herd you help fund.",
+    "title": "Remote Rancher",
+    "description": "Own tagged cows on a working ranch in the Chaco. Cowboys raise them; you read the reports.",
     "image": {
       "src": "/images/paths/investors.jpg",
-      "alt": "A single black-and-white calf standing in an open grazing pasture, with the rest of the herd scattered across the grassland behind it."
+      "alt": "Two gauchos on horseback work an Orbolo herd in the Gran Chaco."
     },
     "destination": "/invest",
-    "targetAudience": "Investors",
+    "targetAudience": "Herd owners",
     "order": 1
   },
   {
     "id": "buyers",
     "title": "Beef",
-    "description": "Source grass-fed Paraguayan beef with a traceable path from pasture to plate, built for buyers who care where their product comes from.",
+    "description": "Grass-fed Paraguayan beef at conventional prices today, and first pick of traceable supply tomorrow.",
     "image": {
       "src": "/images/paths/buyers.jpg",
-      "alt": "Cattle grazing in an open field, seen from behind, with another animal's head visible in the grass nearby."
+      "alt": "A herd of red cattle on an Orbolo ranch at dusk."
     },
     "destination": "/beef",
     "targetAudience": "Buyers",
@@ -26,10 +26,10 @@
   {
     "id": "landowners",
     "title": "Land",
-    "description": "Put idle or underused land to work in a managed grazing partnership, on terrain built for cattle rather than a single crop.",
+    "description": "Bring your ranch into the system. Cattle graze under the trees, not instead of them.",
     "image": {
       "src": "/images/paths/landowners.jpg",
-      "alt": "A wide, flat grassland under a hazy sky with a large herd of cattle grazing across the open pasture."
+      "alt": "Palm savanna in the Gran Chaco, Paraguay."
     },
     "destination": "/land",
     "targetAudience": "Landowners",

@@ -1,4 +1,6 @@
 ---
+import Edit from "@/components/ui/Edit.astro";
+
 interface Item {
   question: string;
   answer: string;
@@ -11,18 +13,19 @@ interface Props {
 const { items } = Astro.props;
 ---
 
-<section aria-labelledby="invest-faq-heading" class="mx-auto flex max-w-3xl flex-col gap-4 px-4 py-16">
-  <h2 id="invest-faq-heading" class="font-subtitle text-3xl text-orbolo-green">FAQ</h2>
-  <div class="flex flex-col gap-2">
+<Edit aria-labelledby="invest-faq-heading">
+  <h2 slot="head" id="invest-faq-heading" class="h2 t-paper" data-split>FAQ</h2>
+  <div class="faq">
     {
       items.map((item) => (
-        <details class="flex flex-col gap-2 border-b border-orbolo-green/15 py-3">
-          <summary class="font-title cursor-pointer text-orbolo-green outline-none focus-visible:ring-2 focus-visible:ring-orbolo-green">
+        <details>
+          <summary>
             {item.question}
+            <span class="faq__icon" aria-hidden="true" />
           </summary>
-          <p class="font-body text-orbolo-green/80">{item.answer}</p>
+          <p class="copy faq__answer">{item.answer}</p>
         </details>
       ))
     }
   </div>
-</section>
+</Edit>

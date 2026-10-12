@@ -1,4 +1,6 @@
 ---
+import Split from "@/components/ui/Split.astro";
+
 interface Props {
   body: string;
 }
@@ -6,7 +8,15 @@ interface Props {
 const { body } = Astro.props;
 ---
 
-<section aria-labelledby="who-buys-heading" class="mx-auto flex max-w-3xl flex-col gap-4 px-4 py-16">
-  <h2 id="who-buys-heading" class="font-subtitle text-3xl text-orbolo-green">Who buys the animal at the end?</h2>
-  <p class="font-body text-lg text-orbolo-green/80">{body}</p>
-</section>
+<Split
+  image="/images/site/grazing-bright.jpg"
+  alt="Cattle grazing on bright green pasture."
+  reverse
+  sketch
+  aria-labelledby="who-buys-heading"
+>
+  <h2 id="who-buys-heading" class="h2 t-lime" data-split>Who buys the animal at the end?</h2>
+  <Fragment slot="foot">
+    <p class="lede">{body}</p>
+  </Fragment>
+</Split>

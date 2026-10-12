@@ -5,6 +5,8 @@
  * FR-INV-013) and Beef -> Invest ("Own the herd behind this beef",
  * FR-BEEF-009). Deliberately distinct from Nav's generic Contact link —
  * this always routes between the two audience pages, never to Contact.
+ *
+ * Styled as a full-width band whose lime fill wipes up on hover.
  */
 interface Props {
   label: string;
@@ -14,8 +16,9 @@ interface Props {
 const { label, href } = Astro.props;
 ---
 
-<p class="font-body mx-auto max-w-3xl px-4 py-16 text-center text-orbolo-green">
-  <a href={href} class="underline decoration-orbolo-green/40 underline-offset-4 hover:decoration-orbolo-green">
-    {label}
+<p class="m-0">
+  <a href={href} class="xlink">
+    <span class="xlink__text">{label}</span>
+    <span class="xlink__arrow" aria-hidden="true"></span>
   </a>
 </p>

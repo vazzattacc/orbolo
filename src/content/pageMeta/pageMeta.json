@@ -2,31 +2,31 @@
   {
     "id": "home",
     "route": "/",
-    "description": "Orbolo connects investors, ranches, and buyers across Paraguay — own cattle on a working ranch, or source grass-fed beef raised under the Orbolo Code.",
+    "description": "Orbolo connects herd owners, ranches and beef buyers in Paraguay’s Gran Chaco. Own cattle on a working ranch, or buy grass-fed beef raised under the Orbolo Code.",
     "indexable": true
   },
   {
     "id": "invest",
     "route": "/invest",
-    "description": "Own cattle on a working ranch in Paraguay, raised under the Orbolo Code. A ranch releases for deployment once 60% of its threshold is committed.",
+    "description": "Remote Rancher: your own herd on a working ranch in the Paraguayan Chaco, raised under the Orbolo Code. A ranch is released at 60% committed; nothing is paid before.",
     "indexable": true
   },
   {
     "id": "beef",
     "route": "/beef",
-    "description": "Grass-fed beef from Paraguay, sold at conventional prices. We’re building a 300,000-head producer alliance and a full traceability layer behind it.",
+    "description": "Grass-fed beef from Paraguay at conventional prices. We trade it today and are aligning a 300,000-head producer alliance behind it. Trade now for first pick.",
     "indexable": true
   },
   {
     "id": "land",
     "route": "/land",
-    "description": "El Tapir is Orbolo’s own farm in Paraguay’s Gran Chaco. See how Ganadería a Pasto grows supply, and find out how to work with us if you own land.",
+    "description": "El Tapir is Orbolo’s own farm in Paraguay’s Gran Chaco, open to visitors by appointment. See how Ganadería a Pasto grows supply, and bring your land into the system.",
     "indexable": true
   },
   {
     "id": "contact",
     "route": "/contact",
-    "description": "Reach Orbolo about investing in a herd, buying grass-fed Paraguayan beef, or putting your land to work in a managed grazing partnership.",
+    "description": "Talk to Orbolo about owning a herd as a Remote Rancher, buying grass-fed Paraguayan beef, or bringing your land into a managed grazing partnership.",
     "indexable": true
   }
 ]

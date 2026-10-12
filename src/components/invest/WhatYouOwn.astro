@@ -1,4 +1,6 @@
 ---
+import Band from "@/components/ui/Band.astro";
+
 interface Props {
   body: string;
 }
@@ -6,13 +8,11 @@ interface Props {
 const { body } = Astro.props;
 ---
 
-<section
-  aria-labelledby="what-you-own-heading"
-  class="scroll-bg flex flex-col justify-center px-4 py-20"
-  style="--scroll-bg-image: url('/images/invest/what-you-own-background.jpg')"
->
-  <div class="mx-auto flex w-full max-w-3xl flex-col gap-4">
-    <h2 id="what-you-own-heading" class="font-subtitle text-3xl text-orbolo-green">What you own, precisely</h2>
-    <p class="font-body text-lg text-orbolo-green/80">{body}</p>
-  </div>
-</section>
+<Band image="/images/site/pasture-top.jpg" aria-labelledby="what-you-own-heading">
+  <h2 id="what-you-own-heading" class="h2 t-paper max-w-[11em]" data-split>What you own, precisely</h2>
+  <Fragment slot="foot">
+    <div class="card card--glass min-h-0">
+      <p class="copy">{body}</p>
+    </div>
+  </Fragment>
+</Band>

@@ -2,109 +2,136 @@
   {
     "id": "invest",
     "hero": {
-      "headline": "Own cattle on a working ranch in Paraguay, raised under the Orbolo Code.",
-      "releaseRule": "A ranch is released for deployment once 60% of its threshold is committed under signed Letters of Intent — no capital is called before that.",
+      "headline": "Be a rancher without leaving home.",
+      "releaseRule": "Your own herd in the Paraguayan Chaco, raised by our cowboys under the Orbolo Code. A ranch starts once 60% of its herd is committed. No money moves before then.",
       "ctaLabel": "See the next ranch",
       "ctaHref": "#closing"
     },
     "offerBox": {
       "included": [
-        "Tagged animals under your name, on a named, visitable ranch",
-        "Animals raised under the Orbolo Code",
-        "Quarterly reporting on your herd",
-        "Capital called only after the ranch releases for deployment"
+        "Pregnant cows, tagged in your name, on a named ranch you can visit",
+        "A life on grass and under native trees, without growth hormones or antibiotic promoters",
+        "A report after every muster: numbers, photos and your tag list",
+        "Nothing to pay until the ranch is released"
       ],
-      "termsOnRequestNote": "Ticket size, cycle length, target return, fees, and payout timing vary per ranch and can’t be published here for legal reasons. Available on request — get the investor pack or book a call."
+      "termsOnRequestNote": "Herd size, cycle length, costs and payout timing vary per ranch, and we can’t publish them here for legal reasons. They’re in the Remote Rancher pack, on request."
     },
     "isThisReal": {
-      "elTapirIntro": "El Tapir is our own farm in Paraguay’s Gran Chaco — not a partner ranch, ours. It’s open to visitors by appointment.",
+      "elTapirIntro": "Yes. El Tapir is the group’s own farm in the Gran Chaco. Not a partner ranch: ours. The first Remote Rancher herd lives there, and it hasn’t closed a full cycle yet. Come and see it.",
       "animalCountMetricKey": "animalCount",
       "elTapirHectaresMetricKey": "elTapirHectares",
       "visitBookingCtaLabel": "Book a visit",
       "visitBookingCtaHref": "#closing"
     },
     "whoBuysAtEnd": {
-      "body": "Orbolo’s trading desk is the buyer. Every herd has a buyer lined up before it’s bought, at market prices — you’re never left holding cattle with nowhere to sell them."
+      "body": "Orbolo’s own trading desk, at market prices. Every herd has its buyer before it’s bought."
     },
     "whatIfNotEnough": {
-      "releaseRuleBody": "A ranch releases for deployment once 60% of its threshold is committed under signed, unexpired Letters of Intent. Below that, no capital is called from anyone.",
-      "loiExpiryBody": "A Letter of Intent expires automatically 90 days after signing. If a ranch hasn’t reached 60% by then, it either stays open for new commitments or is marked withdrawn — either way, you’re notified."
+      "releaseRuleBody": "A ranch is released only when 60% of its herd is committed under signed letters of intent. Below that, nobody pays anything.",
+      "loiExpiryBody": "A letter of intent expires after 90 days. If the ranch isn’t at 60% by then, it stays open or is withdrawn. Either way, you’re told."
     },
     "whatIfWrong": {
       "categories": [
         {
           "label": "Animal loss",
-          "body": "Cattle can be lost to disease, predation, or accident."
+          "body": "Cattle can be lost to disease, predators or accidents."
         },
         {
           "label": "Drought",
-          "body": "Paraguay’s dry season varies year to year, and a severe drought can affect grazing."
+          "body": "A dry year means fewer calves. The herd is built to hold through it."
         },
         {
           "label": "Currency",
-          "body": "Returns involve currency exposure between Guaraníes and your own currency."
+          "body": "On the ground, money moves in guaraníes, and exchange rates move too."
         },
         {
           "label": "Policy and export",
-          "body": "Export markets and trade policy can shift over a cycle’s length."
+          "body": "Export markets and trade rules can change during a cycle."
         },
         {
           "label": "Liquidity",
-          "body": "A Remote Rancher commitment is not a liquid, tradeable asset — your capital is committed for the cycle length."
+          "body": "This isn’t money you can take back on short notice. A herd is committed for its whole cycle."
         }
       ],
-      "dataRoomNote": "Specific provisions and arrangements for each of these risks are documented in the full, NDA-gated data room — available once you sign an NDA."
+      "dataRoomNote": "How each risk is handled is set out in the full data room, open once you sign an NDA."
     },
     "howItWorks": {
       "steps": [
-        { "step": 1, "body": "Choose a ranch from the Deployment Pipeline." },
-        { "step": 2, "body": "Get the investor pack for an overview, then request full data-room access under NDA." },
-        { "step": 3, "body": "Sign a Letter of Intent — non-binding, and no capital is called yet." },
-        { "step": 4, "body": "The ranch releases for deployment once 60% of its threshold is committed under signed, unexpired Letters of Intent." },
-        { "step": 5, "body": "Capital is called only after release. Our Paraguayan operating company buys and tags the animals in your name." },
-        { "step": 6, "body": "The ranch raises your animals under the Orbolo Code until the cycle closes." },
-        { "step": 7, "body": "Orbolo’s trading desk sells the beef at market prices, and your return is paid out." }
+        {
+          "step": 1,
+          "body": "Choose a ranch from the pipeline."
+        },
+        {
+          "step": 2,
+          "body": "Read the Remote Rancher pack, then open the full data room under NDA."
+        },
+        {
+          "step": 3,
+          "body": "Sign a letter of intent. It’s non-binding, and nothing is paid."
+        },
+        {
+          "step": 4,
+          "body": "At 60% committed, the ranch is released."
+        },
+        {
+          "step": 5,
+          "body": "Only then do you sign with our Paraguayan operating company and pay. Your cows arrive by truck and are tagged in your name."
+        },
+        {
+          "step": 6,
+          "body": "Cowboys raise them on pasture under the Orbolo Code, all year round."
+        },
+        {
+          "step": 7,
+          "body": "At the muster, the calves are sold through Orbolo’s trading desk at market prices, and you’re paid your share."
+        }
       ]
     },
     "whatYouOwn": {
-      "body": "You own specific animals, tracked by ear tag, under a management agreement with our Paraguayan operating company — not land, and not a share in a fund. Any carbon or biodiversity credits generated stay with the land and the group; your return comes from the beef."
+      "body": "Specific cows, by ear tag, under a management agreement with our Paraguayan operating company. Not land, and not a share in a fund. Carbon or biodiversity credits stay with the land and the group."
     },
     "whoVerifies": {
-      "codeReferenceNote": "Every animal is raised under the Orbolo Code."
+      "codeReferenceNote": "Every animal is raised under the Orbolo Code: room to move, shade, water, no growth hormones."
     },
     "faq": {
       "items": [
         {
           "question": "Do I need to visit Paraguay to own cattle here?",
-          "answer": "No. You can own tagged animals on a working ranch without ever visiting — though you’re welcome to, by appointment."
+          "answer": "No. Your reports bring the ranch to your desk. But you’re very welcome, by appointment."
         },
         {
           "question": "How do I know the animals actually exist?",
-          "answer": "Each animal is tagged and tracked individually. Verification details are available once you request the investor pack."
+          "answer": "Every cow carries an ear tag and a digital tag, both on your list. The details are in the Remote Rancher pack."
         },
         {
-          "question": "Can I exit early?",
-          "answer": "Remote Rancher is a committed-cycle product — it isn’t designed for early exit. Ask about your specific situation when you contact us."
+          "question": "Can I leave early?",
+          "answer": "Not today. A herd is committed for its cycle. Ask us about your situation."
         },
         {
           "question": "Can I visit the ranch?",
           "answer": "Yes, by appointment."
         },
         {
-          "question": "Who’s eligible to invest?",
-          "answer": "Eligibility depends on where you’re based and other factors. Contact us to find out if you’re eligible."
+          "question": "Who can become a Remote Rancher?",
+          "answer": "That depends on where you live, among other things. Contact us to find out if you’re eligible."
         },
         {
           "question": "What happens when the cycle ends?",
-          "answer": "The herd is sold through Orbolo’s trading desk at market prices, and your return is paid out."
+          "answer": "The animals are sold through Orbolo’s trading desk at market prices, and you’re paid your share."
         }
       ]
     },
     "closing": {
-      "releaseLine": "Released at 60%. No capital before then.",
+      "releaseLine": "Released at 60%. Nothing paid before then.",
       "ctas": [
-        { "label": "Get the investor pack", "href": "/contact" },
-        { "label": "Book a call", "href": "/contact" }
+        {
+          "label": "Get the Remote Rancher pack",
+          "href": "/contact"
+        },
+        {
+          "label": "Book a call",
+          "href": "/contact"
+        }
       ]
     },
     "crossLinkToBeef": {

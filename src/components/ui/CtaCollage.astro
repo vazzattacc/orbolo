@@ -1,0 +1,30 @@
+---
+/**
+ * Closing call-to-action: text and buttons on the left, a collage of
+ * photos and forest squares meeting corner to corner on the right.
+ */
+import type { HTMLAttributes } from "astro/types";
+
+interface Props extends HTMLAttributes<"section"> {
+  images?: [string, string, string];
+}
+
+const {
+  images = ["/images/site/orbolo-cattle-shade.jpg", "/images/site/florian.jpg", "/images/site/orbolo-walk.jpg"],
+  class: className,
+  ...rest
+} = Astro.props;
+---
+
+<section class:list={["cta", className]} {...rest}>
+  <div class="cta__text">
+    <slot />
+    {Astro.slots.has("buttons") && <div class="cta__btns"><slot name="buttons" /></div>}
+  </div>
+  <div class="cta__collage" aria-hidden="true">
+    <img class="c1" src={images[0]} alt="" loading="lazy" />
+    <img class="c2" src={images[1]} alt="" loading="lazy" />
+    <img class="c3" src={images[2]} alt="" loading="lazy" />
+    <span class="sq sq1"></span><span class="sq sq2"></span><span class="sq sq3"></span>
+  </div>
+</section>

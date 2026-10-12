@@ -9,17 +9,11 @@ const { path } = Astro.props;
 const backId = `${path.id}-back`;
 ---
 
-<li
-  class="path-card relative list-none"
-  data-path-card
-  data-flipped="false"
->
-  <div class="relative h-full min-h-[26rem] w-full [perspective:1600px]">
-    <div class="path-card__flipper relative h-full w-full [transform-style:preserve-3d]">
-      <div
-        class="path-card__face path-card__face--front absolute inset-0 flex flex-col overflow-hidden rounded-2xl border border-orbolo-green/15 bg-orbolo-cream shadow-sm [backface-visibility:hidden]"
-      >
-        <span class="path-card__image-wrap relative block h-56 w-full overflow-hidden bg-orbolo-green">
+<li class="path-card relative list-none" data-path-card data-flipped="false">
+  <div class="path-card__stage">
+    <div class="path-card__flipper">
+      <div class="path-card__face path-card__face--front path-card__front">
+        <span class="path-card__image-wrap">
           <img
             src={path.image.src}
             alt={path.image.alt}
@@ -27,53 +21,40 @@ const backId = `${path.id}-back`;
             height="600"
             loading="lazy"
             decoding="async"
-            class="path-card__image h-full w-full object-cover"
+            class="path-card__image"
             onerror="this.closest('.path-card__image-wrap')?.classList.add('path-card__image-wrap--fallback')"
           />
         </span>
-        <div class="flex flex-1 flex-col gap-2 p-6">
-          <p class="font-title text-sm font-semibold tracking-wide text-orbolo-green uppercase">
-            {path.targetAudience}
-          </p>
-          <h3 class="font-subtitle text-balance text-2xl text-orbolo-green">{path.title}</h3>
-          <p class="font-body line-clamp-3 text-base text-orbolo-green/80">{path.description}</p>
-        </div>
+        <span class="path-card__arrow" aria-hidden="true"></span>
+        <p class="caps t-lime">{path.targetAudience}</p>
+        <h3 class="path-card__title">{path.title}</h3>
+        <p class="caps caps--sm line-clamp-3">{path.description}</p>
         <button
           type="button"
-          class="path-card__trigger absolute inset-0 touch-manipulation rounded-2xl hover:bg-orbolo-green/5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orbolo-green"
+          class="path-card__trigger"
           aria-expanded="false"
           aria-controls={backId}
           aria-label={`View more about ${path.title}`}
-          data-path-card-trigger
-        ></button>
+          data-path-card-trigger></button>
       </div>
 
-      <div
-        id={backId}
-        class="path-card__face path-card__face--back absolute inset-0 flex flex-col justify-between rounded-2xl border-2 border-orbolo-accent bg-orbolo-green p-6 text-orbolo-cream [backface-visibility:hidden] [transform:rotateY(180deg)]"
-        data-path-card-back
-      >
+      <div id={backId} class="path-card__face path-card__face--back path-card__back" data-path-card-back>
         <div class="flex flex-col gap-3">
-          <p class="font-title text-sm font-semibold tracking-wide uppercase">
-            {path.targetAudience}
-          </p>
-          <h3 class="font-subtitle text-balance text-2xl">{path.title}</h3>
-          <p class="font-body line-clamp-4 text-base text-orbolo-cream/90">{path.description}</p>
+          <p class="caps">{path.targetAudience}</p>
+          <h3 class="path-card__title">{path.title}</h3>
+          <p class="copy">{path.description}</p>
         </div>
-        <div class="flex items-center justify-between gap-4">
-          <a
-            href={path.destination}
-            class="path-card__discover font-body inline-flex min-h-[44px] touch-manipulation items-center rounded-full bg-orbolo-cream px-5 py-2 text-sm font-semibold text-orbolo-green hover:opacity-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orbolo-cream"
-            data-path-card-discover
-          >
-            Discover more
+        <div class="path-card__actions">
+          <a href={path.destination} class="btn btn--dark path-card__discover" data-path-card-discover>
+            <span class="btn__dot" aria-hidden="true"></span><span class="btn__label">Discover more</span><span
+              class="btn__dot"
+              aria-hidden="true"></span>
           </a>
           <button
             type="button"
-            class="path-card__close font-body min-h-[44px] min-w-[44px] touch-manipulation rounded-full border border-orbolo-cream/60 px-3 text-sm text-orbolo-cream/80 hover:bg-orbolo-cream/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orbolo-cream"
+            class="path-card__close caps ulink min-h-[44px] min-w-[44px] cursor-pointer px-2"
             aria-label={`Flip the ${path.title} card back`}
-            data-path-card-close
-          >
+            data-path-card-close>
             Back
           </button>
         </div>
@@ -81,17 +62,3 @@ const backId = `${path.id}-back`;
     </div>
   </div>
 </li>
-
-<style>
-  .path-card__image-wrap--fallback img {
-    display: none;
-  }
-
-  .path-card__image-wrap--fallback {
-    background-image: linear-gradient(
-      160deg,
-      var(--color-orbolo-green) 0%,
-      color-mix(in srgb, var(--color-orbolo-green) 60%, black) 100%
-    );
-  }
-</style>

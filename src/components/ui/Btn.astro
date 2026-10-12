@@ -1,0 +1,21 @@
+---
+/**
+ * The site's one button: a hairline box with caps label and a dot either
+ * side; hovering wipes the fill up from the bottom and pulls the dots in.
+ */
+import type { HTMLAttributes } from "astro/types";
+
+interface Props extends HTMLAttributes<"a"> {
+  href: string;
+  label: string;
+  variant?: "light" | "paper" | "dark";
+}
+
+const { href, label, variant = "light", class: className, ...rest } = Astro.props;
+---
+
+<a href={href} class:list={["btn", `btn--${variant}`, className]} {...rest}>
+  <span class="btn__dot" aria-hidden="true"></span><span class="btn__label">{label}</span><span
+    class="btn__dot"
+    aria-hidden="true"></span>
+</a>

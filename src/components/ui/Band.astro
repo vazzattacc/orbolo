@@ -1,0 +1,20 @@
+---
+/**
+ * Full-bleed photo band under a forest shade; the photo drifts against the
+ * scroll (motion.ts). Default slot sits top-left, `foot` bottom-right.
+ */
+import type { HTMLAttributes } from "astro/types";
+
+interface Props extends HTMLAttributes<"section"> {
+  image: string;
+}
+
+const { image, class: className, ...rest } = Astro.props;
+---
+
+<section class:list={["band", className]} {...rest}>
+  <img class="band__bg" src={image} alt="" loading="lazy" decoding="async" />
+  <div class="band__shade" aria-hidden="true"></div>
+  <div><slot /></div>
+  {Astro.slots.has("foot") && <div class="band__foot" data-reveal><slot name="foot" /></div>}
+</section>

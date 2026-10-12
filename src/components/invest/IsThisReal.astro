@@ -1,5 +1,7 @@
 ---
 import MetricValue from "@/components/shared/MetricValue.astro";
+import Edit from "@/components/ui/Edit.astro";
+import Btn from "@/components/ui/Btn.astro";
 
 interface Props {
   elTapirIntro: string;
@@ -13,19 +15,14 @@ const { elTapirIntro, animalCountMetricKey, elTapirHectaresMetricKey, visitBooki
   Astro.props;
 ---
 
-<section aria-labelledby="is-this-real-heading" class="mx-auto flex max-w-3xl flex-col gap-4 px-4 py-16">
-  <h2 id="is-this-real-heading" class="font-subtitle text-3xl text-orbolo-green">Is this real?</h2>
-  <p class="font-body text-lg text-orbolo-green/80">{elTapirIntro}</p>
-  <p class="font-body text-orbolo-green/80">
-    El Tapir spans <MetricValue metricKey={elTapirHectaresMetricKey} />.
-  </p>
-  <p class="font-body text-orbolo-green/80">
-    The group currently has <MetricValue metricKey={animalCountMetricKey} /> in the system.
-  </p>
-  <a
-    href={visitBookingCtaHref}
-    class="font-title inline-block w-fit rounded-full border border-orbolo-green px-6 py-3 text-orbolo-green outline-none hover:bg-orbolo-green/5 focus-visible:ring-2 focus-visible:ring-orbolo-green focus-visible:ring-offset-2"
-  >
-    {visitBookingCtaLabel}
-  </a>
-</section>
+<Edit aria-labelledby="is-this-real-heading" rule={false}>
+  <h2 slot="head" id="is-this-real-heading" class="h2 t-paper" data-split>Is this real?</h2>
+  <p class="lede">{elTapirIntro}</p>
+  <ul class="rows rows--plain" role="list">
+    <li><span class="copy">El Tapir spans <MetricValue metricKey={elTapirHectaresMetricKey} />.</span></li>
+    <li>
+      <span class="copy">The group currently has <MetricValue metricKey={animalCountMetricKey} /> in the system.</span>
+    </li>
+  </ul>
+  <Btn href={visitBookingCtaHref} label={visitBookingCtaLabel} />
+</Edit>

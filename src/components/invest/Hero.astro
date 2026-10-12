@@ -1,4 +1,7 @@
 ---
+import PhotoHero from "@/components/ui/PhotoHero.astro";
+import Btn from "@/components/ui/Btn.astro";
+
 interface Props {
   headline: string;
   releaseRule: string;
@@ -9,16 +12,10 @@ interface Props {
 const { headline, releaseRule, ctaLabel, ctaHref } = Astro.props;
 ---
 
-<section
-  class="scroll-bg flex min-h-[70vh] flex-col items-center justify-center gap-6 px-4 py-20 text-center"
-  style="--scroll-bg-image: url('/images/invest/hero-background.jpg')"
->
-  <h1 class="font-subtitle text-balance max-w-3xl text-4xl text-orbolo-green sm:text-5xl">{headline}</h1>
-  <p class="font-body max-w-2xl text-lg text-orbolo-green/80">{releaseRule}</p>
-  <a
-    href={ctaHref}
-    class="font-title rounded-full bg-orbolo-green px-6 py-3 text-orbolo-cream outline-none hover:bg-orbolo-accent focus-visible:ring-2 focus-visible:ring-orbolo-green focus-visible:ring-offset-2"
-  >
-    {ctaLabel}
-  </a>
-</section>
+<PhotoHero image="/images/site/rider-herd.jpg" scrollCue>
+  <h1 class="h1 t-paper" data-split>{headline}</h1>
+  <Fragment slot="side">
+    <p class="caps">{releaseRule}</p>
+    <Btn href={ctaHref} label={ctaLabel} variant="paper" />
+  </Fragment>
+</PhotoHero>

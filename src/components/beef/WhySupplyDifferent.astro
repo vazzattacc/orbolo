@@ -1,4 +1,6 @@
 ---
+import Split from "@/components/ui/Split.astro";
+
 interface Props {
   body: string;
 }
@@ -6,9 +8,15 @@ interface Props {
 const { body } = Astro.props;
 ---
 
-<section aria-labelledby="why-different-heading" class="mx-auto flex max-w-3xl flex-col gap-4 px-4 py-16">
-  <h2 id="why-different-heading" class="font-subtitle text-3xl text-orbolo-green">
-    Why supply from the group is different
-  </h2>
-  <p class="font-body text-lg text-orbolo-green/80">{body}</p>
-</section>
+<Split
+  image="/images/site/shade-tree.jpg"
+  alt="Cattle walk across open pasture beside a lone tree."
+  reverse
+  sketch
+  aria-labelledby="why-different-heading"
+>
+  <h2 id="why-different-heading" class="h2 t-paper" data-split>Why supply from the group is different</h2>
+  <Fragment slot="foot">
+    <p class="lede">{body}</p>
+  </Fragment>
+</Split>

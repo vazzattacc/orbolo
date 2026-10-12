@@ -1,31 +1,46 @@
 ---
 import Layout from "../components/Layout.astro";
 import PathGrid from "../components/home/PathGrid.astro";
+import PhotoHero from "../components/ui/PhotoHero.astro";
+import Btn from "../components/ui/Btn.astro";
 import { getPaths } from "../lib/paths/path-repository";
 
 const paths = await getPaths();
+// the strip repeats its words twice so the -50% loop is seamless
+const stripWords = paths.length > 0 ? paths.map((p) => p.targetAudience) : ["Cattle", "Land", "Beef"];
+const stripLoop = [...stripWords, ...stripWords, ...stripWords, ...stripWords];
 ---
 
 <Layout title="Orbolo">
-  <section class="hero hero--background flex min-h-screen flex-col items-center justify-center gap-6 px-4 text-center">
-    <img src="/images/branding/orbolo-logo.png" alt="Orbolo" class="h-40 w-auto mb-24" />
-    <h1 class="font-subtitle text-balance max-w-3xl text-4xl text-orbolo-green sm:text-5xl">
-      Cattle, land, and capital — connected across Paraguay&rsquo;s open pasture.
+  <PhotoHero image="/images/site/hero-mist.jpg" class="hero" scrollCue>
+    <h1 class="h1 t-paper" data-split>
+      You own the cattle. Our ranches raise them. Buyers get the beef.
     </h1>
-    <p class="font-body max-w-2xl text-lg text-orbolo-green/80">
-      Whichever side of the ranch you&rsquo;re on, there&rsquo;s a path built for you. Scroll down to find
-      yours.
-    </p>
-  </section>
+    <p class="script t-paper" aria-hidden="true">a work relationship with nature</p>
+    <Fragment slot="side">
+      <p class="caps">
+        Grass-fed beef from Paraguay&rsquo;s Gran Chaco, where cattle have grazed for more than 400 years. Pick
+        your way in.
+      </p>
+      <Btn href="#paths" label="Explore paths" variant="paper" />
+    </Fragment>
+  </PhotoHero>
 
-  <section
-    id="paths"
-    aria-labelledby="paths-heading"
-    class="path-grid-section flex flex-col items-center gap-10 bg-orbolo-cream px-4 py-20"
-  >
-    <h2 id="paths-heading" class="font-subtitle text-balance text-3xl text-orbolo-green">
-      Find your path
-    </h2>
+  <div class="strip" aria-hidden="true">
+    <div class="strip__track">
+      {
+        stripLoop.map((word, i) => (
+          <>
+            <span class:list={["strip__word", { "strip__word--lime": i % 2 === 1 }]}>{word}</span>
+            <i />
+          </>
+        ))
+      }
+    </div>
+  </div>
+
+  <section id="paths" aria-labelledby="paths-heading" class="path-grid-section paths">
+    <h2 id="paths-heading" class="h2 t-lime" data-split>Find your path</h2>
     <PathGrid paths={paths} />
   </section>
 

@@ -1,4 +1,6 @@
 ---
+import Edit from "@/components/ui/Edit.astro";
+
 interface Props {
   releaseRuleBody: string;
   loiExpiryBody: string;
@@ -7,10 +9,8 @@ interface Props {
 const { releaseRuleBody, loiExpiryBody } = Astro.props;
 ---
 
-<section aria-labelledby="what-if-not-enough-heading" class="mx-auto flex max-w-3xl flex-col gap-4 px-4 py-16">
-  <h2 id="what-if-not-enough-heading" class="font-subtitle text-3xl text-orbolo-green">
-    What if not enough people join?
-  </h2>
-  <p class="font-body text-lg text-orbolo-green/80">{releaseRuleBody}</p>
-  <p class="font-body text-orbolo-green/80">{loiExpiryBody}</p>
-</section>
+<Edit aria-labelledby="what-if-not-enough-heading" rule={false}>
+  <h2 slot="head" id="what-if-not-enough-heading" class="h2 t-paper" data-split>What if not enough people join?</h2>
+  <p class="lede">{releaseRuleBody}</p>
+  <p class="copy">{loiExpiryBody}</p>
+</Edit>

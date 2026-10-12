@@ -1,4 +1,7 @@
 ---
+import CtaCollage from "@/components/ui/CtaCollage.astro";
+import Btn from "@/components/ui/Btn.astro";
+
 interface Cta {
   label: string;
   href: string;
@@ -11,25 +14,13 @@ interface Props {
 const { ctas } = Astro.props;
 ---
 
-<section
+<CtaCollage
   aria-label="Get in touch about beef"
-  class="scroll-bg px-4 py-20 text-center"
-  style="--scroll-bg-image: url('/images/beef/ctas-background.jpg')"
+  class="sec--rule"
+  images={["/images/site/orbolo-cattle-shade.jpg", "/images/site/rider-green.jpg", "/images/site/brahman-four.jpg"]}
 >
-  <div class="mx-auto flex max-w-3xl flex-wrap justify-center gap-4">
-    {
-      ctas.map((cta, index) => (
-        <a
-          href={cta.href}
-          class={
-            index === 0
-              ? "font-title rounded-full bg-orbolo-green px-6 py-3 text-orbolo-cream outline-none hover:bg-orbolo-accent focus-visible:ring-2 focus-visible:ring-orbolo-green focus-visible:ring-offset-2"
-              : "font-title rounded-full border border-orbolo-green px-6 py-3 text-orbolo-green outline-none hover:bg-orbolo-green/5 focus-visible:ring-2 focus-visible:ring-orbolo-green focus-visible:ring-offset-2"
-          }
-        >
-          {cta.label}
-        </a>
-      ))
-    }
-  </div>
-</section>
+  <p class="h2 t-paper max-w-[8em]" aria-hidden="true" data-split>Get in touch about beef</p>
+  <Fragment slot="buttons">
+    {ctas.map((cta, index) => <Btn href={cta.href} label={cta.label} variant={index === 0 ? "light" : "paper"} />)}
+  </Fragment>
+</CtaCollage>

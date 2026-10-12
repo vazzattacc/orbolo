@@ -17,18 +17,19 @@ const allRanches =
 
 {
   allRanches.length > 0 && (
-    <section aria-labelledby="deployment-pipeline-heading" class="mx-auto flex max-w-3xl flex-col gap-4 px-4 py-16">
-      <h2 id="deployment-pipeline-heading" class="font-subtitle text-3xl text-orbolo-green">
+    <section aria-labelledby="deployment-pipeline-heading" class="sec sec--rule flex flex-col gap-[3.6em]">
+      <h2 id="deployment-pipeline-heading" class="h2 t-lime" data-split>
         Deployment pipeline
       </h2>
-      <ul class="flex flex-col gap-4" role="list">
+      <ul class="cards cards--stagger" role="list" data-reveal-group>
         {allRanches.map((ranch) => (
-          <li class="flex flex-col gap-2 rounded-2xl border border-orbolo-green/15 p-4">
-            <p class="font-title text-orbolo-green">{ranch.codename}</p>
-            <p class="font-body text-sm text-orbolo-green/70">
+          <li class="card">
+            <span class="card__tag caps caps--sm">{ranch.status}</span>
+            <p class="h3">{ranch.codename}</p>
+            <p class="caps caps--sm">
               {ranch.region} · {ranch.hectares} ha · {ranch.grazingSystem}
             </p>
-            <p class="font-body text-sm text-orbolo-green/70">
+            <p class="caps caps--sm t-lime">
               {ranch.committedUnderLoi} / {ranch.threshold} committed · {ranch.status}
             </p>
           </li>

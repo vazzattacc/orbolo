@@ -1,4 +1,7 @@
 ---
+import PhotoHero from "@/components/ui/PhotoHero.astro";
+import Btn from "@/components/ui/Btn.astro";
+
 interface Props {
   heading: string;
   body: string;
@@ -8,13 +11,8 @@ interface Props {
 const { heading, body, homeLinkLabel } = Astro.props;
 ---
 
-<section class="mx-auto flex max-w-2xl flex-col items-center gap-6 px-4 py-20 text-center">
-  <h1 class="font-subtitle text-4xl text-orbolo-green">{heading}</h1>
-  <p class="font-body text-lg text-orbolo-green/80">{body}</p>
-  <a
-    href="/"
-    class="font-title rounded-full bg-orbolo-green px-6 py-3 text-orbolo-cream outline-none hover:bg-orbolo-accent focus-visible:ring-2 focus-visible:ring-orbolo-green focus-visible:ring-offset-2"
-  >
-    {homeLinkLabel}
-  </a>
-</section>
+<PhotoHero image="/images/site/orbolo-walk.jpg" center>
+  <h1 class="h1 h1--xl t-paper" data-split>{heading}</h1>
+  <p class="caps max-w-[28em]">{body}</p>
+  <div><Btn href="/" label={homeLinkLabel} variant="paper" /></div>
+</PhotoHero>
