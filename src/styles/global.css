@@ -220,7 +220,7 @@ img { display: block; max-width: 100%; }
 .faq__answer { padding: 0 3em 1.6em 0; }
 
 /* ---------- metric ---------- */
-/* figures keep their real casing ("1000 ha", "as of …") even inside caps text */
+/* figures keep their real casing ("35000 ha", "as of …") even inside caps text */
 .metric { white-space: nowrap; text-transform: none; }
 .metric strong { font: 400 1.35em/1 var(--font-serif); color: var(--lime); letter-spacing: 0.02em; }
 .metric__asof { margin-left: 0.4em; font-size: 0.8em; letter-spacing: 0.04em; opacity: 0.75; }
@@ -315,7 +315,7 @@ img { display: block; max-width: 100%; }
   .nav__group { gap: 0.9em; }
   .nav__group a { min-height: 44px; }
 
-  .phero__inner { grid-template-columns: 1fr; padding: 9.4em 1.4em 3em; }
+  .phero__inner { grid-template-columns: 1fr; padding: 12em 1.4em 3em; } /* clears the two-row mobile nav */
   .phero__side { grid-column: 1; max-width: none; }
   .phero__scroll { display: none; }
   .phero__shade { background: linear-gradient(180deg, rgba(54, 71, 43, 0.9) 0%, rgba(54, 71, 43, 0.78) 30%, rgba(54, 71, 43, 0.25) 50%, rgba(54, 71, 43, 0.6) 70%, var(--forest) 100%); }
@@ -361,7 +361,7 @@ img { display: block; max-width: 100%; }
   .path-card:nth-child(n) { margin-top: 0; }
   .path-card__stage, .path-card__flipper { min-height: 24em; }
 
-  .prose-page { padding: 9.4em 1.4em 4.4em; }
+  .prose-page { padding: 12em 1.4em 4.4em; }
 
   .footer__bottom { grid-template-columns: 1fr; justify-items: start; }
   .footer__legal { justify-self: start; }

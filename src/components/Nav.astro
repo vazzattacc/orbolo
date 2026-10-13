@@ -18,6 +18,7 @@ const NAV_LINKS = [
   { label: "Beef", href: "/beef" },
   { label: "Land", href: "/land" },
 ] as const;
+const ABOUT = { label: "About Us", href: "/about" } as const;
 const CONTACT = { label: "Contact", href: "/contact" } as const;
 
 // Astro.url.pathname is "/invest/" (trailing slash) at render time for a
@@ -41,6 +42,9 @@ const currentPath = Astro.url.pathname === "/" ? "/" : Astro.url.pathname.replac
     <img src="/images/brand/logo-paper.svg" alt="" width="470" height="219" />
   </a>
   <div class="nav__group nav__group--end">
+    <a href={ABOUT.href} class="caps ulink" aria-current={currentPath === ABOUT.href ? "page" : undefined}>
+      {ABOUT.label}
+    </a>
     <a href={CONTACT.href} class="caps ulink" aria-current={currentPath === CONTACT.href ? "page" : undefined}>
       {CONTACT.label}
     </a>

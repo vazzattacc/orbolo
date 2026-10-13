@@ -4,10 +4,10 @@ import { metricSchema } from "../../src/lib/metrics/schema";
 
 describe("getMetric", () => {
   it("returns a known metric with its value, date, and source", async () => {
-    const metric = await getMetric("elTapirHectares");
+    const metric = await getMetric("gappHectares");
 
     expect(metric).toBeDefined();
-    expect(metric?.value).toBe(1000);
+    expect(metric?.value).toBe(35000);
     expect(metric?.unit).toBe("ha");
     expect(metric?.asOfDate.length).toBeGreaterThan(0);
     expect(metric?.sourceDocumentRef.length).toBeGreaterThan(0);

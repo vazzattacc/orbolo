@@ -10,7 +10,6 @@ export const landPageSchema = z.object({
 
   elTapir: z.object({
     intro: z.string().min(1),
-    hectaresMetricKey: z.string().min(1),
     expansionTargetNote: z.string().optional(),
   }),
 

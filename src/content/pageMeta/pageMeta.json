@@ -24,6 +24,12 @@
     "indexable": true
   },
   {
+    "id": "about",
+    "route": "/about",
+    "description": "Who is behind Orbolo: an Austrian company that trades beef, Paraguayan companies that raise the cattle, and an old ranching idea rebuilt as Remote Rancher.",
+    "indexable": true
+  },
+  {
     "id": "contact",
     "route": "/contact",
     "description": "Talk to Orbolo about owning a herd as a Remote Rancher, buying grass-fed Paraguayan beef, or bringing your land into a managed grazing partnership.",

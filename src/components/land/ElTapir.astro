@@ -1,14 +1,12 @@
 ---
-import MetricValue from "@/components/shared/MetricValue.astro";
 import PhotoHero from "@/components/ui/PhotoHero.astro";
 
 interface Props {
   intro: string;
-  hectaresMetricKey: string;
   expansionTargetNote?: string;
 }
 
-const { intro, hectaresMetricKey, expansionTargetNote } = Astro.props;
+const { intro, expansionTargetNote } = Astro.props;
 ---
 
 <PhotoHero image="/images/site/orbolo-palms.jpg" aria-labelledby="el-tapir-heading" scrollCue>
@@ -16,7 +14,6 @@ const { intro, hectaresMetricKey, expansionTargetNote } = Astro.props;
   <p class="script t-lime" aria-hidden="true">our own farm in the Gran Chaco</p>
   <Fragment slot="side">
     <p class="lede">{intro}</p>
-    <p class="caps">El Tapir spans <MetricValue metricKey={hectaresMetricKey} />.</p>
     {expansionTargetNote && <p class="caps">{expansionTargetNote}</p>}
   </Fragment>
 </PhotoHero>

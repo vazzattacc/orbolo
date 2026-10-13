@@ -9,7 +9,7 @@ const NEW_ROUTES = ["/404", "/privacy", "/terms"];
 
 // Pre-existing routes — the As-Is Freeze means a failure here is reported,
 // never auto-fixed (FR-QA-004).
-const EXISTING_ROUTES = ["/", "/invest", "/beef", "/land", "/contact"];
+const EXISTING_ROUTES = ["/", "/invest", "/beef", "/land", "/about", "/contact"];
 
 async function assertNoHorizontalOverflow(page: import("@playwright/test").Page, route: string) {
   const overflow = await page.evaluate(() => {

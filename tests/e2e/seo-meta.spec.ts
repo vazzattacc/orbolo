@@ -7,6 +7,7 @@ const EXISTING_TITLES: Record<string, string> = {
   "/invest": "Remote Rancher — Orbolo",
   "/beef": "Beef — Orbolo",
   "/land": "Land — Orbolo",
+  "/about": "About Us — Orbolo",
   "/contact": "Contact — Orbolo",
 };
 

@@ -51,7 +51,7 @@ test.describe("Invest page", () => {
   test("El Tapir and animal-count metrics render with a visible date and source", async ({ page }) => {
     await page.goto("/invest");
     const isThisReal = page.locator("section", { has: page.getByRole("heading", { name: "Is this real?" }) });
-    await expect(isThisReal).toContainText("1000 ha");
+    await expect(isThisReal).not.toContainText("1000 ha");
     await expect(isThisReal).toContainText("500+");
     await expect(isThisReal).toContainText(/as of 2026-09-2\d/);
   });

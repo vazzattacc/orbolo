@@ -23,7 +23,6 @@ export const investPageSchema = z.object({
   isThisReal: z.object({
     elTapirIntro: z.string().min(1),
     animalCountMetricKey: z.string().min(1),
-    elTapirHectaresMetricKey: z.string().min(1),
     visitBookingCtaLabel: z.string().min(1),
     visitBookingCtaHref: z.string().min(1),
   }),

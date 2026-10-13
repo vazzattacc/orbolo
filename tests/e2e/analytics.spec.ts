@@ -1,7 +1,7 @@
 import { expect, test } from "@playwright/test";
 
 // quickstart.md Scenario 5 — FR-AN-001/002/003/004 (research.md §7).
-const ROUTES = ["/", "/invest", "/beef", "/land", "/contact"];
+const ROUTES = ["/", "/invest", "/beef", "/land", "/about", "/contact"];
 
 test("the Plausible script tag is present on every page with the right domain and defer", async ({ page }) => {
   for (const route of ROUTES) {

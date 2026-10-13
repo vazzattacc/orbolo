@@ -2,7 +2,7 @@ import { expect, test } from "@playwright/test";
 
 // SC-002, SC-003, SC-004 — FR-GEN-003, FR-GEN-005, FR-BEEF-010.
 
-const PAGES = ["/invest", "/beef", "/land"];
+const PAGES = ["/invest", "/beef", "/land", "/about"];
 
 // §B2.6 banned-word list (spec.md FR-GEN-003). "premium" is excluded here —
 // it's only banned as a price claim, which needs contextual judgement a

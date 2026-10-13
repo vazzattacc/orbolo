@@ -11,10 +11,10 @@ test.describe("Land page", () => {
     await expect(page.getByRole("heading", { name: "Own land in Paraguay?" })).toBeVisible();
   });
 
-  test("El Tapir and Ganadería a Pasto figures render with a visible date and source", async ({ page }) => {
+  test("the Ganadería a Pasto figure renders with a visible date and source; El Tapir hectares are not shown", async ({ page }) => {
     await page.goto("/land");
     const bodyText = await page.locator("body").innerText();
-    expect(bodyText).toContain("1000 ha");
+    expect(bodyText).not.toContain("1000 ha");
     expect(bodyText).toContain("35000 ha");
     expect(bodyText).toMatch(/as of 2026-09-2\d/);
   });

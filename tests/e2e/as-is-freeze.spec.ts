@@ -20,6 +20,7 @@ const PAGES = [
   },
   { path: "/beef", title: "Beef — Orbolo", h1: "Grass-fed beef from Paraguay, at conventional prices." },
   { path: "/land", title: "Land — Orbolo", h1: "El Tapir" },
+  { path: "/about", title: "About Us — Orbolo", h1: "About Us" },
   { path: "/contact", title: "Contact — Orbolo", h1: "Contact" },
 ] as const;
 

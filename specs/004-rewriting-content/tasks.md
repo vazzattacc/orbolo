@@ -45,3 +45,11 @@ Source copy: `plan.md` → "Copy deck". Scope: text only — no markup, class, s
 - Review 1 (plan → tasks): every copy-deck block maps to exactly one task; T006–T010 split invest.json by section so each edit is checkable against the plan.
 - Review 2 (risks): `/invest` URL, path id `investors` and `investors.jpg` stay. They're structure, and tests route on them. Nothing from remote_rancher.md §5+ (prices, %, exit, Q&A) is used.
 - Review 3 (after implementation): at 360px the longer "Remote Rancher" nav label pushed Contact onto a second row; mobile nav link gap tightened 1.3em → 0.9em in `src/styles/global.css` (spacing only) so the bar stays one row. Remaining wording-scan hits are only in `src/content/legal/legal.json` (unapproved, not rendered; legal text not rewritten here) and a code comment.
+
+## Follow-up — About Us page + El Tapir hectares removed
+- [x] T026 Remove the 1,000 ha figure: `elTapirHectares` metric deleted from `metrics.json`; the field that pointed to it removed from the invest and land schemas, JSON and components (`IsThisReal.astro`, `ElTapir.astro`); tests now assert it's absent
+- [x] T027 New `about` content collection (`src/lib/about/schema.ts`, `about-repository.ts`, `src/content/about/about.json`), registered in `src/content.config.ts`
+- [x] T028 New page `src/pages/about.astro` ("About Us"), built only from existing shells: hero, story (split), old idea, how the group works, principles (cards), why Paraguay (band), where we are (dated metrics), questions about us (FAQ), closing collage
+- [x] T029 Integrated on every page via the Primary nav ("About Us", before Contact) + pageMeta entry (sitemap, meta description)
+- [x] T030 Tests: `/about` added to nav, as-is, SEO, alt-text, responsive, analytics and banned-word route lists; new `tests/unit/about-repository.test.ts`
+- [x] T031 Mobile: six links wrap the nav to two rows, so the mobile hero/prose top padding rose 9.4em → 12em to keep titles clear (spacing only)

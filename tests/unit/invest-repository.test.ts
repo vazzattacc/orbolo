@@ -39,7 +39,6 @@ describe("investPageSchema", () => {
       isThisReal: {
         elTapirIntro: "i",
         animalCountMetricKey: "animalCount",
-        elTapirHectaresMetricKey: "elTapirHectares",
         visitBookingCtaLabel: "l",
         visitBookingCtaHref: "/x",
       },

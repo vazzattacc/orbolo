@@ -19,7 +19,6 @@
     "isThisReal": {
       "elTapirIntro": "Yes. El Tapir is the group’s own farm in the Gran Chaco. Not a partner ranch: ours. The first Remote Rancher herd lives there, and it hasn’t closed a full cycle yet. Come and see it.",
       "animalCountMetricKey": "animalCount",
-      "elTapirHectaresMetricKey": "elTapirHectares",
       "visitBookingCtaLabel": "Book a visit",
       "visitBookingCtaHref": "#closing"
     },

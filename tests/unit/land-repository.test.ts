@@ -6,7 +6,6 @@ describe("getLandPage", () => {
     const page = await getLandPage();
 
     expect(page.elTapir.intro.length).toBeGreaterThan(0);
-    expect(page.elTapir.hectaresMetricKey).toBe("elTapirHectares");
     expect(page.ganaderiaAPasto.body.length).toBeGreaterThan(0);
     expect(page.workWithUs.ctaLabel.length).toBeGreaterThan(0);
   });

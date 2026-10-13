@@ -7,6 +7,7 @@ const PAGES = [
   { path: "/invest", label: "Remote Rancher" },
   { path: "/beef", label: "Beef" },
   { path: "/land", label: "Land" },
+  { path: "/about", label: "About Us" },
 ];
 
 for (const { path, label } of PAGES) {

@@ -1,0 +1,95 @@
+[
+  {
+    "id": "about",
+    "hero": {
+      "lede": "Orbolo connects people who want to own cattle, buy beef or put land to work with the ranches of Paraguay’s Gran Chaco. We trade the beef. Our Paraguayan companies raise the cattle."
+    },
+    "story": {
+      "heading": "Our story",
+      "paragraphs": [
+        "Florian Senger-Weiss, Orbolo’s founder, has worked in Paraguay since 2022. His family lives there, which is why the map was on the table in the first place.",
+        "Before that, he helped farmers in Austria, Germany and Spain move to farming that holds up through hard years.",
+        "In the Chaco he found grass, cattle, cowboys and room to grow. What was missing was a simple way for people from outside to take part."
+      ]
+    },
+    "oldIdea": {
+      "heading": "An old idea, rebuilt",
+      "paragraphs": [
+        "Paraguayan ranchers have long worked this way: one party owns the cattle, another owns the land and does the work, and the gain is shared. They call it capitalización de ganado.",
+        "Remote Rancher keeps that idea and adds what an owner far away needs: ear tags, digital tracking, a report after every muster, and one written Code for every herd."
+      ]
+    },
+    "howTheGroupWorks": {
+      "heading": "How the group works",
+      "roles": [
+        { "label": "Orbolo", "body": "Connects, markets and trades the beef. Orbolo never takes your money." },
+        { "label": "Our Paraguayan companies", "body": "Raise the cattle and run the ranches. They’re who you sign with and pay." },
+        { "label": "The trading desk", "body": "Buys every herd at market prices, so each one has a buyer before it’s bought." },
+        { "label": "Ganadería a Pasto", "body": "Our technical arm. People in the field, helping ranches move to cattle raised on grass." }
+      ]
+    },
+    "principles": {
+      "heading": "What we hold ourselves to",
+      "items": [
+        { "label": "Animals", "body": "Free from hunger, thirst, pain and fear, with shade, water and room to live as a herd." },
+        { "label": "People", "body": "Fair wages, safe work and training. Local people are hired first." },
+        { "label": "Land", "body": "No GMOs, no synthetic pesticides or fertiliser. Trees stay standing and cattle graze under them." },
+        { "label": "Neighbours", "body": "Local and indigenous communities are asked first, and listened to." }
+      ]
+    },
+    "whyParaguay": {
+      "heading": "Why Paraguay",
+      "body": "Cattle are its culture. Paraguay has raised beef for more than 400 years and sells it to over 40 countries. The vets, the auction houses and the cowboys are already here, and almost all of its electricity comes from water."
+    },
+    "whereWeAre": {
+      "heading": "Where we are",
+      "animalCountMetricKey": "animalCount",
+      "gappHectaresMetricKey": "gappHectares",
+      "building": [
+        "A 300,000-head producer alliance, raised under one Code",
+        "Full traceability, from ear tag to box"
+      ],
+      "notYet": [
+        "A closed Remote Rancher cycle to show you",
+        "Beef sold with its full animal history"
+      ]
+    },
+    "faq": {
+      "heading": "Questions about us",
+      "items": [
+        {
+          "question": "Who is Orbolo?",
+          "answer": "An Austrian company that connects, markets and trades beef for a group of ranches in Paraguay."
+        },
+        {
+          "question": "Does Orbolo take my money?",
+          "answer": "No. If you own a herd, you sign with and pay our Paraguayan operating company. Orbolo facilitates."
+        },
+        {
+          "question": "Who looks after the cattle?",
+          "answer": "Cowboys on horseback, employed by our Paraguayan companies. They know every animal by its tag."
+        },
+        {
+          "question": "Why the Gran Chaco?",
+          "answer": "It’s South America’s second-largest wilderness after the Amazon, and forest is cleared there every year. Cattle that live under the trees give landowners a reason to keep them."
+        },
+        {
+          "question": "What don’t you do yet?",
+          "answer": "We haven’t closed a full Remote Rancher cycle, and today’s beef doesn’t carry a full animal history. We say so on every page."
+        },
+        {
+          "question": "Can I meet you?",
+          "answer": "Yes. Come to El Tapir, our own farm in the Chaco, by appointment."
+        }
+      ]
+    },
+    "closing": {
+      "heading": "Come and see the cattle.",
+      "body": "El Tapir is open to visitors by appointment. Bring questions; we’ll bring the tereré.",
+      "ctas": [
+        { "label": "Contact us", "href": "/contact" },
+        { "label": "Visit El Tapir", "href": "/land" }
+      ]
+    }
+  }
+]

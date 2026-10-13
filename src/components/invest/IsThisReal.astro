@@ -6,20 +6,17 @@ import Btn from "@/components/ui/Btn.astro";
 interface Props {
   elTapirIntro: string;
   animalCountMetricKey: string;
-  elTapirHectaresMetricKey: string;
   visitBookingCtaLabel: string;
   visitBookingCtaHref: string;
 }
 
-const { elTapirIntro, animalCountMetricKey, elTapirHectaresMetricKey, visitBookingCtaLabel, visitBookingCtaHref } =
-  Astro.props;
+const { elTapirIntro, animalCountMetricKey, visitBookingCtaLabel, visitBookingCtaHref } = Astro.props;
 ---
 
 <Edit aria-labelledby="is-this-real-heading" rule={false}>
   <h2 slot="head" id="is-this-real-heading" class="h2 t-paper" data-split>Is this real?</h2>
   <p class="lede">{elTapirIntro}</p>
   <ul class="rows rows--plain" role="list">
-    <li><span class="copy">El Tapir spans <MetricValue metricKey={elTapirHectaresMetricKey} />.</span></li>
     <li>
       <span class="copy">The group currently has <MetricValue metricKey={animalCountMetricKey} /> in the system.</span>
     </li>

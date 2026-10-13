@@ -1,0 +1,127 @@
+---
+import Layout from "../components/Layout.astro";
+import PhotoHero from "../components/ui/PhotoHero.astro";
+import Split from "../components/ui/Split.astro";
+import Edit from "../components/ui/Edit.astro";
+import Band from "../components/ui/Band.astro";
+import CtaCollage from "../components/ui/CtaCollage.astro";
+import Btn from "../components/ui/Btn.astro";
+import MetricValue from "../components/shared/MetricValue.astro";
+import { getAboutPage } from "../lib/about/about-repository";
+
+const page = await getAboutPage();
+const { hero, story, oldIdea, howTheGroupWorks, principles, whyParaguay, whereWeAre, faq, closing } = page;
+---
+
+<Layout title="About Us — Orbolo">
+  <PhotoHero image="/images/site/shade-tree.jpg" scrollCue>
+    <h1 class="h1 h1--xl t-paper" data-split>About Us</h1>
+    <p class="script t-lime" aria-hidden="true">operators, not advisors</p>
+    <Fragment slot="side">
+      <p class="lede">{hero.lede}</p>
+    </Fragment>
+  </PhotoHero>
+
+  <Split
+    image="/images/site/florian.jpg"
+    alt="Florian Senger-Weiss, founder of Orbolo."
+    aria-labelledby="about-story-heading"
+  >
+    <h2 id="about-story-heading" class="h2 t-lime" data-split>{story.heading}</h2>
+    <Fragment slot="foot">
+      {story.paragraphs.map((p) => <p class="copy">{p}</p>)}
+    </Fragment>
+  </Split>
+
+  <Edit aria-labelledby="about-old-idea-heading" rule={false}>
+    <h2 slot="head" id="about-old-idea-heading" class="h2 t-paper" data-split>{oldIdea.heading}</h2>
+    {oldIdea.paragraphs.map((p, i) => <p class={i === 0 ? "lede" : "copy"}>{p}</p>)}
+  </Edit>
+
+  <Edit aria-labelledby="about-group-heading">
+    <h2 slot="head" id="about-group-heading" class="h2 t-lime" data-split>{howTheGroupWorks.heading}</h2>
+    <ul class="rows rows--plain" role="list">
+      {
+        howTheGroupWorks.roles.map((role) => (
+          <li>
+            <span class="rows__label">{role.label}</span>
+            <span class="copy rows__text">{role.body}</span>
+          </li>
+        ))
+      }
+    </ul>
+  </Edit>
+
+  <section aria-labelledby="about-principles-heading" class="sec sec--rule flex flex-col gap-[3.6em]">
+    <h2 id="about-principles-heading" class="h2 t-paper max-w-[14em]" data-split>{principles.heading}</h2>
+    <ul class="cards cards--stagger" role="list" data-reveal-group>
+      {
+        principles.items.map((item) => (
+          <li class="card">
+            <p class="h3">{item.label}</p>
+            <p class="copy">{item.body}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <Band image="/images/site/rider-green.jpg" aria-labelledby="about-paraguay-heading">
+    <h2 id="about-paraguay-heading" class="h2 t-lime" data-split>{whyParaguay.heading}</h2>
+    <Fragment slot="foot">
+      <div class="card card--glass">
+        <p class="copy">{whyParaguay.body}</p>
+      </div>
+    </Fragment>
+  </Band>
+
+  <Edit aria-labelledby="about-where-heading" rule={false}>
+    <h2 slot="head" id="about-where-heading" class="h2 t-paper" data-split>{whereWeAre.heading}</h2>
+    <ul class="rows rows--plain" role="list">
+      <li>
+        <span class="rows__label">Operating</span>
+        <span class="copy rows__text">
+          El Tapir, our own farm. <MetricValue metricKey={whereWeAre.animalCountMetricKey} /> in the system.
+          Ganadería a Pasto across <MetricValue metricKey={whereWeAre.gappHectaresMetricKey} />.
+        </span>
+      </li>
+      <li>
+        <span class="rows__label">Building</span>
+        <span class="copy rows__text">{whereWeAre.building.join(". ")}.</span>
+      </li>
+      <li>
+        <span class="rows__label">Not yet</span>
+        <span class="copy rows__text">{whereWeAre.notYet.join(". ")}.</span>
+      </li>
+    </ul>
+  </Edit>
+
+  <Edit aria-labelledby="about-faq-heading">
+    <h2 slot="head" id="about-faq-heading" class="h2 t-lime" data-split>{faq.heading}</h2>
+    <div class="faq">
+      {
+        faq.items.map((item) => (
+          <details>
+            <summary>
+              {item.question}
+              <span class="faq__icon" aria-hidden="true" />
+            </summary>
+            <p class="copy faq__answer">{item.answer}</p>
+          </details>
+        ))
+      }
+    </div>
+  </Edit>
+
+  <CtaCollage
+    aria-labelledby="about-closing-heading"
+    class="sec--rule"
+    images={["/images/site/orbolo-cattle-shade.jpg", "/images/site/orbolo-gauchos.jpg", "/images/site/orbolo-walk.jpg"]}
+  >
+    <h2 id="about-closing-heading" class="h2 t-paper max-w-[9em]" data-split>{closing.heading}</h2>
+    <p class="caps max-w-[27em]">{closing.body}</p>
+    <Fragment slot="buttons">
+      {closing.ctas.map((cta, index) => <Btn href={cta.href} label={cta.label} variant={index === 0 ? "light" : "paper"} />)}
+    </Fragment>
+  </CtaCollage>
+</Layout>

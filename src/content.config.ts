@@ -10,6 +10,7 @@ import { landPageSchema } from "./lib/land/schema";
 import { pageMetaSchema } from "./lib/pageMeta/schema";
 import { notFoundContentSchema } from "./lib/notFound/schema";
 import { legalDocumentSchema } from "./lib/legal/schema";
+import { aboutPageSchema } from "./lib/about/schema";
 
 const paths = defineCollection({
   loader: file("src/content/paths/paths.json"),
@@ -61,4 +62,9 @@ const legal = defineCollection({
   schema: legalDocumentSchema,
 });
 
-export const collections = { paths, metrics, ranches, invest, settings, beef, land, pageMeta, notFound, legal };
+const about = defineCollection({
+  loader: file("src/content/about/about.json"),
+  schema: aboutPageSchema,
+});
+
+export const collections = { paths, metrics, ranches, invest, settings, beef, land, pageMeta, notFound, legal, about };
