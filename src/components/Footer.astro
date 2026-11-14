@@ -1,5 +1,6 @@
 ---
 import { getLegalDocument } from "@/lib/legal/legal-repository";
+import { useI18n } from "@/i18n";
 
 // FR-LEG-001: a link renders only when its destination page actually
 // ships — getLegalDocument() already collapses "missing" and "not yet
@@ -8,19 +9,20 @@ import { getLegalDocument } from "@/lib/legal/legal-repository";
 const privacy = await getLegalDocument("privacy");
 const terms = await getLegalDocument("terms");
 const year = new Date().getFullYear();
+const { t } = useI18n(Astro.url);
 ---
 
-<footer aria-label="Legal" class="footer">
+<footer aria-label={t.footer.label} class="footer">
   <div class="footer__top">
-    <p class="script t-lime">a work relationship with nature</p>
-    <p class="caps">Gran Chaco · Paraguay</p>
+    <p class="script t-lime">{t.footer.tagline}</p>
+    <p class="caps">{t.footer.place}</p>
   </div>
   <div class="footer__bottom">
     <span class="caps caps--sm">© {year} Orbolo</span>
     <img class="footer__logo" src="/images/brand/logo-paper.svg" alt="Orbolo" width="470" height="219" loading="lazy" />
     <span class="caps caps--sm footer__legal">
-      {privacy && <a href="/privacy" class="ulink">Privacy</a>}
-      {terms && <a href="/terms" class="ulink">Terms</a>}
+      {privacy && <a href="/privacy" class="ulink">{t.footer.privacy}</a>}
+      {terms && <a href="/terms" class="ulink">{t.footer.terms}</a>}
     </span>
   </div>
 </footer>

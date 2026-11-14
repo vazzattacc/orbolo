@@ -6,6 +6,7 @@
  * page's mouse trail (motion.ts).
  */
 import type { HTMLAttributes } from "astro/types";
+import { useI18n } from "@/i18n";
 
 interface Props extends HTMLAttributes<"section"> {
   image: string;
@@ -15,6 +16,7 @@ interface Props extends HTMLAttributes<"section"> {
 }
 
 const { image, center = false, trail = false, scrollCue = false, class: className, ...rest } = Astro.props;
+const { t } = useI18n(Astro.url);
 ---
 
 <section class:list={["phero", { "phero--center": center }, className]} data-trail={trail ? "" : undefined} {...rest}>
@@ -30,7 +32,7 @@ const { image, center = false, trail = false, scrollCue = false, class: classNam
     scrollCue && (
       <div class="phero__scroll caps caps--sm" aria-hidden="true">
         <i />
-        Scroll
+        {t.scroll}
       </div>
     )
   }

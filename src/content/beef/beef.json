@@ -6,7 +6,8 @@
       "allianceNote": "Paraguay has raised cattle on grass for over 400 years. We trade its beef today, and we’re aligning a 300,000-head producer alliance behind it."
     },
     "whatWeSellToday": {
-      "body": "Grass-fed Paraguayan beef under the MPCS standard, bought on the market and sold at conventional prices.",
+      "body": "Grass-fed Paraguayan beef under a regenerative standard*, bought on the market and sold at conventional prices.",
+      "reviewNote": "*Against the “never use ‘regenerative’” rule",
       "noFullHistoryNote": "What we can’t offer yet: a full ear-tag-to-box history. We’re building that first."
     },
     "promise": {
@@ -33,6 +34,44 @@
     ],
     "crossLinkToInvest": {
       "label": "Own the herd behind this beef",
+      "href": "/invest"
+    }
+  },
+  {
+    "id": "beef-es",
+    "hero": {
+      "headline": "Carne a pasto de Paraguay, a precios convencionales.",
+      "allianceNote": "Paraguay cría ganado a pasto desde hace más de 400 años. Hoy comercializamos su carne, y estamos alineando detrás una alianza de productores de 300.000 cabezas."
+    },
+    "whatWeSellToday": {
+      "body": "Carne paraguaya a pasto bajo un estándar regenerativo*, comprada en el mercado y vendida a precios convencionales.",
+      "reviewNote": "*Contradice la regla «nunca usar “regenerativo”»",
+      "noFullHistoryNote": "Lo que todavía no podemos ofrecer: el historial completo, de la caravana a la caja. Eso es lo primero que estamos construyendo."
+    },
+    "promise": {
+      "body": "No necesitamos un precio más alto para que esto funcione. Competimos en resiliencia y escala, y un mejor producto es cómo queremos cambiar lo que es la carne convencional."
+    },
+    "firstPick": {
+      "body": "Comercia con nosotros ahora y serás el primero en la fila cuando llegue el suministro trazable de nuestros propios rodeos."
+    },
+    "whySupplyDifferent": {
+      "body": "Nuestros propios rodeos y los de la alianza se crían bajo un mismo Código. Es un suministro que controlamos y del que podemos responder, no solo conseguir y esperar."
+    },
+    "whoVerifies": {
+      "codeReferenceNote": "Cada animal se cría, y cada rodeo se vende, bajo el Código Orbolo."
+    },
+    "ctas": [
+      {
+        "label": "Pedir la ficha técnica",
+        "href": "/contact"
+      },
+      {
+        "label": "Pedir una muestra",
+        "href": "/contact"
+      }
+    ],
+    "crossLinkToInvest": {
+      "label": "Sé dueño del rodeo detrás de esta carne",
       "href": "/invest"
     }
   }

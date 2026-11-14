@@ -137,5 +137,144 @@
       "label": "See where your beef is sold",
       "href": "/beef"
     }
+  },
+  {
+    "id": "invest-es",
+    "hero": {
+      "headline": "Sé ganadero sin salir de casa.",
+      "releaseRule": "Tu propio rodeo en el Chaco paraguayo, criado por nuestros vaqueros bajo el Código Orbolo. Una estancia arranca cuando el 60% de su rodeo está comprometido. Antes de eso no se mueve dinero.",
+      "ctaLabel": "Ver la próxima estancia",
+      "ctaHref": "#closing"
+    },
+    "offerBox": {
+      "included": [
+        "Vacas preñadas, con caravana a tu nombre, en una estancia con nombre que puedes visitar",
+        "Una vida a pasto y bajo monte nativo, sin hormonas de crecimiento ni antibióticos promotores",
+        "Un informe después de cada rodeo: números, fotos y tu lista de caravanas",
+        "Nada que pagar hasta que la estancia se libera"
+      ],
+      "termsOnRequestNote": "El tamaño del rodeo, la duración del ciclo, los costos y los plazos de pago varían según la estancia, y por razones legales no podemos publicarlos aquí. Están en el paquete Remote Rancher, a pedido."
+    },
+    "isThisReal": {
+      "elTapirIntro": "Sí. El Tapir es la estancia propia del grupo en el Gran Chaco. No es una estancia asociada: es nuestra. Allí vive el primer rodeo Remote Rancher, y todavía no cerró un ciclo completo. Ven a verlo.",
+      "animalCountMetricKey": "animalCount",
+      "visitBookingCtaLabel": "Reservar una visita",
+      "visitBookingCtaHref": "#closing"
+    },
+    "whoBuysAtEnd": {
+      "body": "La mesa comercial de Orbolo, a precios de mercado. Cada rodeo tiene su comprador antes de ser comprado."
+    },
+    "whatIfNotEnough": {
+      "releaseRuleBody": "Una estancia se libera solo cuando el 60% de su rodeo está comprometido con cartas de intención firmadas. Por debajo de eso, nadie paga nada.",
+      "loiExpiryBody": "Una carta de intención vence a los 90 días. Si para entonces la estancia no llegó al 60%, sigue abierta o se retira. En ambos casos, te avisamos."
+    },
+    "whatIfWrong": {
+      "categories": [
+        {
+          "label": "Pérdida de animales",
+          "body": "El ganado puede perderse por enfermedad, depredadores o accidentes."
+        },
+        {
+          "label": "Sequía",
+          "body": "Un año seco significa menos terneros. El rodeo está pensado para aguantarlo."
+        },
+        {
+          "label": "Moneda",
+          "body": "En el campo, el dinero se mueve en guaraníes, y el tipo de cambio también se mueve."
+        },
+        {
+          "label": "Política y exportación",
+          "body": "Los mercados de exportación y las reglas comerciales pueden cambiar durante un ciclo."
+        },
+        {
+          "label": "Liquidez",
+          "body": "No es dinero que puedas retirar con poco aviso. Un rodeo queda comprometido durante todo su ciclo."
+        }
+      ],
+      "dataRoomNote": "Cómo se maneja cada riesgo está detallado en el data room completo, que se abre cuando firmas un acuerdo de confidencialidad (NDA)."
+    },
+    "howItWorks": {
+      "steps": [
+        {
+          "step": 1,
+          "body": "Elige una estancia de la lista de próximas estancias."
+        },
+        {
+          "step": 2,
+          "body": "Lee el paquete Remote Rancher y luego abre el data room completo bajo NDA."
+        },
+        {
+          "step": 3,
+          "body": "Firma una carta de intención. No es vinculante y no se paga nada."
+        },
+        {
+          "step": 4,
+          "body": "Con el 60% comprometido, la estancia se libera."
+        },
+        {
+          "step": 5,
+          "body": "Recién entonces firmas con nuestra empresa operadora paraguaya y pagas. Tus vacas llegan en camión y reciben caravana a tu nombre."
+        },
+        {
+          "step": 6,
+          "body": "Los vaqueros las crían a pasto bajo el Código Orbolo, todo el año."
+        },
+        {
+          "step": 7,
+          "body": "En el rodeo anual, los terneros se venden a través de la mesa comercial de Orbolo a precios de mercado, y recibes tu parte."
+        }
+      ]
+    },
+    "whatYouOwn": {
+      "body": "Vacas concretas, identificadas por caravana, bajo un contrato de manejo con nuestra empresa operadora paraguaya. No es tierra ni una participación en un fondo. Los créditos de carbono o biodiversidad quedan con la tierra y el grupo."
+    },
+    "whoVerifies": {
+      "codeReferenceNote": "Cada animal se cría bajo el Código Orbolo: espacio para moverse, sombra, agua y sin hormonas de crecimiento."
+    },
+    "faq": {
+      "items": [
+        {
+          "question": "¿Tengo que ir a Paraguay para ser dueño de ganado aquí?",
+          "answer": "No. Tus informes te traen la estancia hasta tu escritorio. Pero eres muy bienvenido, con cita previa."
+        },
+        {
+          "question": "¿Cómo sé que los animales existen de verdad?",
+          "answer": "Cada vaca lleva una caravana y un dispositivo digital, los dos en tu lista. Los detalles están en el paquete Remote Rancher."
+        },
+        {
+          "question": "¿Puedo salir antes?",
+          "answer": "Hoy no. Un rodeo queda comprometido durante su ciclo. Cuéntanos tu situación."
+        },
+        {
+          "question": "¿Puedo visitar la estancia?",
+          "answer": "Sí, con cita previa."
+        },
+        {
+          "question": "¿Quién puede ser Remote Rancher?",
+          "answer": "Depende de dónde vivas, entre otras cosas. Escríbenos para saber si puedes participar."
+        },
+        {
+          "question": "¿Qué pasa cuando termina el ciclo?",
+          "answer": "Los animales se venden a través de la mesa comercial de Orbolo a precios de mercado, y recibes tu parte."
+        }
+      ]
+    },
+    "closing": {
+      "releaseLine": "Se libera al 60%. Nada se paga antes.",
+      "ctas": [
+        {
+          "label": "Pedir el paquete Remote Rancher",
+          "href": "/contact"
+        },
+        {
+          "label": "Agendar una llamada",
+          "href": "/contact"
+        }
+      ]
+    },
+    "crossLinkToBeef": {
+      "label": "Mira dónde se vende tu carne",
+      "href": "/beef"
+    }
   }
 ]

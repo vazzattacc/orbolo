@@ -1,5 +1,6 @@
 ---
 import { getRanches } from "@/lib/ranches/ranches-repository";
+import { useI18n } from "@/i18n";
 
 interface Props {
   ranchSlugs?: string[];
@@ -13,13 +14,14 @@ const allRanches =
 // Public pipeline cards are scoped to exactly the slugs this page names —
 // see contracts/nav-and-hidden-sections.md: the whole section is absent
 // (not just empty) when there's nothing real to show (OQ-008).
+const { t } = useI18n(Astro.url);
 ---
 
 {
   allRanches.length > 0 && (
     <section aria-labelledby="deployment-pipeline-heading" class="sec sec--rule flex flex-col gap-[3.6em]">
       <h2 id="deployment-pipeline-heading" class="h2 t-lime" data-split>
-        Deployment pipeline
+        {t.invest.pipeline}
       </h2>
       <ul class="cards cards--stagger" role="list" data-reveal-group>
         {allRanches.map((ranch) => (
@@ -30,7 +32,7 @@ const allRanches =
               {ranch.region} · {ranch.hectares} ha · {ranch.grazingSystem}
             </p>
             <p class="caps caps--sm t-lime">
-              {ranch.committedUnderLoi} / {ranch.threshold} committed · {ranch.status}
+              {ranch.committedUnderLoi} / {ranch.threshold} {t.invest.committed} · {ranch.status}
             </p>
           </li>
         ))}

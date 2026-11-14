@@ -1,18 +1,22 @@
 ---
 import Split from "@/components/ui/Split.astro";
+import { useI18n } from "@/i18n";
 
 interface Props {
   body: string;
+  reviewNote?: string;
   noFullHistoryNote: string;
 }
 
-const { body, noFullHistoryNote } = Astro.props;
+const { body, reviewNote, noFullHistoryNote } = Astro.props;
+const { t } = useI18n(Astro.url);
 ---
 
-<Split image="/images/site/zebu-close.jpg" alt="A light zebu cow in green pasture." aria-labelledby="what-we-sell-heading">
-  <h2 id="what-we-sell-heading" class="h2 t-lime" data-split>What we sell today</h2>
+<Split image="/images/site/zebu-close.jpg" alt={t.beef.whatWeSellAlt} aria-labelledby="what-we-sell-heading">
+  <h2 id="what-we-sell-heading" class="h2 t-lime" data-split>{t.beef.whatWeSell}</h2>
   <Fragment slot="foot">
     <p class="lede">{body}</p>
+    {reviewNote && <p class="flag caps caps--sm">{reviewNote}</p>}
     <p class="caps caps--sm max-w-[32em]">{noFullHistoryNote}</p>
   </Fragment>
 </Split>

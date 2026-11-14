@@ -6,7 +6,7 @@ import { z } from "astro/zod";
  * that stays hidden when absent — see contracts/nav-and-hidden-sections.md.
  */
 export const investPageSchema = z.object({
-  id: z.literal("invest"),
+  id: z.enum(["invest", "invest-es"]),
 
   hero: z.object({
     headline: z.string().min(1),

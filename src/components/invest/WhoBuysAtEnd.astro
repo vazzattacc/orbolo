@@ -1,21 +1,23 @@
 ---
 import Split from "@/components/ui/Split.astro";
+import { useI18n } from "@/i18n";
 
 interface Props {
   body: string;
 }
 
 const { body } = Astro.props;
+const { t } = useI18n(Astro.url);
 ---
 
 <Split
   image="/images/site/grazing-bright.jpg"
-  alt="Cattle grazing on bright green pasture."
+  alt={t.invest.whoBuysAlt}
   reverse
   sketch
   aria-labelledby="who-buys-heading"
 >
-  <h2 id="who-buys-heading" class="h2 t-lime" data-split>Who buys the animal at the end?</h2>
+  <h2 id="who-buys-heading" class="h2 t-lime" data-split>{t.invest.whoBuys}</h2>
   <Fragment slot="foot">
     <p class="lede">{body}</p>
   </Fragment>

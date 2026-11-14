@@ -84,6 +84,8 @@ img { display: block; max-width: 100%; }
 .lede { font-size: 1.3em; line-height: 1.45; max-width: 34em; text-wrap: pretty; }
 .copy { font-size: 1.08em; line-height: 1.6; max-width: 38em; text-wrap: pretty; }
 .copy + .copy { margin-top: 1em; }
+/* review flag: wording awaiting client/counsel sign-off, meant to be seen */
+.flag { background: var(--lime); color: var(--forest); padding: 0.55em 0.85em; }
 
 /* headings wait for the character reveal only while the motion script runs
    (html.js); without it they simply show. opacity, not visibility, so the
@@ -124,7 +126,8 @@ img { display: block; max-width: 100%; }
 .nav__logo { display: block; height: 2.9em; }
 .nav__logo img { height: 100%; width: auto; }
 .nav a:hover { color: var(--lime); }
-.nav a[aria-current="page"] { color: var(--lime); }
+.nav a[aria-current="page"], .nav a[aria-current="true"] { color: var(--lime); }
+.nav__lang { display: inline-flex; align-items: center; gap: 0.5em; }
 
 /* ---------- photo hero (Home, Invest, Beef, Land, Contact, 404) ---------- */
 .phero { position: relative; min-height: max(100svh, 44em); overflow: hidden; color: var(--paper); background: var(--forest); display: flex; flex-direction: column; }

@@ -1,5 +1,6 @@
 ---
 import { getMetric } from "@/lib/metrics/metrics-repository";
+import { useI18n } from "@/i18n";
 
 interface Props {
   metricKey: string;
@@ -11,6 +12,7 @@ interface Props {
 
 const { metricKey, prefix, suffix } = Astro.props;
 const metric = await getMetric(metricKey);
+const { t } = useI18n(Astro.url);
 ---
 
 {
@@ -19,11 +21,11 @@ const metric = await getMetric(metricKey);
       {prefix}
       <strong>
         {metric.value}
-        {metric.unit && ` ${metric.unit}`}
+        {metric.unit && ` ${t.metric.units[metric.unit] ?? metric.unit}`}
       </strong>
       {suffix}
       <span class="metric__asof" title={metric.sourceDocumentRef}>
-        (as of {metric.asOfDate})
+        ({t.metric.asOf} {metric.asOfDate})
       </span>
     </span>
   )

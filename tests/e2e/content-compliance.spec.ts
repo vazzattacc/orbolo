@@ -1,4 +1,5 @@
 import { expect, test } from "@playwright/test";
+import { bodyTextOutsideRegenerativeException } from "./approved-exceptions";
 
 // SC-002, SC-003, SC-004 — FR-GEN-003, FR-GEN-005, FR-BEEF-010.
 
@@ -30,9 +31,9 @@ for (const path of PAGES) {
     }
   });
 
-  test(`${path}: never "regenerative" or "guaranteed"`, async ({ page }) => {
+  test(`${path}: never "regenerative" (outside the flagged exception) or "guaranteed"`, async ({ page }) => {
     await page.goto(path);
-    const bodyText = (await page.locator("body").innerText()).toLowerCase();
+    const bodyText = await bodyTextOutsideRegenerativeException(page);
     expect(bodyText).not.toContain("regenerative");
     expect(bodyText).not.toContain("guaranteed");
   });

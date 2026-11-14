@@ -1,15 +1,17 @@
 ---
 import Band from "@/components/ui/Band.astro";
+import { useI18n } from "@/i18n";
 
 interface Props {
   body: string;
 }
 
 const { body } = Astro.props;
+const { t } = useI18n(Astro.url);
 ---
 
 <Band image="/images/site/pasture-top.jpg" aria-labelledby="what-you-own-heading">
-  <h2 id="what-you-own-heading" class="h2 t-paper max-w-[11em]" data-split>What you own, precisely</h2>
+  <h2 id="what-you-own-heading" class="h2 t-paper max-w-[11em]" data-split>{t.invest.whatYouOwn}</h2>
   <Fragment slot="foot">
     <div class="card card--glass min-h-0">
       <p class="copy">{body}</p>

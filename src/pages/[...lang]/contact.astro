@@ -1,0 +1,18 @@
+---
+import { localeStaticPaths, useI18n } from "@/i18n";
+import Layout from "@/components/Layout.astro";
+import PhotoHero from "@/components/ui/PhotoHero.astro";
+
+export const getStaticPaths = localeStaticPaths;
+const { t } = useI18n(Astro.url);
+
+---
+
+<Layout title={t.contact.title}>
+  <PhotoHero image="/images/site/brahman-four.jpg" trail>
+    <h1 class="h1 h1--xl t-paper" data-split>{t.contact.h1}</h1>
+    <Fragment slot="side">
+      <p class="lede">{t.contact.body}</p>
+    </Fragment>
+  </PhotoHero>
+</Layout>

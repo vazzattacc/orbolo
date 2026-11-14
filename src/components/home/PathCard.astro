@@ -1,5 +1,6 @@
 ---
 import type { PathCard } from "../../lib/paths/path-repository";
+import { useI18n } from "@/i18n";
 
 interface Props {
   path: PathCard;
@@ -7,6 +8,7 @@ interface Props {
 
 const { path } = Astro.props;
 const backId = `${path.id}-back`;
+const { t, path: localizePath } = useI18n(Astro.url);
 ---
 
 <li class="path-card relative list-none" data-path-card data-flipped="false">
@@ -34,7 +36,7 @@ const backId = `${path.id}-back`;
           class="path-card__trigger"
           aria-expanded="false"
           aria-controls={backId}
-          aria-label={`View more about ${path.title}`}
+          aria-label={t.pathCard.viewMore(path.title)}
           data-path-card-trigger></button>
       </div>
 
@@ -45,17 +47,17 @@ const backId = `${path.id}-back`;
           <p class="copy">{path.description}</p>
         </div>
         <div class="path-card__actions">
-          <a href={path.destination} class="btn btn--dark path-card__discover" data-path-card-discover>
-            <span class="btn__dot" aria-hidden="true"></span><span class="btn__label">Discover more</span><span
+          <a href={localizePath(path.destination)} class="btn btn--dark path-card__discover" data-path-card-discover>
+            <span class="btn__dot" aria-hidden="true"></span><span class="btn__label">{t.pathCard.discoverMore}</span><span
               class="btn__dot"
               aria-hidden="true"></span>
           </a>
           <button
             type="button"
             class="path-card__close caps ulink min-h-[44px] min-w-[44px] cursor-pointer px-2"
-            aria-label={`Flip the ${path.title} card back`}
+            aria-label={t.pathCard.flipBack(path.title)}
             data-path-card-close>
-            Back
+            {t.pathCard.back}
           </button>
         </div>
       </div>

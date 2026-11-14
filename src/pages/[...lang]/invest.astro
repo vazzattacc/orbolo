@@ -1,0 +1,40 @@
+---
+import { localeStaticPaths, useI18n } from "@/i18n";
+import Layout from "@/components/Layout.astro";
+import Hero from "@/components/invest/Hero.astro";
+import OfferBox from "@/components/invest/OfferBox.astro";
+import IsThisReal from "@/components/invest/IsThisReal.astro";
+import WhoBuysAtEnd from "@/components/invest/WhoBuysAtEnd.astro";
+import WhatIfNotEnough from "@/components/invest/WhatIfNotEnough.astro";
+import WhatIfWrong from "@/components/invest/WhatIfWrong.astro";
+import HowItWorks from "@/components/invest/HowItWorks.astro";
+import DeploymentPipeline from "@/components/invest/DeploymentPipeline.astro";
+import WhatYouOwn from "@/components/invest/WhatYouOwn.astro";
+import WhoVerifies from "@/components/invest/WhoVerifies.astro";
+import Faq from "@/components/invest/Faq.astro";
+import Closing from "@/components/invest/Closing.astro";
+import CrossLink from "@/components/shared/CrossLink.astro";
+import { getInvestPage } from "@/lib/invest/invest-repository";
+
+export const getStaticPaths = localeStaticPaths;
+const { locale, t } = useI18n(Astro.url);
+
+
+const page = await getInvestPage(locale);
+---
+
+<Layout title={t.invest.title}>
+  <Hero {...page.hero} />
+  <OfferBox {...page.offerBox} />
+  <IsThisReal {...page.isThisReal} />
+  <WhoBuysAtEnd {...page.whoBuysAtEnd} />
+  <WhatIfNotEnough {...page.whatIfNotEnough} />
+  <WhatIfWrong {...page.whatIfWrong} />
+  <HowItWorks {...page.howItWorks} />
+  <DeploymentPipeline ranchSlugs={page.deploymentPipeline?.ranchSlugs} />
+  <WhatYouOwn {...page.whatYouOwn} />
+  <WhoVerifies {...page.whoVerifies} />
+  <Faq {...page.faq} />
+  <Closing {...page.closing} />
+  <CrossLink {...page.crossLinkToBeef} />
+</Layout>

@@ -5,6 +5,7 @@ import Footer from "./Footer.astro";
 import { getPageMeta } from "@/lib/pageMeta/page-meta-repository";
 import { getSocialPreviewDefaults } from "@/lib/settings/settings-repository";
 import "../styles/global.css";
+import { isLocalizedRoute, localizePath, stripLocale, useI18n } from "@/i18n";
 
 interface Props {
   title: string;
@@ -30,10 +31,18 @@ const social = await getSocialPreviewDefaults();
 const canonicalUrl = new URL(route, Astro.site).href;
 const ogImageUrl = new URL(social.socialImagePath, Astro.site).href;
 const isNoindex = noindex || (pageMeta ? !pageMeta.indexable : false);
+
+// English and Spanish versions of the same page, for hreflang alternates.
+const { locale, t } = useI18n(Astro.url);
+const baseRoute = stripLocale(Astro.url.pathname);
+const alternates = {
+  en: new URL(localizePath(baseRoute, "en"), Astro.site).href,
+  es: new URL(localizePath(baseRoute, "es"), Astro.site).href,
+};
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={locale}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -41,6 +50,15 @@ const isNoindex = noindex || (pageMeta ? !pageMeta.indexable : false);
     {pageMeta?.description && <meta name="description" content={pageMeta.description} />}
     {isNoindex && <meta name="robots" content="noindex" />}
     <link rel="canonical" href={canonicalUrl} />
+    {
+      !isNoindex && isLocalizedRoute(baseRoute) && (
+        <>
+          <link rel="alternate" hreflang="en" href={alternates.en} />
+          <link rel="alternate" hreflang="es" href={alternates.es} />
+          <link rel="alternate" hreflang="x-default" href={alternates.en} />
+        </>
+      )
+    }
 
     <!-- FR-SEO-003: complete social-preview set -->
     <meta property="og:title" content={title} />
@@ -83,7 +101,7 @@ const isNoindex = noindex || (pageMeta ? !pageMeta.indexable : false);
   </head>
   <body>
     <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[70] focus:bg-orbolo-lime focus:px-4 focus:py-2 focus:text-orbolo-forest">
-      Skip to content
+      {t.skipToContent}
     </a>
     <Nav />
     <main id="main">

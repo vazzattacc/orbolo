@@ -1,6 +1,7 @@
 ---
 import CtaCollage from "@/components/ui/CtaCollage.astro";
 import Btn from "@/components/ui/Btn.astro";
+import { useI18n } from "@/i18n";
 
 interface Props {
   ctaLabel: string;
@@ -8,11 +9,12 @@ interface Props {
 }
 
 const { ctaLabel, ctaHref } = Astro.props;
+const { t } = useI18n(Astro.url);
 ---
 
 <CtaCollage aria-labelledby="work-with-us-heading" class="sec--rule">
-  <h2 id="work-with-us-heading" class="h2 t-lime max-w-[9em]" data-split>Own land in Paraguay?</h2>
-  <p class="caps max-w-[27em]">Bring your ranch into the system. Cattle graze under the trees, not instead of them.</p>
+  <h2 id="work-with-us-heading" class="h2 t-lime max-w-[9em]" data-split>{t.land.ownLand}</h2>
+  <p class="caps max-w-[27em]">{t.land.ownLandBody}</p>
   <Fragment slot="buttons">
     <Btn href={ctaHref} label={ctaLabel} />
   </Fragment>

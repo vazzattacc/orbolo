@@ -1,4 +1,5 @@
 ---
+import { useI18n } from "@/i18n";
 /**
  * The one-cross-link-per-page component for the "two roles, one contact"
  * rule (spec.md §5): Invest -> Beef ("See where your beef is sold",
@@ -14,10 +15,11 @@ interface Props {
 }
 
 const { label, href } = Astro.props;
+const { path } = useI18n(Astro.url);
 ---
 
 <p class="m-0">
-  <a href={href} class="xlink">
+  <a href={path(href)} class="xlink">
     <span class="xlink__text">{label}</span>
     <span class="xlink__arrow" aria-hidden="true"></span>
   </a>

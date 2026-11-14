@@ -1,14 +1,16 @@
 ---
 import Edit from "@/components/ui/Edit.astro";
+import { useI18n } from "@/i18n";
 
 interface Props {
   body: string;
 }
 
 const { body } = Astro.props;
+const { t } = useI18n(Astro.url);
 ---
 
 <Edit aria-labelledby="promise-heading" rule={false}>
-  <h2 slot="head" id="promise-heading" class="h2 t-paper" data-split>The promise</h2>
+  <h2 slot="head" id="promise-heading" class="h2 t-paper" data-split>{t.beef.promise}</h2>
   <p class="lede">{body}</p>
 </Edit>

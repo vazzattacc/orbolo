@@ -27,9 +27,16 @@ describe("getBeefPage", () => {
     expect(rendered).not.toContain("customer");
   });
 
-  it("never describes today's beef as regenerative (FR-BEEF-010)", async () => {
+  // FR-BEEF-010, with one owner-approved exception (2026-10-28): the
+  // What-we-sell sentence may say "regenerative" only while it carries a
+  // visible review flag. The word stays banned everywhere else.
+  it("calls today's beef regenerative only in the flagged What-we-sell sentence (FR-BEEF-010)", async () => {
     const page = await getBeefPage();
-    const rendered = JSON.stringify(page).toLowerCase();
-    expect(rendered).not.toContain("regenerative");
+    const { whatWeSellToday, ...rest } = page;
+    expect(JSON.stringify(rest).toLowerCase()).not.toContain("regenerative");
+    expect(whatWeSellToday.noFullHistoryNote.toLowerCase()).not.toContain("regenerative");
+    if (whatWeSellToday.body.toLowerCase().includes("regenerative")) {
+      expect(whatWeSellToday.reviewNote).toBeTruthy();
+    }
   });
 });

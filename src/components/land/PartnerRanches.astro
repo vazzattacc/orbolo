@@ -1,5 +1,6 @@
 ---
 import { getRanches } from "@/lib/ranches/ranches-repository";
+import { useI18n } from "@/i18n";
 
 interface Props {
   ranchSlugs?: string[];
@@ -11,13 +12,14 @@ const allRanches =
     ? (await getRanches()).filter((ranch) => ranchSlugs.includes(ranch.id))
     : [];
 // Public-layer fields only — see contracts/nav-and-hidden-sections.md.
+const { t } = useI18n(Astro.url);
 ---
 
 {
   allRanches.length > 0 && (
     <section aria-labelledby="partner-ranches-heading" class="sec flex flex-col gap-[3.6em]">
       <h2 id="partner-ranches-heading" class="h2 t-lime" data-split>
-        Partner ranches
+        {t.land.partnerRanches}
       </h2>
       <ul class="cards cards--stagger" role="list" data-reveal-group>
         {allRanches.map((ranch) => (

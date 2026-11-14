@@ -1,4 +1,5 @@
 import { getEntry } from "astro:content";
+import { localizedId, type Locale } from "@/i18n";
 import type { InvestPage } from "./schema";
 
 /**
@@ -7,10 +8,11 @@ import type { InvestPage } from "./schema";
  * not an optional, tolerate-zero-entries collection; the page can't render
  * at all without it.
  */
-export async function getInvestPage(): Promise<InvestPage> {
-  const entry = await getEntry("invest", "invest");
+export async function getInvestPage(locale: Locale = "en"): Promise<InvestPage> {
+  const id = localizedId("invest", locale);
+  const entry = await getEntry("invest", id);
   if (!entry) {
-    throw new Error("getInvestPage: the 'invest' content collection has no 'invest' entry");
+    throw new Error(`getInvestPage: the 'invest' content collection has no '${id}' entry`);
   }
   return entry.data;
 }

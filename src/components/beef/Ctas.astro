@@ -1,6 +1,7 @@
 ---
 import CtaCollage from "@/components/ui/CtaCollage.astro";
 import Btn from "@/components/ui/Btn.astro";
+import { useI18n } from "@/i18n";
 
 interface Cta {
   label: string;
@@ -12,14 +13,15 @@ interface Props {
 }
 
 const { ctas } = Astro.props;
+const { t } = useI18n(Astro.url);
 ---
 
 <CtaCollage
-  aria-label="Get in touch about beef"
+  aria-label={t.beef.getInTouch}
   class="sec--rule"
   images={["/images/site/orbolo-cattle-shade.jpg", "/images/site/rider-green.jpg", "/images/site/brahman-four.jpg"]}
 >
-  <p class="h2 t-paper max-w-[8em]" aria-hidden="true" data-split>Get in touch about beef</p>
+  <p class="h2 t-paper max-w-[8em]" aria-hidden="true" data-split>{t.beef.getInTouch}</p>
   <Fragment slot="buttons">
     {ctas.map((cta, index) => <Btn href={cta.href} label={cta.label} variant={index === 0 ? "light" : "paper"} />)}
   </Fragment>

@@ -8,7 +8,7 @@ import { z } from "astro/zod";
  * definitively, not a placeholder.
  */
 export const beefPageSchema = z.object({
-  id: z.literal("beef"),
+  id: z.enum(["beef", "beef-es"]),
 
   hero: z.object({
     headline: z.string().min(1),
@@ -17,6 +17,8 @@ export const beefPageSchema = z.object({
 
   whatWeSellToday: z.object({
     body: z.string().min(1),
+    /** Visible footnote flagging wording that breaks a brief rule, pending client/counsel review. */
+    reviewNote: z.string().min(1).optional(),
     noFullHistoryNote: z.string().min(1),
   }),
 

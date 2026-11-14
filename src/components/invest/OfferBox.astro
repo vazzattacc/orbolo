@@ -1,5 +1,6 @@
 ---
 import Split from "@/components/ui/Split.astro";
+import { useI18n } from "@/i18n";
 
 interface Props {
   included: string[];
@@ -7,14 +8,15 @@ interface Props {
 }
 
 const { included, termsOnRequestNote } = Astro.props;
+const { t } = useI18n(Astro.url);
 ---
 
 <Split
   image="/images/site/gaucho-nelore.jpg"
-  alt="A rider moves a herd of white zebu cattle across green pasture."
+  alt={t.invest.whatsIncludedAlt}
   aria-labelledby="offer-box-heading"
 >
-  <h2 id="offer-box-heading" class="h2 t-lime" data-split>What’s included</h2>
+  <h2 id="offer-box-heading" class="h2 t-lime" data-split>{t.invest.whatsIncluded}</h2>
   <Fragment slot="foot">
     <ul class="rows" role="list" data-reveal-group>
       {

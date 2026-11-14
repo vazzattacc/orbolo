@@ -34,5 +34,41 @@
     "route": "/contact",
     "description": "Talk to Orbolo about owning a herd as a Remote Rancher, buying grass-fed Paraguayan beef, or bringing your land into a managed grazing partnership.",
     "indexable": true
+  },
+  {
+    "id": "homeEs",
+    "route": "/es",
+    "description": "Orbolo conecta a dueños de rodeos, estancias y compradores de carne en el Gran Chaco paraguayo. Sé dueño de ganado o compra carne a pasto bajo el Código Orbolo.",
+    "indexable": true
+  },
+  {
+    "id": "investEs",
+    "route": "/es/invest",
+    "description": "Remote Rancher: tu propio rodeo en una estancia del Chaco paraguayo, criado bajo el Código Orbolo. Una estancia se libera al 60% comprometido; nada se paga antes.",
+    "indexable": true
+  },
+  {
+    "id": "beefEs",
+    "route": "/es/beef",
+    "description": "Carne a pasto de Paraguay a precios convencionales. Hoy la comercializamos y alineamos una alianza de 300.000 cabezas. Comercia ahora y ten primera elección.",
+    "indexable": true
+  },
+  {
+    "id": "landEs",
+    "route": "/es/land",
+    "description": "El Tapir es la estancia propia de Orbolo en el Gran Chaco, abierta a visitas con cita previa. Conoce Ganadería a Pasto y suma tu tierra al sistema.",
+    "indexable": true
+  },
+  {
+    "id": "aboutEs",
+    "route": "/es/about",
+    "description": "Quién está detrás de Orbolo: una empresa austríaca que comercializa carne, empresas paraguayas que crían el ganado y una vieja idea ganadera renovada como Remote Rancher.",
+    "indexable": true
+  },
+  {
+    "id": "contactEs",
+    "route": "/es/contact",
+    "description": "Habla con Orbolo para ser dueño de un rodeo como Remote Rancher, comprar carne paraguaya a pasto o sumar tu tierra a una alianza de pastoreo manejado.",
+    "indexable": true
   }
 ]

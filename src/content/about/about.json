@@ -22,19 +22,43 @@
     "howTheGroupWorks": {
       "heading": "How the group works",
       "roles": [
-        { "label": "Orbolo", "body": "Connects, markets and trades the beef. Orbolo never takes your money." },
-        { "label": "Our Paraguayan companies", "body": "Raise the cattle and run the ranches. They’re who you sign with and pay." },
-        { "label": "The trading desk", "body": "Buys every herd at market prices, so each one has a buyer before it’s bought." },
-        { "label": "Ganadería a Pasto", "body": "Our technical arm. People in the field, helping ranches move to cattle raised on grass." }
+        {
+          "label": "Orbolo",
+          "body": "Connects, markets and trades the beef. Orbolo never takes your money."
+        },
+        {
+          "label": "Our Paraguayan companies",
+          "body": "Raise the cattle and run the ranches. They’re who you sign with and pay."
+        },
+        {
+          "label": "The trading desk",
+          "body": "Buys every herd at market prices, so each one has a buyer before it’s bought."
+        },
+        {
+          "label": "Ganadería a Pasto",
+          "body": "Our technical arm. People in the field, helping ranches move to cattle raised on grass."
+        }
       ]
     },
     "principles": {
       "heading": "What we hold ourselves to",
       "items": [
-        { "label": "Animals", "body": "Free from hunger, thirst, pain and fear, with shade, water and room to live as a herd." },
-        { "label": "People", "body": "Fair wages, safe work and training. Local people are hired first." },
-        { "label": "Land", "body": "No GMOs, no synthetic pesticides or fertiliser. Trees stay standing and cattle graze under them." },
-        { "label": "Neighbours", "body": "Local and indigenous communities are asked first, and listened to." }
+        {
+          "label": "Animals",
+          "body": "Free from hunger, thirst, pain and fear, with shade, water and room to live as a herd."
+        },
+        {
+          "label": "People",
+          "body": "Fair wages, safe work and training. Local people are hired first."
+        },
+        {
+          "label": "Land",
+          "body": "No GMOs, no synthetic pesticides or fertiliser. Trees stay standing and cattle graze under them."
+        },
+        {
+          "label": "Neighbours",
+          "body": "Local and indigenous communities are asked first, and listened to."
+        }
       ]
     },
     "whyParaguay": {
@@ -87,8 +111,137 @@
       "heading": "Come and see the cattle.",
       "body": "El Tapir is open to visitors by appointment. Bring questions; we’ll bring the tereré.",
       "ctas": [
-        { "label": "Contact us", "href": "/contact" },
-        { "label": "Visit El Tapir", "href": "/land" }
+        {
+          "label": "Contact us",
+          "href": "/contact"
+        },
+        {
+          "label": "Visit El Tapir",
+          "href": "/land"
+        }
+      ]
+    }
+  },
+  {
+    "id": "about-es",
+    "hero": {
+      "lede": "Orbolo conecta a quienes quieren ser dueños de ganado, comprar carne o poner su tierra a trabajar con las estancias del Gran Chaco paraguayo. Nosotros comercializamos la carne. Nuestras empresas paraguayas crían el ganado."
+    },
+    "story": {
+      "heading": "Nuestra historia",
+      "paragraphs": [
+        "Florian Senger-Weiss, fundador de Orbolo, trabaja en Paraguay desde 2022. Su familia vive allí, y por eso el mapa estaba sobre la mesa desde el principio.",
+        "Antes ayudó a productores en Austria, Alemania y España a pasar a una forma de producir que aguanta los años difíciles.",
+        "En el Chaco encontró pasto, ganado, vaqueros y espacio para crecer. Lo que faltaba era una forma simple de que gente de afuera pudiera participar."
+      ]
+    },
+    "oldIdea": {
+      "heading": "Una idea antigua, renovada",
+      "paragraphs": [
+        "Los ganaderos paraguayos trabajan así desde hace mucho: uno pone el ganado, otro pone la tierra y el trabajo, y la ganancia se reparte. Se llama capitalización de ganado.",
+        "Remote Rancher conserva esa idea y suma lo que necesita un dueño a distancia: caravanas, seguimiento digital, un informe después de cada rodeo y un Código escrito para todos los rodeos."
+      ]
+    },
+    "howTheGroupWorks": {
+      "heading": "Cómo funciona el grupo",
+      "roles": [
+        {
+          "label": "Orbolo",
+          "body": "Conecta, comercializa y vende la carne. Orbolo nunca recibe tu dinero."
+        },
+        {
+          "label": "Nuestras empresas paraguayas",
+          "body": "Crían el ganado y manejan las estancias. Con ellas firmas y a ellas les pagas."
+        },
+        {
+          "label": "La mesa comercial",
+          "body": "Compra cada rodeo a precios de mercado, así cada uno tiene comprador antes de ser comprado."
+        },
+        {
+          "label": "Ganadería a Pasto",
+          "body": "Nuestro brazo técnico. Gente en el campo, ayudando a las estancias a pasar a ganado criado a pasto."
+        }
+      ]
+    },
+    "principles": {
+      "heading": "A qué nos comprometemos",
+      "items": [
+        {
+          "label": "Animales",
+          "body": "Libres de hambre, sed, dolor y miedo, con sombra, agua y espacio para vivir en manada."
+        },
+        {
+          "label": "Personas",
+          "body": "Salarios justos, trabajo seguro y capacitación. Primero se contrata a gente local."
+        },
+        {
+          "label": "Tierra",
+          "body": "Sin transgénicos, sin pesticidas ni fertilizantes sintéticos. Los árboles quedan en pie y el ganado pasta bajo ellos."
+        },
+        {
+          "label": "Vecinos",
+          "body": "A las comunidades locales e indígenas se les consulta primero, y se las escucha."
+        }
+      ]
+    },
+    "whyParaguay": {
+      "heading": "Por qué Paraguay",
+      "body": "El ganado es parte de su cultura. Paraguay cría carne desde hace más de 400 años y la vende a más de 40 países. Los veterinarios, las ferias y los vaqueros ya están aquí, y casi toda su electricidad viene del agua."
+    },
+    "whereWeAre": {
+      "heading": "Dónde estamos",
+      "animalCountMetricKey": "animalCount",
+      "gappHectaresMetricKey": "gappHectares",
+      "building": [
+        "Una alianza de productores de 300.000 cabezas, criadas bajo un mismo Código",
+        "Trazabilidad completa, de la caravana a la caja"
+      ],
+      "notYet": [
+        "Un ciclo Remote Rancher cerrado para mostrarte",
+        "Carne vendida con el historial completo del animal"
+      ]
+    },
+    "faq": {
+      "heading": "Preguntas sobre nosotros",
+      "items": [
+        {
+          "question": "¿Quién es Orbolo?",
+          "answer": "Una empresa austríaca que conecta, comercializa y vende carne para un grupo de estancias en Paraguay."
+        },
+        {
+          "question": "¿Orbolo recibe mi dinero?",
+          "answer": "No. Si eres dueño de un rodeo, firmas con nuestra empresa operadora paraguaya y le pagas a ella. Orbolo facilita."
+        },
+        {
+          "question": "¿Quién cuida el ganado?",
+          "answer": "Vaqueros a caballo, empleados por nuestras empresas paraguayas. Conocen a cada animal por su caravana."
+        },
+        {
+          "question": "¿Por qué el Gran Chaco?",
+          "answer": "Es la segunda región silvestre más grande de Sudamérica después del Amazonas, y cada año se desmonta bosque allí. El ganado que vive bajo los árboles les da a los dueños de la tierra una razón para conservarlos."
+        },
+        {
+          "question": "¿Qué no hacen todavía?",
+          "answer": "Todavía no cerramos un ciclo Remote Rancher completo, y la carne de hoy no tiene el historial completo del animal. Lo decimos en cada página."
+        },
+        {
+          "question": "¿Puedo conocerlos?",
+          "answer": "Sí. Ven a El Tapir, nuestra propia estancia en el Chaco, con cita previa."
+        }
+      ]
+    },
+    "closing": {
+      "heading": "Ven a ver el ganado.",
+      "body": "El Tapir recibe visitas con cita previa. Trae tus preguntas; nosotros ponemos el tereré.",
+      "ctas": [
+        {
+          "label": "Contáctanos",
+          "href": "/contact"
+        },
+        {
+          "label": "Visitar El Tapir",
+          "href": "/land"
+        }
       ]
     }
   }

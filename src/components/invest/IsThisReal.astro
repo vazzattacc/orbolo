@@ -2,6 +2,7 @@
 import MetricValue from "@/components/shared/MetricValue.astro";
 import Edit from "@/components/ui/Edit.astro";
 import Btn from "@/components/ui/Btn.astro";
+import { useI18n } from "@/i18n";
 
 interface Props {
   elTapirIntro: string;
@@ -11,14 +12,15 @@ interface Props {
 }
 
 const { elTapirIntro, animalCountMetricKey, visitBookingCtaLabel, visitBookingCtaHref } = Astro.props;
+const { t } = useI18n(Astro.url);
 ---
 
 <Edit aria-labelledby="is-this-real-heading" rule={false}>
-  <h2 slot="head" id="is-this-real-heading" class="h2 t-paper" data-split>Is this real?</h2>
+  <h2 slot="head" id="is-this-real-heading" class="h2 t-paper" data-split>{t.invest.isThisReal}</h2>
   <p class="lede">{elTapirIntro}</p>
   <ul class="rows rows--plain" role="list">
     <li>
-      <span class="copy">The group currently has <MetricValue metricKey={animalCountMetricKey} /> in the system.</span>
+      <span class="copy">{t.invest.animalCountPre} <MetricValue metricKey={animalCountMetricKey} /> {t.invest.animalCountPost}</span>
     </li>
   </ul>
   <Btn href={visitBookingCtaHref} label={visitBookingCtaLabel} />

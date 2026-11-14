@@ -29,7 +29,7 @@ test("editing a card's title in paths.json is reflected on reload with no compon
   page,
 }) => {
   await page.goto("/");
-  await expect(page.getByRole("heading", { name: "Beef", exact: true }).first()).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Beef & Co", exact: true }).first()).toBeVisible();
 
   const updated = JSON.parse(original);
   updated[1].title = "Beef (edited by test)";

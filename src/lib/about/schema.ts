@@ -12,7 +12,7 @@ const labelledLine = z.object({
 });
 
 export const aboutPageSchema = z.object({
-  id: z.literal("about"),
+  id: z.enum(["about", "about-es"]),
 
   hero: z.object({
     lede: z.string().min(1),

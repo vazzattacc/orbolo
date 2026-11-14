@@ -13,19 +13,19 @@
   },
   {
     "id": "buyers",
-    "title": "Beef",
+    "title": "Beef & Co",
     "description": "Grass-fed Paraguayan beef at conventional prices today, and first pick of traceable supply tomorrow.",
     "image": {
       "src": "/images/paths/buyers.jpg",
       "alt": "A herd of red cattle on an Orbolo ranch at dusk."
     },
     "destination": "/beef",
-    "targetAudience": "Buyers",
+    "targetAudience": "Market",
     "order": 2
   },
   {
     "id": "landowners",
-    "title": "Land",
+    "title": "Education",
     "description": "Bring your ranch into the system. Cattle graze under the trees, not instead of them.",
     "image": {
       "src": "/images/paths/landowners.jpg",
@@ -34,5 +34,44 @@
     "destination": "/land",
     "targetAudience": "Landowners",
     "order": 3
+  },
+  {
+    "id": "investors-es",
+    "title": "Remote Rancher",
+    "description": "Ten vacas con caravana en una estancia en marcha del Chaco. Los vaqueros las crían; tú lees los informes.",
+    "image": {
+      "src": "/images/paths/investors.jpg",
+      "alt": "Dos gauchos a caballo trabajan un rodeo de Orbolo en el Gran Chaco."
+    },
+    "destination": "/invest",
+    "targetAudience": "Dueños de rodeos",
+    "order": 1,
+    "locale": "es"
+  },
+  {
+    "id": "buyers-es",
+    "title": "Carne & Co",
+    "description": "Carne paraguaya a pasto a precios convencionales hoy, y primera elección del suministro trazable mañana.",
+    "image": {
+      "src": "/images/paths/buyers.jpg",
+      "alt": "Un rodeo de ganado colorado en una estancia de Orbolo al atardecer."
+    },
+    "destination": "/beef",
+    "targetAudience": "Mercado",
+    "order": 2,
+    "locale": "es"
+  },
+  {
+    "id": "landowners-es",
+    "title": "Educación",
+    "description": "Suma tu estancia al sistema. El ganado pasta bajo los árboles, no en su lugar.",
+    "image": {
+      "src": "/images/paths/landowners.jpg",
+      "alt": "Sabana de palmas en el Gran Chaco, Paraguay."
+    },
+    "destination": "/land",
+    "targetAudience": "Dueños de tierra",
+    "order": 3,
+    "locale": "es"
   }
 ]

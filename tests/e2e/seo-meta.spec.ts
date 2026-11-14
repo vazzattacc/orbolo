@@ -5,8 +5,8 @@ import { expect, test } from "@playwright/test";
 const EXISTING_TITLES: Record<string, string> = {
   "/": "Orbolo",
   "/invest": "Remote Rancher — Orbolo",
-  "/beef": "Beef — Orbolo",
-  "/land": "Land — Orbolo",
+  "/beef": "Beef & Co — Orbolo",
+  "/land": "Education — Orbolo",
   "/about": "About Us — Orbolo",
   "/contact": "Contact — Orbolo",
 };

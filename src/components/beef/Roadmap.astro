@@ -1,5 +1,6 @@
 ---
 import Edit from "@/components/ui/Edit.astro";
+import { useI18n } from "@/i18n";
 
 interface Milestone {
   stage: string;
@@ -12,13 +13,14 @@ interface Props {
 }
 
 const { milestones } = Astro.props;
+const { t } = useI18n(Astro.url);
 ---
 
 {
   milestones && milestones.length > 0 && (
     <Edit aria-labelledby="roadmap-heading">
       <h2 slot="head" id="roadmap-heading" class="h2 t-lime" data-split>
-        Roadmap
+        {t.beef.roadmap}
       </h2>
       <ol class="rows rows--plain" role="list">
         {milestones.map((m) => (

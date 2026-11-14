@@ -1,21 +1,23 @@
 ---
 import Split from "@/components/ui/Split.astro";
+import { useI18n } from "@/i18n";
 
 interface Props {
   body: string;
 }
 
 const { body } = Astro.props;
+const { t } = useI18n(Astro.url);
 ---
 
 <Split
   image="/images/site/shade-tree.jpg"
-  alt="Cattle walk across open pasture beside a lone tree."
+  alt={t.beef.whyDifferentAlt}
   reverse
   sketch
   aria-labelledby="why-different-heading"
 >
-  <h2 id="why-different-heading" class="h2 t-paper" data-split>Why supply from the group is different</h2>
+  <h2 id="why-different-heading" class="h2 t-paper" data-split>{t.beef.whyDifferent}</h2>
   <Fragment slot="foot">
     <p class="lede">{body}</p>
   </Fragment>

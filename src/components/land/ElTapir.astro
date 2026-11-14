@@ -1,5 +1,6 @@
 ---
 import PhotoHero from "@/components/ui/PhotoHero.astro";
+import { useI18n } from "@/i18n";
 
 interface Props {
   intro: string;
@@ -7,11 +8,12 @@ interface Props {
 }
 
 const { intro, expansionTargetNote } = Astro.props;
+const { t } = useI18n(Astro.url);
 ---
 
 <PhotoHero image="/images/site/orbolo-palms.jpg" aria-labelledby="el-tapir-heading" scrollCue>
   <h1 id="el-tapir-heading" class="h1 h1--xl t-paper" data-split>El Tapir</h1>
-  <p class="script t-lime" aria-hidden="true">our own farm in the Gran Chaco</p>
+  <p class="script t-lime" aria-hidden="true">{t.land.tagline}</p>
   <Fragment slot="side">
     <p class="lede">{intro}</p>
     {expansionTargetNote && <p class="caps">{expansionTargetNote}</p>}

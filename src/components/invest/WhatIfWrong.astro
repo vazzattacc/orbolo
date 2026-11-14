@@ -1,4 +1,5 @@
 ---
+import { useI18n } from "@/i18n";
 interface Category {
   label: string;
   body: string;
@@ -10,15 +11,16 @@ interface Props {
 }
 
 const { categories, dataRoomNote } = Astro.props;
+const { t } = useI18n(Astro.url);
 ---
 
 <section aria-labelledby="what-if-wrong-heading" class="sec sec--rule flex flex-col gap-[3.6em]">
-  <h2 id="what-if-wrong-heading" class="h2 t-lime max-w-[14em]" data-split>What if it goes wrong?</h2>
+  <h2 id="what-if-wrong-heading" class="h2 t-lime max-w-[14em]" data-split>{t.invest.goesWrong}</h2>
   <dl class="cards cards--stagger" data-reveal-group>
     {
       categories.map((category, i) => (
         <div class="card">
-          <span class="card__tag caps caps--sm">Risk {String(i + 1).padStart(2, "0")}</span>
+          <span class="card__tag caps caps--sm">{t.invest.risk} {String(i + 1).padStart(2, "0")}</span>
           <dt class="h3">{category.label}</dt>
           <dd class="copy m-0">{category.body}</dd>
         </div>

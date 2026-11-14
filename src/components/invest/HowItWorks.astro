@@ -1,5 +1,6 @@
 ---
 import Edit from "@/components/ui/Edit.astro";
+import { useI18n } from "@/i18n";
 
 interface Step {
   step: number;
@@ -11,10 +12,11 @@ interface Props {
 }
 
 const { steps } = Astro.props;
+const { t } = useI18n(Astro.url);
 ---
 
 <Edit aria-labelledby="how-it-works-heading">
-  <h2 slot="head" id="how-it-works-heading" class="h2 t-paper" data-split>How it works</h2>
+  <h2 slot="head" id="how-it-works-heading" class="h2 t-paper" data-split>{t.invest.howItWorks}</h2>
   <ol class="rows rows--start" role="list">
     {
       steps.map((s) => (

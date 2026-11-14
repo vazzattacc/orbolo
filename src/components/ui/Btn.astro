@@ -4,6 +4,7 @@
  * side; hovering wipes the fill up from the bottom and pulls the dots in.
  */
 import type { HTMLAttributes } from "astro/types";
+import { useI18n } from "@/i18n";
 
 interface Props extends HTMLAttributes<"a"> {
   href: string;
@@ -12,9 +13,10 @@ interface Props extends HTMLAttributes<"a"> {
 }
 
 const { href, label, variant = "light", class: className, ...rest } = Astro.props;
+const { path } = useI18n(Astro.url);
 ---
 
-<a href={href} class:list={["btn", `btn--${variant}`, className]} {...rest}>
+<a href={path(href)} class:list={["btn", `btn--${variant}`, className]} {...rest}>
   <span class="btn__dot" aria-hidden="true"></span><span class="btn__label">{label}</span><span
     class="btn__dot"
     aria-hidden="true"></span>

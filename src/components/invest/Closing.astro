@@ -2,6 +2,7 @@
 import { getContractingEntityName } from "@/lib/settings/settings-repository";
 import CtaCollage from "@/components/ui/CtaCollage.astro";
 import Btn from "@/components/ui/Btn.astro";
+import { useI18n } from "@/i18n";
 
 interface Cta {
   label: string;
@@ -15,11 +16,12 @@ interface Props {
 
 const { releaseLine, ctas } = Astro.props;
 const contractingEntityName = await getContractingEntityName();
+const { t } = useI18n(Astro.url);
 ---
 
 <CtaCollage id="closing" aria-labelledby="closing-heading" class="sec--rule">
   <h2 id="closing-heading" class="h2 t-lime max-w-[10em]" data-split>{releaseLine}</h2>
-  <p class="caps caps--sm">Contracting entity: {contractingEntityName}</p>
+  <p class="caps caps--sm">{t.invest.contractingEntity} {contractingEntityName}</p>
   <Fragment slot="buttons">
     {ctas.map((cta, index) => <Btn href={cta.href} label={cta.label} variant={index === 0 ? "light" : "paper"} />)}
   </Fragment>

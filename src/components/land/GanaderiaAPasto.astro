@@ -1,6 +1,7 @@
 ---
 import MetricValue from "@/components/shared/MetricValue.astro";
 import Split from "@/components/ui/Split.astro";
+import { useI18n } from "@/i18n";
 
 interface Props {
   body: string;
@@ -8,12 +9,13 @@ interface Props {
 }
 
 const { body, hectaresMetricKey } = Astro.props;
+const { t } = useI18n(Astro.url);
 ---
 
-<Split image="/images/site/rider-green.jpg" alt="A rider moves cattle across pasture." aria-labelledby="gapp-heading" sketch>
+<Split image="/images/site/rider-green.jpg" alt={t.land.gappAlt} aria-labelledby="gapp-heading" sketch>
   <h2 id="gapp-heading" class="h2 t-paper" data-split>Ganadería a Pasto</h2>
   <Fragment slot="foot">
     <p class="lede">{body}</p>
-    <p class="caps">Ganadería a Pasto operates across <MetricValue metricKey={hectaresMetricKey} />.</p>
+    <p class="caps">{t.land.gappOperates} <MetricValue metricKey={hectaresMetricKey} />.</p>
   </Fragment>
 </Split>

@@ -1,5 +1,6 @@
 ---
 import Edit from "@/components/ui/Edit.astro";
+import { useI18n } from "@/i18n";
 
 interface Verifier {
   role: string;
@@ -12,10 +13,11 @@ interface Props {
 }
 
 const { codeReferenceNote, verifiers } = Astro.props;
+const { t } = useI18n(Astro.url);
 ---
 
 <Edit aria-labelledby="who-verifies-heading" rule={false}>
-  <h2 slot="head" id="who-verifies-heading" class="h2 t-lime" data-split>Who verifies what</h2>
+  <h2 slot="head" id="who-verifies-heading" class="h2 t-lime" data-split>{t.invest.whoVerifies}</h2>
   <p class="lede">{codeReferenceNote}</p>
   {
     verifiers && verifiers.length > 0 && (

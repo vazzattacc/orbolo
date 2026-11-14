@@ -1,4 +1,5 @@
 import { getCollection } from "astro:content";
+import type { Locale } from "@/i18n";
 
 export interface PathImage {
   src: string;
@@ -21,10 +22,11 @@ export interface PathCard {
  * `paths.json` directly — so the collection's loader can later be swapped
  * for a Firebase-backed one with no change to this signature.
  */
-export async function getPaths(): Promise<PathCard[]> {
+export async function getPaths(locale: Locale = "en"): Promise<PathCard[]> {
   const entries = await getCollection("paths");
 
   return entries
+    .filter((entry) => entry.data.locale === locale)
     .map((entry): PathCard => ({
       id: entry.data.id,
       title: entry.data.title,

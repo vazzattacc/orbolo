@@ -1,4 +1,5 @@
 import { expect, test } from "@playwright/test";
+import { bodyTextOutsideRegenerativeException } from "./approved-exceptions";
 
 // quickstart.md Scenario 2 — FR-BEEF-001..010, SC-001, SC-003
 
@@ -18,10 +19,12 @@ test.describe("Beef page", () => {
     await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
   });
 
-  test("'regenerative' never appears anywhere on the page", async ({ page }) => {
+  test("'regenerative' appears only in the flagged What-we-sell sentence", async ({ page }) => {
     await page.goto("/beef");
-    const bodyText = (await page.locator("body").innerText()).toLowerCase();
-    expect(bodyText).not.toContain("regenerative");
+    const section = page.locator('section[aria-labelledby="what-we-sell-heading"]');
+    await expect(section).toContainText("regenerative standard");
+    await expect(section.locator(".flag")).toHaveText("*Against the “never use ‘regenerative’” rule");
+    expect(await bodyTextOutsideRegenerativeException(page)).not.toContain("regenerative");
   });
 
   test("no named customer appears anywhere", async ({ page }) => {

@@ -9,3 +9,6 @@ Headings alternate paper / lime down the page; body copy is paper. Every text pa
 
 ### Anti-patterns
 Never: rounded corners, a cream/light section background, lime as body-copy colour, hiding content with visibility/display for an animation (tests and AT must see it), a hamburger that hides the Primary nav links, links inside the `Legal` footer that aren't approved legal pages, text-transform on metric values (tests read innerText).
+
+## Working rules
+See @AGENTS.md (workflow modes, content-in-JSON, mandatory design skills + Playwright, definition of done).

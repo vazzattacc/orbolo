@@ -18,4 +18,6 @@ export const pathCardSchema = z.object({
   destination: z.string().startsWith("/", "destination must be an internal route"),
   targetAudience: z.string().min(1),
   order: z.number().optional(),
+  // which language this card belongs to; cards without one are English
+  locale: z.enum(["en", "es"]).default("en"),
 });

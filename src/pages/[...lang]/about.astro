@@ -1,22 +1,27 @@
 ---
-import Layout from "../components/Layout.astro";
-import PhotoHero from "../components/ui/PhotoHero.astro";
-import Split from "../components/ui/Split.astro";
-import Edit from "../components/ui/Edit.astro";
-import Band from "../components/ui/Band.astro";
-import CtaCollage from "../components/ui/CtaCollage.astro";
-import Btn from "../components/ui/Btn.astro";
-import MetricValue from "../components/shared/MetricValue.astro";
-import { getAboutPage } from "../lib/about/about-repository";
+import { localeStaticPaths, useI18n } from "@/i18n";
+import Layout from "@/components/Layout.astro";
+import PhotoHero from "@/components/ui/PhotoHero.astro";
+import Split from "@/components/ui/Split.astro";
+import Edit from "@/components/ui/Edit.astro";
+import Band from "@/components/ui/Band.astro";
+import CtaCollage from "@/components/ui/CtaCollage.astro";
+import Btn from "@/components/ui/Btn.astro";
+import MetricValue from "@/components/shared/MetricValue.astro";
+import { getAboutPage } from "@/lib/about/about-repository";
 
-const page = await getAboutPage();
+export const getStaticPaths = localeStaticPaths;
+const { locale, t } = useI18n(Astro.url);
+
+
+const page = await getAboutPage(locale);
 const { hero, story, oldIdea, howTheGroupWorks, principles, whyParaguay, whereWeAre, faq, closing } = page;
 ---
 
-<Layout title="About Us — Orbolo">
+<Layout title={t.about.title}>
   <PhotoHero image="/images/site/shade-tree.jpg" scrollCue>
-    <h1 class="h1 h1--xl t-paper" data-split>About Us</h1>
-    <p class="script t-lime" aria-hidden="true">operators, not advisors</p>
+    <h1 class="h1 h1--xl t-paper" data-split>{t.about.h1}</h1>
+    <p class="script t-lime" aria-hidden="true">{t.about.tagline}</p>
     <Fragment slot="side">
       <p class="lede">{hero.lede}</p>
     </Fragment>
@@ -24,7 +29,7 @@ const { hero, story, oldIdea, howTheGroupWorks, principles, whyParaguay, whereWe
 
   <Split
     image="/images/site/florian.jpg"
-    alt="Florian Senger-Weiss, founder of Orbolo."
+    alt={t.about.founderAlt}
     aria-labelledby="about-story-heading"
   >
     <h2 id="about-story-heading" class="h2 t-lime" data-split>{story.heading}</h2>
@@ -79,18 +84,18 @@ const { hero, story, oldIdea, howTheGroupWorks, principles, whyParaguay, whereWe
     <h2 slot="head" id="about-where-heading" class="h2 t-paper" data-split>{whereWeAre.heading}</h2>
     <ul class="rows rows--plain" role="list">
       <li>
-        <span class="rows__label">Operating</span>
+        <span class="rows__label">{t.about.operating}</span>
         <span class="copy rows__text">
-          El Tapir, our own farm. <MetricValue metricKey={whereWeAre.animalCountMetricKey} /> in the system.
-          Ganadería a Pasto across <MetricValue metricKey={whereWeAre.gappHectaresMetricKey} />.
+          {t.about.elTapir} <MetricValue metricKey={whereWeAre.animalCountMetricKey} /> {t.about.inTheSystem}
+          {t.about.gappAcross} <MetricValue metricKey={whereWeAre.gappHectaresMetricKey} />.
         </span>
       </li>
       <li>
-        <span class="rows__label">Building</span>
+        <span class="rows__label">{t.about.building}</span>
         <span class="copy rows__text">{whereWeAre.building.join(". ")}.</span>
       </li>
       <li>
-        <span class="rows__label">Not yet</span>
+        <span class="rows__label">{t.about.notYet}</span>
         <span class="copy rows__text">{whereWeAre.notYet.join(". ")}.</span>
       </li>
     </ul>

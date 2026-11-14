@@ -1,5 +1,6 @@
 ---
 import Edit from "@/components/ui/Edit.astro";
+import { useI18n } from "@/i18n";
 
 interface Item {
   question: string;
@@ -11,10 +12,11 @@ interface Props {
 }
 
 const { items } = Astro.props;
+const { t } = useI18n(Astro.url);
 ---
 
 <Edit aria-labelledby="invest-faq-heading">
-  <h2 slot="head" id="invest-faq-heading" class="h2 t-paper" data-split>FAQ</h2>
+  <h2 slot="head" id="invest-faq-heading" class="h2 t-paper" data-split>{t.invest.faq}</h2>
   <div class="faq">
     {
       items.map((item) => (

@@ -12,14 +12,22 @@
  * open/close state to get wrong. motion.ts only adds the scrolled backdrop
  * and steps the bar out of the way while reading downward.
  */
+import { LOCALES, isLocalizedRoute, localizePath, stripLocale, useI18n } from "@/i18n";
+import { ui } from "@/i18n/ui";
+
+const { locale, t, path } = useI18n(Astro.url);
 const NAV_LINKS = [
-  { label: "Home", href: "/" },
-  { label: "Remote Rancher", href: "/invest" },
-  { label: "Beef", href: "/beef" },
-  { label: "Land", href: "/land" },
-] as const;
-const ABOUT = { label: "About Us", href: "/about" } as const;
-const CONTACT = { label: "Contact", href: "/contact" } as const;
+  { label: t.nav.home, href: path("/") },
+  { label: t.nav.remoteRancher, href: path("/invest") },
+  { label: t.nav.beef, href: path("/beef") },
+  { label: t.nav.land, href: path("/land") },
+];
+const ABOUT = { label: t.nav.about, href: path("/about") };
+const CONTACT = { label: t.nav.contact, href: path("/contact") };
+// the language switch points at this same page in the other language, or
+// at the home page for English-only pages (Privacy, Terms, 404)
+const baseRoute = stripLocale(Astro.url.pathname);
+const switchRoute = isLocalizedRoute(baseRoute) ? baseRoute : "/";
 
 // Astro.url.pathname is "/invest/" (trailing slash) at render time for a
 // directory-style static build, but every href above is written without
@@ -28,7 +36,7 @@ const CONTACT = { label: "Contact", href: "/contact" } as const;
 const currentPath = Astro.url.pathname === "/" ? "/" : Astro.url.pathname.replace(/\/$/, "");
 ---
 
-<nav aria-label="Primary" class="nav" data-nav>
+<nav aria-label={t.nav.label} class="nav" data-nav>
   <div class="nav__group">
     {
       NAV_LINKS.map((link) => (
@@ -38,7 +46,7 @@ const currentPath = Astro.url.pathname === "/" ? "/" : Astro.url.pathname.replac
       ))
     }
   </div>
-  <a class="nav__logo" href="/" aria-label="Orbolo home">
+  <a class="nav__logo" href={path("/")} aria-label={t.nav.logo}>
     <img src="/images/brand/logo-paper.svg" alt="" width="470" height="219" />
   </a>
   <div class="nav__group nav__group--end">
@@ -48,5 +56,24 @@ const currentPath = Astro.url.pathname === "/" ? "/" : Astro.url.pathname.replac
     <a href={CONTACT.href} class="caps ulink" aria-current={currentPath === CONTACT.href ? "page" : undefined}>
       {CONTACT.label}
     </a>
+    <span class="nav__lang caps" role="group" aria-label={t.nav.language}>
+      {
+        LOCALES.map((l, i) => (
+          <>
+            {i > 0 && <span aria-hidden="true">/</span>}
+            <a
+              href={localizePath(switchRoute, l)}
+              hreflang={l}
+              lang={l}
+              class="ulink"
+              aria-label={ui[l].langName}
+              aria-current={l === locale ? "true" : undefined}
+            >
+              {l.toUpperCase()}
+            </a>
+          </>
+        ))
+      }
+    </span>
   </div>
 </nav>

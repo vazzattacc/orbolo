@@ -12,5 +12,19 @@
       "ctaLabel": "Work with us",
       "ctaHref": "/contact"
     }
+  },
+  {
+    "id": "land-es",
+    "elTapir": {
+      "intro": "La segunda región silvestre más grande de Sudamérica después del Amazonas, hogar del jaguar, el tapir y el oso hormiguero gigante, y de nuestro primer rodeo Remote Rancher. No es una estancia asociada: es nuestra. Está creciendo y recibe visitas con cita previa."
+    },
+    "ganaderiaAPasto": {
+      "body": "Así hacemos crecer el suministro. Ganadería a Pasto es el brazo técnico del grupo: gente en el campo, ayudando a las estancias a pasar a ganado criado a pasto.",
+      "hectaresMetricKey": "gappHectares"
+    },
+    "workWithUs": {
+      "ctaLabel": "Trabaja con nosotros",
+      "ctaHref": "/contact"
+    }
   }
 ]

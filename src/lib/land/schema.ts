@@ -6,7 +6,7 @@ import { z } from "astro/zod";
  * that stays hidden when absent — see contracts/nav-and-hidden-sections.md.
  */
 export const landPageSchema = z.object({
-  id: z.literal("land"),
+  id: z.enum(["land", "land-es"]),
 
   elTapir: z.object({
     intro: z.string().min(1),
