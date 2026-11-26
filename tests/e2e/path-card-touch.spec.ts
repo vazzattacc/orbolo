@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test";
 
-// quickstart.md Scenario 7 — FR-009, FR-011 (mobile-chrome project provides touch emulation)
+// spec 001 — FR-009, FR-011 (mobile-chrome project provides touch emulation)
 test("touch: tapping a card flips it open without hover, tapping Discover more navigates", async ({
   page,
   isMobile,

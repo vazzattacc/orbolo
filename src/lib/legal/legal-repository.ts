@@ -15,7 +15,7 @@ export interface LegalDocument {
  * OR exists but isn't yet approved (FR-LEG-007) — both collapse to the
  * same "not shippable yet" signal. `approved` itself is never exposed:
  * there is nothing a caller should do with `approved: false` except treat
- * it exactly like "doesn't exist" (research.md §5).
+ * it exactly like "doesn't exist" (spec 003 R5).
  */
 export async function getLegalDocument(kind: "privacy" | "terms"): Promise<LegalDocument | undefined> {
   const entry = await getEntry("legal", kind);

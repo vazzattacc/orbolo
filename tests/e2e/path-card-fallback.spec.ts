@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test";
 
-// quickstart.md Scenario 10 — FR-022
+// spec 001 — FR-022
 test("a card whose image fails to load renders the branded fallback, card stays interactive", async ({
   page,
 }) => {

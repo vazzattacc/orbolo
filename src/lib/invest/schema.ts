@@ -1,9 +1,9 @@
 import { z } from "astro/zod";
 
 /**
- * Validation rules per specs/002-page-content-specification/data-model.md
+ * Validation rules per specs/002-page-content-specification/README.md
  * (InvestPage entity, FR-INV-001–013). Every optional field is a section
- * that stays hidden when absent — see contracts/nav-and-hidden-sections.md.
+ * that stays hidden when absent — see the hidden-sections table in specs/002-page-content-specification/README.md.
  */
 export const investPageSchema = z.object({
   id: z.enum(["invest", "invest-es"]),

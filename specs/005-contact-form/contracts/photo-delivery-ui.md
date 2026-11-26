@@ -80,7 +80,7 @@ Under `prefers-reduced-motion: reduce`, the hero photo has no animation, as toda
 
 Tokens (`data-model.md` §8): `--shade-text`, `--shade-text-lime`, `--shade-clear`.
 
-- Every text block over a photo carries its own forest pool: `.phero__title`, `.phero__side`, `.phero__scroll`, the Band's default-slot wrapper and `.band__foot`. Inside the block's box the shade is at least `--shade-text`.
+- Every text block over a photo carries its own forest pool: `.phero__title`, `.phero__side`, `.phero__scroll`, the Band's default-slot wrapper (`.band__head`) and `.band__foot`. Inside the block's box the shade is at least `--shade-text`.
 - `.phero__shade` and `.band__shade` stay in the DOM with `aria-hidden="true"`. They provide the strip under the nav at the top of a hero (at least `--shade-text-lime` together with the nav's own gradient), a blend into the forest section below, and `--shade-clear` elsewhere.
 - Elements with their own opaque background (`.flag`, `.card--glass`, a hovered `Btn`) are outside this rule; their own pairing already passes.
 - No `text-shadow` is used to reach contrast. No section gets a background other than forest.

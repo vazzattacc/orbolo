@@ -5,10 +5,10 @@ import { getLegalDocument } from "../lib/legal/legal-repository";
 /**
  * FR-SEO-008 / SC-005: a literal /sitemap.xml listing every shipped,
  * indexable public page — the 404 route is simply never a pageMeta entry
- * (data-model.md), so it can never appear here by construction, and
+ * (spec 003 R8), so it can never appear here by construction, and
  * Privacy/Terms are included only once getLegalDocument() actually
  * resolves for them, matching the same gating Footer.astro uses
- * (contracts/footer-and-legal-gating.md).
+ * (spec 003 R5).
  */
 export const GET: APIRoute = async ({ site }) => {
   const pageMetaEntries = await getCollection("pageMeta");

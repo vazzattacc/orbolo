@@ -23,9 +23,13 @@ Facts measured in the repo on 2026-11-11 and relied on below:
 - Raw `import.meta.env` without a schema: rejected, because it gives no validation and no typed access.
 - A field in content JSON: rejected, because the endpoint differs per environment (dev mock, preview, production), and content JSON is one value for all of them.
 
-## 2. Publishing gate: one pure function, four conditions
+## 2. Publishing gate: one pure function, two conditions
 
-**Decision**: `src/lib/contact/gate.ts` exports a pure `resolveContactGate(input)`. In a production build the gate is **live** only when all four of these hold:
+**Revised 2026-11-14.** Vaz decided in the spec's clarification session that the gate keeps FR-GATE-001's two conditions. The two extra conditions this section first proposed (3 and 4 below) are **not** gate conditions. A person verifies them at go-live (`quickstart.md` §4). The original text is kept below for the record; where it disagrees with this paragraph, this paragraph wins.
+
+Consequence for the design: `contactEmail` can be unset while the gate is live. In that case the failure message and the error page render without the email sentence, and the go-live check is what prevents it.
+
+**Original decision (superseded for conditions 3 and 4)**: `src/lib/contact/gate.ts` exports a pure `resolveContactGate(input)`. In a production build the gate is **live** only when all four of these hold:
 
 1. `PUBLIC_CONTACT_ENDPOINT` is set (FR-GATE-001a).
 2. `settings.contactFormPrivacyApproved === true`: Vaz/counsel approved the form's privacy wording (FR-GATE-001b, FR-LEG5-002).
@@ -51,7 +55,7 @@ PUBLIC_CONTACT_ENDPOINT=https://contact-endpoint.orbolo.test/contact
 CONTACT_FORM_PREVIEW=true
 ```
 
-`CONTACT_FORM_PREVIEW` is declared as `envField.boolean({ context: "server", access: "public", default: false })`. The gate honours it **only when `import.meta.env.DEV` is true**. In preview, conditions 2–4 of §2 are waived, and the fallback address is `settings.contactEmail ?? "contact@example.com"` (RFC 2606 reserved, so it can't reach anyone). A visible preview flag (the existing `.flag` style, copy in JSON) says the form isn't live in production yet. `.test` is a reserved TLD (RFC 6761), so the dev endpoint can never resolve. Every e2e test intercepts it with `page.route`.
+`CONTACT_FORM_PREVIEW` is declared as `envField.boolean({ context: "server", access: "public", default: false })`. The gate honours it **only when `import.meta.env.DEV` is true**. In preview, the privacy-approval condition of §2 is waived, and the fallback address is `settings.contactEmail ?? "contact@example.com"` (RFC 2606 reserved, so it can't reach anyone). A visible preview flag (the existing `.flag` style, copy in JSON) says the form isn't live in production yet. `.test` is a reserved TLD (RFC 6761), so the dev endpoint can never resolve. Every e2e test intercepts it with `page.route`.
 
 **Rationale**: The e2e suite runs against `astro dev`. The live-form tests are the bulk of FR-TEST-002 and need the gate open, but the real approvals don't exist yet. The two other ways to open the gate are worse:
 - Setting `contactFormPrivacyApproved: true` in committed content would be a false legal record.
@@ -195,7 +199,7 @@ The form itself adds no third-party request. The e2e test records every request 
 - **Modified (SC-003):** "0 cookies set and 0 requests to hosts other than the site, the form endpoint and the site-wide Plausible script…"
 - **Modified (FR-AN5-002):** "…load any third-party script beyond the site-wide analytics script approved in spec 003…"
 
-**Needs Vaz's confirmation**, because it edits an approved success criterion.
+**Approved by Vaz on 2026-11-14** and folded into SC-003 and FR-AN5-002.
 
 ## 14. Analytics goals: Plausible configuration, not code
 
@@ -226,7 +230,7 @@ The no-JS tests use `test.use({ javaScriptEnabled: false })`. There the helper a
 
 # Part B: Background-photo refresh (2026-11-14)
 
-The amendment has no `NEEDS CLARIFICATION` markers either. OQ-D1 has a default (`06`), and OQ-D2/D3 don't block building. Three items need Vaz's confirmation before `/speckit-tasks`: §17 (where the photo masters live), §21 (how SC-009 is measured) and §25 (contrast checks also cover Contact and 404). They are listed in `plan.md` → "Decisions awaiting approval".
+The amendment has no `NEEDS CLARIFICATION` markers either. OQ-D1 has a default (`06`), and OQ-D2/D3 don't block building. Three items needed Vaz's confirmation: §17 (where the photo masters live), §21 (how SC-009 is measured) and §25 (contrast checks also cover Contact and 404). Vaz approved all three on 2026-11-14 (`spec.md` → Clarifications).
 
 **Sources.** Modern Web Guidance v1.0.0 was run on 2026-11-14 (`npx -y modern-web-guidance@latest retrieve …`) for `optimize-image-priority`, `deliver-optimized-decorative-images`, `performance`, `color` and `accessibility`. Rules quoted below come from those guides.
 
@@ -234,7 +238,7 @@ The amendment has no `NEEDS CLARIFICATION` markers either. OQ-D1 has a default (
 
 - The four shells take `image: string` and render a plain `<img src>` from `public/images/site/`. No image is optimized today: `hero-mist.jpg` is 930 KB and `rider-herd.jpg` 866 KB, served as-is to every device.
 - `PhotoHero` already sets `fetchpriority="high"` and no `loading`. `Band`, `Split` and `CtaCollage` already set `loading="lazy"`. No `<img>` has `width`/`height` except the logos.
-- Astro 7.3.3 ships `astro:assets` with sharp 0.35.4. It only processes images imported from `src/`. A string path into `public/` is passed through untouched. `<Picture>` has no art direction (no `media` sources); `getImage()` is the public building block.
+- Astro 7.3.3 ships `astro:assets`, whose image service is sharp 0.35.4. **Corrected during implementation (2026-11-14):** `astro dev` finds Astro's own copy of sharp, but `astro build` under pnpm does not ("Could not find Sharp"), so `sharp` has to be declared in this project. Vaz approved `sharp` 0.35.4 as a dev dependency on 2026-11-14; it is the version already in the lockfile. It only processes images imported from `src/`. A string path into `public/` is passed through untouched. `<Picture>` has no art direction (no `media` sources); `getImage()` is the public building block.
 - `astro dev` re-encodes on every request (no transform cache; only `astro build` caches, in `node_modules/.astro`).
 - Motion hooks: CSS `heroDrift` on `.phero__media img`; GSAP on `.phero__media`, `.phero__inner`, `.split__media img`, `.band__bg` and `.cta__collage > *`.
 - Text over photos: paper and lime headings (large), paper `.caps`/`.lede`/`.copy` (normal), and the nav at the top of every hero. The nav's current-page link is lime at normal size. Once scrolled, the nav has its own 0.92 forest background.
@@ -263,7 +267,7 @@ Encoded sizes of the five replacements, measured with Astro's own sharp on the P
 
 **Rationale**: FR-IMG-006 requires AVIF + WebP + JPEG in several widths, produced by "Astro's built-in image tooling" with no new dependency. That tooling only transforms images imported from `src/`. Only the masters are committed (nine files, §18); every delivered variant is generated at build time, so swapping in real Orbolo photography later (OQ-D3) is a file swap.
 
-**Conflict to flag (Constitution, Additional Constraints → Assets)**: the constitution says site images live in `public/images/<section>/`. That line was written for path-card images referenced from JSON. Astro cannot optimize files there, so FR-IMG-006 and that line can't both hold for these five photos. This plan follows FR-IMG-006 and records the deviation in `plan.md` → Complexity Tracking. It does not edit the constitution. **Needs Vaz's confirmation.**
+**Conflict to flag (Constitution, Additional Constraints → Assets)**: the constitution says site images live in `public/images/<section>/`. That line was written for path-card images referenced from JSON. Astro cannot optimize files there, so FR-IMG-006 and that line can't both hold for these five photos. This plan follows FR-IMG-006 and records the deviation in `plan.md` → Complexity Tracking. It does not edit the constitution. **Approved by Vaz on 2026-11-14** (spec Clarifications; FR-IMG-006).
 
 **Alternatives considered**:
 - *Pre-generated variants committed under `public/images/site/`* (a script writes every width and format). It keeps the constitution's folder rule and costs nothing in dev. Rejected as the default for three reasons: about 100 generated binaries (roughly 15 MB) would live in git; the script would need `sharp` as a direct dependency (pnpm doesn't expose Astro's copy to project code); and FR-IMG-006 names Astro's tooling. It is the fallback if Vaz prefers the constitution's wording, or if §26's dev-server risk materialises.
@@ -272,7 +276,7 @@ Encoded sizes of the five replacements, measured with Astro's own sharp on the P
 
 ## 18. Masters and art direction: a wide and a tall frame where the slot changes shape
 
-**Decision**: Nine masters are prepared once from the Pexels originals, by crop and resize only (FR-IMG-004), as sRGB JPEG at quality 90 with metadata stripped. Each crop rectangle is recorded in `.specify/references/new-design/_IMAGES.md` (FR-IMG-012). Preparation uses macOS `sips` (built in), so no script or dependency is added.
+**Decision**: Nine masters are prepared once from the Pexels originals, by crop and resize only (FR-IMG-004), as sRGB JPEG at quality 90 with metadata stripped. Each crop rectangle is recorded in `.specify/references/new-design/_IMAGES.md` (FR-IMG-012). Preparation was done once with sharp 0.35.4 (the encoder Astro uses), from a throwaway script that is not committed; the exact crop of each master is in `_IMAGES.md`.
 
 | Master (`src/assets/photos/`) | From | Frame | Size (px) | Slot |
 |---|---|---|---|---|
@@ -312,7 +316,7 @@ Formats are ordered AVIF → WebP → JPEG, as the guidance requires ("order you
 | PhotoHero | tall | 480, 720, 1080 | `max(100vw, 67vh)` |
 | Band | wide | 960, 1440, 1920, 2560 | `max(100vw, 186vh)` |
 | Band | tall | 480, 720, 1080 | `max(100vw, 70vh)` |
-| Split | tall | 480, 720, 1080, 1440 | `(max-width: 991px) 100vw, max(50vw, 75vh)` |
+| Split | tall | 480, 720, 1080, 1440 | `(max-width: 991px) max(100vw, <62 × aspect>vh), max(50vw, <100 × aspect>vh)` |
 | CtaCollage | tall | 480, 720 | `(max-width: 991px) 73vw, 20vw` |
 
 `sizes` states the rendered width of the *image*, not of the box: for a `cover` photo that is the larger of the box's width and the box's height times the photo's aspect ratio. `Photo.astro` derives the `vh` term from the master's dimensions, so a new master needs no hand-written `sizes`. A browser that can't parse `max()` in `sizes` falls back to `100vw`, which is safe.
@@ -355,7 +359,7 @@ Starting values, from the originals (final values are set in the browser at 390 
 
 The same test asserts that no response for a replaced photo exceeds 2560 px wide or 1 MB, which is how "the original files MUST NOT be served" is checked.
 
-**Rationale**: SC-009 says "at 390 px" and "at 1440 px" without a pixel density, and density decides which file the browser picks. Testing only at 1× would pass while real phones (2–3×) download something else. The ladders in §19 are capped (1080 px tall, 2560 px wide) so the budgets hold at real densities. **Needs Vaz's confirmation**, because it makes a success criterion more specific.
+**Rationale**: SC-009 says "at 390 px" and "at 1440 px" without a pixel density, and density decides which file the browser picks. Testing only at 1× would pass while real phones (2–3×) download something else. The ladders in §19 are capped (1080 px tall, 2560 px wide) so the budgets hold at real densities. **Approved by Vaz on 2026-11-14** and folded into SC-009.
 
 **Margin**: `05` at 2560 px sits 21 KB under the budget. If the eye check in §19 asks for a higher AVIF quality, the fix is to lower the top wide rung to 2240 px for that photo, not to raise the budget.
 
@@ -369,6 +373,8 @@ The same test asserts that no response for a replaced photo exceeds 2560 px wide
 | Band, Split, CtaCollage, Split's sketch | attribute absent | `lazy` | Below the fold on every page. |
 
 No image gets `fetchpriority="low"` or `"auto"`. No `<link rel="preload">` is added: the hero `<img>` is in the HTML, so the preload scanner finds it, including the right `<picture>` source.
+
+**Corrected during implementation:** Chrome's Largest Contentful Paint metric ignores an image that covers the whole viewport, so on these pages the LCP element is the heading, not the hero photo. The hero photo is still the largest and first image the visitor sees, so the rule stands; the test checks it directly, by reading the network priority the browser gives each image (`photo-delivery.spec.ts`).
 
 **Rationale**: This is the `optimize-image-priority` guide applied as written: `high` on the LCP image only, never combined with `lazy`; `lazy` alone for standard below-the-fold images; `low` reserved for images that are above the fold but hidden (the site has none); default priority by omitting the attribute. Each page has exactly one `PhotoHero`, so exactly one `high`. The shells already behave this way today; the change is that tests now pin it, and that it holds for the `<picture>` path.
 
@@ -391,7 +397,7 @@ The new skies are close to that worst case. Sampling the lightest pixels behind 
    - `--shade-text: 0.76` – behind paper text and behind large lime text;
    - `--shade-text-lime: 0.9` – behind lime text at normal size (the nav strip at the top of a hero);
    - `--shade-clear: 0.06` – everywhere else on the photo.
-2. **The shade follows the text, not the viewport.** Each text block over a photo (`.phero__title`, `.phero__side`, `.phero__scroll`, the Band's heading and `.band__foot`) carries its own soft-edged forest pool: at least `--shade-text` everywhere inside the block's box, feathered to `--shade-clear` outside it. `.phero__shade` and `.band__shade` shrink to three jobs: the nav strip at the top of a hero (so that, together with the nav's own gradient, it reaches `--shade-text-lime`), a short blend into the forest section below, and the `--shade-clear` veil.
+2. **The shade follows the text, not the viewport.** Each text block over a photo (`.phero__title`, `.phero__side`, `.phero__scroll`, the Band's heading wrapper `.band__head` and `.band__foot`) carries its own soft-edged forest pool: at least `--shade-text` everywhere inside the block's box, feathered to `--shade-clear` outside it. As built, the pool is a single blurred rectangle (`filter: blur`), which has no visible edge; a first version using `box-shadow` showed a faint line where the shadow met the box. `.phero__shade` and `.band__shade` shrink to three jobs: the nav strip at the top of a hero (so that, together with the nav's own gradient, it reaches `--shade-text-lime`), a short blend into the forest section below, and the `--shade-clear` veil.
 3. **Contrast holds by construction.** Because the floors are computed against white, AA holds for any photo, any focal point, either language and any point in the hero drift or parallax. Real Orbolo photography (OQ-D3) can be swapped in later without re-tuning.
 4. **Split is not touched.** FR-IMG-008 names PhotoHero and Band; no Split puts text over its photo.
 5. **Nav is not touched.** Scrolled, it has its own 0.92 background, which already clears every floor above.
@@ -420,7 +426,7 @@ The new skies are close to that worst case. Sampling the lightest pixels behind 
 |---|---|---|
 | `tests/unit/kept-photos.test.ts` | Each FR-IMG-002 file's SHA-256 equals the value pinned from `HEAD` before any change (SC-012). | Vitest |
 | `tests/e2e/photo-slots.spec.ts` | EN and ES, 390 px and 1440 px: every FR-IMG-001 slot shows its replacement (`data-photo`, and the image has decoded); every FR-IMG-002 placement, Contact and 404 still show their current file; no page shows one photo twice. | dev projects |
-| `tests/e2e/photo-delivery.spec.ts` | Per page: exactly one `fetchpriority="high"` and it is the hero; no hero is lazy; no `low`/`auto`; every replaced photo has AVIF and WebP sources with `srcset` + `sizes` and reserved dimensions; Split/Band/collage photos are lazy; the layout-shift total while loading and scrolling is 0; the LCP element is the hero photo. | dev projects |
+| `tests/e2e/photo-delivery.spec.ts` | Per page: exactly one `fetchpriority="high"` and it is the hero; no hero is lazy; no `low`/`auto`; every replaced photo has AVIF and WebP sources with `srcset` + `sizes` and reserved dimensions; Split/Band/collage photos are lazy; the page's layout is identical with every photo blocked and with every photo loaded (so images shift nothing); the browser requests the hero photo, and no other image, at high priority. | dev projects |
 | `tests/e2e/photo-budget-production.spec.ts` | SC-009 under §21's three conditions; the response is AVIF; nothing over 2560 px or 1 MB is requested. | production build |
 | `tests/e2e/photo-contrast.spec.ts` | FR-IMG-008 / SC-011 on Home, Invest, Beef, Land, About, Contact and 404, EN and ES, 390 px and 1440 px. | dev projects |
 | `tests/e2e/photo-forced-colors.spec.ts` | With forced colours emulated: text blocks over photos have a `Canvas` background and pass the same sampler; nothing sets `forced-color-adjust: none`. | dev, Chromium |
@@ -435,11 +441,11 @@ The new skies are close to that worst case. Sampling the lightest pixels behind 
 
 Axe (`research.md` §12) also runs on the five photo pages. It can't judge text over images, which is why the sampler exists; it guards everything else.
 
-**Scope note**: FR-IMG-TEST-003 lists five pages. The shade lives in shared shells, so Contact's and 404's heroes change too, and their centred titles sit mid-photo where today's shade is weakest. The contrast test therefore covers all seven hero pages. **Needs Vaz's confirmation** as an addition to the spec's list.
+**Scope note**: FR-IMG-TEST-003 lists five pages. The shade lives in shared shells, so Contact's and 404's heroes change too, and their centred titles sit mid-photo where today's shade is weakest. The contrast test therefore covers all seven hero pages. **Approved by Vaz on 2026-11-14** and folded into FR-IMG-TEST-003 and SC-011.
 
 **Production build project**: the existing plan's `production-gate` Playwright project (Part A §4) is renamed `production-build`, because it now hosts two specs: the closed contact gate and the photo budgets. Byte sizes are asserted there because that is what ships; in dev the image URLs differ and every response is encoded on request.
 
-**LCP (SC-010)**: Lighthouse is not added as a dependency. Automated: the LCP element is the hero photo and the layout-shift total is 0 (table above). Recorded by hand: `npx lighthouse` (mobile profile) on Home, Invest and Beef of the production build, **before** any change and again after; both sets of numbers go in the change description (`quickstart.md` §5 and §8).
+**LCP (SC-010)**: Lighthouse is not added as a dependency. Automated: the hero photo is requested at high priority and photos shift nothing (table above). The page's total layout-shift score is not asserted, because the web fonts swapping in move text by about 0.0002, which is not an image shift and predates this feature. Recorded by hand: `npx lighthouse` (mobile profile) on Home, Invest and Beef of the production build, **before** any change and again after; both sets of numbers go in the change description (`quickstart.md` §5 and §8).
 
 ## 26. Dev-server cost of on-request encoding
 

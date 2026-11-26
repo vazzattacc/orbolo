@@ -1,4 +1,5 @@
 ---
+import { photos } from "@/assets/photos";
 import PhotoHero from "@/components/ui/PhotoHero.astro";
 import Btn from "@/components/ui/Btn.astro";
 
@@ -12,7 +13,7 @@ interface Props {
 const { headline, releaseRule, ctaLabel, ctaHref } = Astro.props;
 ---
 
-<PhotoHero image="/images/site/rider-herd.jpg" scrollCue>
+<PhotoHero image={photos.calvesSky} focus="50% 60%" focusNarrow="50% 55%" scrollCue>
   <h1 class="h1 t-paper" data-split>{headline}</h1>
   <Fragment slot="side">
     <p class="caps">{releaseRule}</p>

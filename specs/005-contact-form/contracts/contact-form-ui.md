@@ -54,7 +54,7 @@ This is the stable surface the client script, the e2e tests and the axe checks a
 | Second press while sending | still exactly 1 POST |
 | `201` | `location` becomes `{/es}/contact/thanks` |
 | `422` | as "Send with errors", using the server codes |
-| `429` / `5xx` / network / 15 s | `[data-contact-failure]` visible with the `mailto:` link; values intact; URL unchanged; status announces the failure |
+| `429` / `5xx` / network / 15 s | `[data-contact-failure]` visible with the `mailto:` link (the email sentence is omitted only if `contactEmail` is unset, which the go-live check prevents); values intact; URL unchanged; status announces the failure |
 | No JS, valid | native POST; `303` mock → thanks page |
 | No JS, endpoint fails | `303` mock → `/contact/error` with the `mailto:` link and a link back to Contact |
 

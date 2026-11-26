@@ -1,0 +1,44 @@
+---
+import { localeStaticPaths, useI18n } from "@/i18n";
+import Layout from "@/components/Layout.astro";
+import Btn from "@/components/ui/Btn.astro";
+import PhotoHero from "@/components/ui/PhotoHero.astro";
+import { getContactFormGate, getContactPage } from "@/lib/contact/contact-repository";
+
+// Reached only without JavaScript, when the endpoint answers a native form
+// post with a redirect here (FR-PAGE-002). Gated and unindexed exactly like
+// thanks.astro.
+export async function getStaticPaths() {
+  const gate = await getContactFormGate();
+  return gate.live ? localeStaticPaths() : [];
+}
+
+const { locale } = useI18n(Astro.url);
+const { errorPage, failure } = await getContactPage(locale);
+const gate = await getContactFormGate();
+const contactEmail = gate.live ? gate.contactEmail : undefined;
+const [emailLeadBefore, emailLeadAfter = ""] = failure.emailLead.split("{email}");
+---
+
+<Layout title={errorPage.title}>
+  <PhotoHero image="/images/site/brahman-four.jpg" center>
+    <h1 class="h1 h1--xl t-paper" data-split>
+      {errorPage.h1}
+    </h1>
+    <p class="lede">
+      {errorPage.body}{" "}
+      {contactEmail && (
+        <>
+          {emailLeadBefore}
+          <a class="cform__link" href={`mailto:${contactEmail}`}>
+            {contactEmail}
+          </a>
+          {emailLeadAfter}
+        </>
+      )}
+    </p>
+    <div>
+      <Btn href="/contact" label={errorPage.backLabel} variant="paper" />
+    </div>
+  </PhotoHero>
+</Layout>

@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test";
 
-// quickstart.md Scenario 2 — FR-SEO-001..005, SC-002, SC-003
+// spec 003 — FR-SEO-001..005, SC-002, SC-003
 
 const EXISTING_TITLES: Record<string, string> = {
   "/": "Orbolo",

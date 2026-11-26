@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test";
 
-// quickstart.md Scenario 6 — FR-009, FR-016, User Story 2 acceptance scenarios 1-2
+// spec 001 — FR-009, FR-016, User Story 2 acceptance scenarios 1-2
 test("keyboard-only: Tab + Enter opens a card and moves focus to Discover more, Enter navigates", async ({
   page,
 }) => {

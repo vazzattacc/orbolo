@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test";
 
-// quickstart.md Scenario 4 — FR-QA-001/FR-QA-002: every <img> on every
+// spec 003 — FR-QA-001/FR-QA-002: every <img> on every
 // shipped page must have an alt attribute (non-empty for content images,
 // explicitly empty for decorative ones).
 const ROUTES = ["/", "/invest", "/beef", "/land", "/about", "/contact", "/404", "/privacy", "/terms"];

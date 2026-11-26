@@ -1,4 +1,5 @@
 ---
+import { photos } from "@/assets/photos";
 import { localeStaticPaths, useI18n } from "@/i18n";
 import Layout from "@/components/Layout.astro";
 import PhotoHero from "@/components/ui/PhotoHero.astro";
@@ -71,7 +72,7 @@ const { hero, story, oldIdea, howTheGroupWorks, principles, whyParaguay, whereWe
     </ul>
   </section>
 
-  <Band image="/images/site/rider-green.jpg" aria-labelledby="about-paraguay-heading">
+  <Band image={photos.cowGrazing} focus="50% 50%" focusNarrow="40% 50%" aria-labelledby="about-paraguay-heading">
     <h2 id="about-paraguay-heading" class="h2 t-lime" data-split>{whyParaguay.heading}</h2>
     <Fragment slot="foot">
       <div class="card card--glass">

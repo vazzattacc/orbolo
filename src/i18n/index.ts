@@ -13,7 +13,7 @@ export const DEFAULT_LOCALE: Locale = "en";
 const PREFIX = "/es";
 
 /** Routes that exist in both languages. Privacy, Terms and 404 are English only. */
-export const LOCALIZED_ROUTES = ["/", "/invest", "/beef", "/land", "/about", "/contact"];
+export const LOCALIZED_ROUTES = ["/", "/invest", "/beef", "/land", "/about", "/contact", "/contact/thanks", "/contact/error"];
 
 export function isLocalizedRoute(route: string): boolean {
   return LOCALIZED_ROUTES.includes(route);

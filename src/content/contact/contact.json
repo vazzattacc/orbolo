@@ -1,0 +1,164 @@
+[
+  {
+    "id": "contact",
+    "title": "Contact — Orbolo",
+    "h1": "Contact",
+    "stubBody": "Own a herd, buy beef, or bring your land: this is where we talk. Our contact form is on its way.",
+    "intro": "Own a herd, buy beef, or bring your land: this is where we talk.",
+    "previewNote": "Preview: this form is not live in production yet.",
+    "form": {
+      "heading": "Send us a message",
+      "optionalMarker": "(optional)",
+      "fields": {
+        "name": { "label": "Name" },
+        "email": { "label": "Email" },
+        "phone": { "label": "Phone", "hint": "Only needed if you would like a call." },
+        "organisation": { "label": "Organisation" },
+        "message": { "label": "Message", "remaining": "{n} characters left" },
+        "callMe": { "label": "Please call me" }
+      },
+      "topic": {
+        "legend": "I'm interested in",
+        "options": {
+          "remote-rancher": "Owning cattle with Remote Rancher",
+          "beef": "Buying beef",
+          "land": "Working with my land",
+          "other": "Something else"
+        }
+      },
+      "send": { "label": "Send", "sending": "Sending…" },
+      "privacyLine": {
+        "text": "We use these details only to reply to your enquiry.",
+        "linkLabel": "Privacy"
+      }
+    },
+    "errors": {
+      "summaryHeading": "There is a problem",
+      "titlePrefix": "Error: ",
+      "inlinePrefix": "Error:",
+      "name": {
+        "required": "Enter your name",
+        "too_long": "Name must be 120 characters or fewer"
+      },
+      "email": {
+        "required": "Enter your email address",
+        "invalid": "Enter an email address like name@example.com",
+        "too_long": "Email address must be 254 characters or fewer"
+      },
+      "phone": {
+        "required_for_call": "Add a phone number so we can call you",
+        "too_long": "Phone number must be 40 characters or fewer"
+      },
+      "organisation": {
+        "too_long": "Organisation must be 160 characters or fewer"
+      },
+      "topic": {
+        "required": "Choose what you're interested in",
+        "invalid": "Choose one of the listed options"
+      },
+      "message": {
+        "required": "Write your message",
+        "too_short": "Write at least 10 characters",
+        "too_long": "Message must be 2,000 characters or fewer"
+      }
+    },
+    "failure": {
+      "generic": "Your message did not go through. Everything you typed is still here. Please try again.",
+      "rateLimited": "Too many messages were sent in a short time. Please try again in a few minutes.",
+      "emailLead": "You can also write to us at {email}."
+    },
+    "thanks": {
+      "title": "Message sent — Orbolo",
+      "h1": "Thank you",
+      "body": "Your message has arrived. We'll reply by email.",
+      "homeLabel": "Back to Home"
+    },
+    "errorPage": {
+      "title": "Message not sent — Orbolo",
+      "h1": "Message not sent",
+      "body": "Your message did not go through.",
+      "backLabel": "Back to Contact"
+    }
+  },
+  {
+    "id": "contact-es",
+    "title": "Contacto — Orbolo",
+    "h1": "Contacto",
+    "stubBody": "Ser dueño de un rodeo, comprar carne o sumar tu tierra: aquí es donde hablamos. Nuestro formulario de contacto llega pronto.",
+    "intro": "Ser dueño de un rodeo, comprar carne o sumar tu tierra: aquí es donde hablamos.",
+    "previewNote": "Vista previa: este formulario todavía no está publicado.",
+    "form": {
+      "heading": "Escríbenos",
+      "optionalMarker": "(opcional)",
+      "fields": {
+        "name": { "label": "Nombre" },
+        "email": { "label": "Correo electrónico" },
+        "phone": { "label": "Teléfono", "hint": "Solo si prefieres que te llamemos." },
+        "organisation": { "label": "Organización" },
+        "message": { "label": "Mensaje", "remaining": "Quedan {n} caracteres" },
+        "callMe": { "label": "Prefiero que me llamen" }
+      },
+      "topic": {
+        "legend": "Me interesa",
+        "options": {
+          "remote-rancher": "Ser dueño de ganado con Remote Rancher",
+          "beef": "Comprar carne",
+          "land": "Trabajar con mi tierra",
+          "other": "Otra cosa"
+        }
+      },
+      "send": { "label": "Enviar", "sending": "Enviando…" },
+      "privacyLine": {
+        "text": "Usamos estos datos solo para responder a tu consulta.",
+        "linkLabel": "Privacidad (en inglés)"
+      }
+    },
+    "errors": {
+      "summaryHeading": "Hay un problema",
+      "titlePrefix": "Error: ",
+      "inlinePrefix": "Error:",
+      "name": {
+        "required": "Escribe tu nombre",
+        "too_long": "El nombre debe tener 120 caracteres o menos"
+      },
+      "email": {
+        "required": "Escribe tu correo electrónico",
+        "invalid": "Escribe un correo como nombre@ejemplo.com",
+        "too_long": "El correo debe tener 254 caracteres o menos"
+      },
+      "phone": {
+        "required_for_call": "Añade un teléfono para que podamos llamarte",
+        "too_long": "El teléfono debe tener 40 caracteres o menos"
+      },
+      "organisation": {
+        "too_long": "La organización debe tener 160 caracteres o menos"
+      },
+      "topic": {
+        "required": "Elige qué te interesa",
+        "invalid": "Elige una de las opciones de la lista"
+      },
+      "message": {
+        "required": "Escribe tu mensaje",
+        "too_short": "Escribe al menos 10 caracteres",
+        "too_long": "El mensaje debe tener 2.000 caracteres o menos"
+      }
+    },
+    "failure": {
+      "generic": "Tu mensaje no se envió. Todo lo que escribiste sigue aquí. Inténtalo de nuevo.",
+      "rateLimited": "Se enviaron demasiados mensajes en poco tiempo. Inténtalo de nuevo en unos minutos.",
+      "emailLead": "También puedes escribirnos a {email}."
+    },
+    "thanks": {
+      "title": "Mensaje enviado — Orbolo",
+      "h1": "Gracias",
+      "body": "Tu mensaje llegó. Te responderemos por correo electrónico.",
+      "homeLabel": "Volver al inicio"
+    },
+    "errorPage": {
+      "title": "Mensaje no enviado — Orbolo",
+      "h1": "Mensaje no enviado",
+      "body": "Tu mensaje no se envió.",
+      "backLabel": "Volver a Contacto"
+    }
+  }
+]

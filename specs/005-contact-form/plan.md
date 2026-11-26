@@ -16,7 +16,7 @@ This part replaces the `/contact` and `/es/contact` stub with a native, accessib
 
 - **Endpoint:** the endpoint URL is a build-time `astro:env` variable.
 - **Copy:** all copy moves into a new `contact` JSON collection, including the stub text, which leaves `src/i18n/ui.ts`.
-- **Publishing gate:** one pure function decides whether the form and its thanks/error pages are published. In production this requires four things: the endpoint, Vaz/counsel's privacy approval, a published Privacy page and the team email. Otherwise today's stub ships unchanged.
+- **Publishing gate:** one pure function decides whether the form and its thanks/error pages are published. In production this requires two things: the endpoint and Vaz/counsel's privacy approval (FR-GATE-001, clarified 2026-11-14). The team email and the published Privacy page are go-live checks made by a person. Otherwise today's stub ships unchanged.
 - **Dev preview:** a dev-only preview mode shows the live form locally and in e2e, so the suite can test it against a mocked endpoint without faking any approval.
 - **Closed-gate test:** a second Playwright project tests the closed gate against a real production build.
 - **Behaviour:** progressive enhancement. The native post works without JS. With JS, the script adds the GOV.UK-style error summary and inline errors, a 15 s timeout, a failure state with a `mailto:` fallback, and a full navigation to the thanks page so Plausible counts it.
@@ -40,7 +40,8 @@ Measured on 2026-11-14: a phone downloads at most 160 KB for a hero (today 461�
 **Primary Dependencies**:
 - Existing, unchanged: Astro 7 (built-in `astro:env`, `astro:assets` with sharp, content collections with Zod, `ClientRouter`), Tailwind 4, GSAP and Lenis.
 - **New dev dependency (pending approval): `@axe-core/playwright`**, for SC-005 and SC-011 (`research.md` §12).
-- No new runtime dependency (Governing Rule 3, Constitution V). The photo refresh adds no dependency at all: Lighthouse runs through `npx` for a recorded check only.
+- **New dev dependency (approved 2026-11-14 during implementation): `sharp` 0.35.4.** Astro's image service needs it at build time, and pnpm does not expose Astro's own copy to the build. The plan first said the photo refresh added no dependency; that was wrong.
+- No new runtime dependency (Governing Rule 3, Constitution V). Lighthouse runs through `npx` for a recorded check only.
 
 **Storage**:
 - Website: versioned JSON only. A new `contact` collection, plus two fields in `settings` and four `pageMeta` entries.
@@ -88,8 +89,8 @@ Measured on 2026-11-14: a phone downloads at most 160 KB for a hero (today 461�
 | III. Human Review at Every Checkpoint | This plan stops here for Vaz's review before `/speckit-tasks`. Publishing the form has its own human gate (FR-GATE-001). The photo refresh has SC-008: Vaz approves the before/after screenshots. | PASS (pending review) |
 | IV. Minimal, Curated Context | AGENTS.md's "Known gap" line is updated in implementation, because the Contact text leaves `ui.ts`. CLAUDE.md's Design Taste is touched only if `taste`, re-run after the shade change, finds its one sentence on the photo shade no longer true. | PASS |
 | V. No New Dependencies Without Justification | `@axe-core/playwright` (dev only) is justified in `research.md` §12. Nothing else is added: `astro:env`, `astro:assets`, sharp (shipped with Astro), `AbortController` and native forms are built in. | PASS (pending Vaz's approval of the dependency) |
-| VI. Declared Architecture Is Respected | Part A follows the collection + `schema.ts` + repository pattern and reuses the shells. Part B keeps the four shells and adds one helper inside `src/components/ui/`. **One deviation**: the replacement masters live in `src/assets/photos/`, not `public/images/<section>/` as the constitution's Assets line says. See Complexity Tracking. | PASS with one justified deviation (awaiting Vaz) |
-| VII. Scope Changes Land as a Delta | The spec carries its own deltas. This plan proposes three more instead of silently reinterpreting: SC-003 / FR-AN5-002 versus Plausible (`research.md` §13), how SC-009 is measured (§21), and contrast checks on Contact and 404 (§25). | PASS (deltas awaiting Vaz) |
+| VI. Declared Architecture Is Respected | Part A follows the collection + `schema.ts` + repository pattern and reuses the shells. Part B keeps the four shells and adds one helper inside `src/components/ui/`. **One deviation**: the replacement masters live in `src/assets/photos/`, not `public/images/<section>/` as the constitution's Assets line says. Vaz approved it on 2026-11-14 (spec Clarifications). See Complexity Tracking. | PASS with one justified, approved deviation |
+| VII. Scope Changes Land as a Delta | The spec carries its own deltas. This plan proposed three more instead of silently reinterpreting: SC-003 / FR-AN5-002 versus Plausible (`research.md` §13), how SC-009 is measured (§21), and contrast checks on Contact and 404 (§25). Vaz settled all three, and the gate conditions, in the spec's clarification session of 2026-11-14. | PASS |
 | VIII. Content/Presentation/Interaction Decoupled | Part A: endpoint from config; all copy from JSON. Part B: the shells render whatever photo and focal point they are given and know nothing about which photo it is. Which photo a section shows stays in that section's component, as today; moving it to JSON is a spec Non-goal. | PASS |
 | IX. Accessibility Is a Release Gate | Part A: native controls, labels, error summary, focus management, live regions. Part B: AA behind every line of text over a photo, proved against the real photo and against white; a system-colour background in Forced Colors Mode; reduced motion unchanged; alt texts updated. | PASS |
 | X. Installed Skills Are Mandatory | See "Mandatory skill usage" below. | PASS (commitment recorded) |
@@ -104,21 +105,23 @@ Measured on 2026-11-14: a phone downloads at most 160 KB for a hero (today 461�
 - `playwright` (`playwright-cli` / Playwright MCP): all e2e coverage in `quickstart.md` §1 and §6, plus the browser checks in §2 and §7 at 1440 and 390 px, in EN and ES, including hover, focus, reduced motion and forced colours.
 - `image-to-code`: not used. For the form, no mockup exists. For the photos, the spec records that the hero mockup is not adopted (Scope Change 2026-11-14), so there is no reference to derive from.
 
-### Decisions awaiting approval (before `/speckit-tasks`)
+### Decisions: status after the 2026-11-14 clarification session
 
-Part A (unchanged since 2026-11-11):
+Five were settled by Vaz in `/speckit-clarify` on 2026-11-14 and are recorded in `spec.md` → Clarifications. The other three (1, 4 and 5) were approved by Vaz on 2026-11-14 at the start of `/speckit-implement`. None is open.
 
-1. **New dev dependency `@axe-core/playwright`** for SC-005, now also used for SC-011 (`research.md` §12).
-2. **Spec delta on SC-003 / FR-AN5-002**: the site-wide Plausible script is allowed on the Contact pages, because US4 depends on it (`research.md` §13).
-3. **Gate conditions 3 and 4** (Privacy page published, team email set) are added to FR-GATE-001's literal two (`research.md` §2). This is a clarification rather than a change; confirm it.
-4. **Dev preview mode** via a committed `.env.development` and the reserved `contact@example.com` fallback, dev only (`research.md` §3).
-5. Non-blocking copy question: topic labels versus the 2026-10-28 renames (`research.md` §16).
+Part A:
 
-Part B (new):
+1. **APPROVED 2026-11-14.** New dev dependency `@axe-core/playwright` for SC-005, now also used for SC-011 (`research.md` §12).
+2. **APPROVED 2026-11-14.** The site-wide Plausible script is allowed on the Contact pages and is the only third-party host allowed (`research.md` §13). Folded into SC-003 and FR-AN5-002.
+3. **DECIDED 2026-11-14, against the plan's proposal.** The gate keeps FR-GATE-001's two conditions only. The team email and the published Privacy page are go-live checks made by a person (`research.md` §2, revised).
+4. **APPROVED 2026-11-14.** Dev preview mode via a committed `.env.development` and the reserved `contact@example.com` fallback, dev only (`research.md` §3).
+5. **DECIDED 2026-11-14.** Topic labels use the spec's FR-FIELD-002 candidates, not the nav names (`research.md` §16).
 
-6. **Replacement masters in `src/assets/photos/`**, which departs from the constitution's Assets line (`research.md` §17). Recommended. The alternative keeps the folder rule but commits about 100 generated files and adds `sharp` as a direct dependency.
-7. **SC-009 measured at real pixel densities**: 390 px at 3×, and 1440 px at 1× and 2× (`research.md` §21). Recommended; all three pass on measured sizes.
-8. **Contrast checks also cover Contact and 404**, because the shade lives in shells they share (`research.md` §25). Recommended.
+Part B:
+
+6. **APPROVED 2026-11-14.** Replacement masters live in `src/assets/photos/`, a recorded exception to the constitution's Assets line (`research.md` §17). Folded into FR-IMG-006.
+7. **APPROVED 2026-11-14.** SC-009 is measured at real pixel densities: 390 px at 3×, and 1440 px at 1× and 2× (`research.md` §21). Folded into SC-009.
+8. **APPROVED 2026-11-14.** Contrast checks also cover Contact and 404 (`research.md` §25). Folded into FR-IMG-TEST-003 and SC-011.
 9. Not a decision for now, for awareness: on the Beef hero, the white cow in `09` stands in the centre and partly under the title (`research.md` §20). The mapping is fixed by FR-IMG-001, so it is left for the SC-008 preview. OQ-D1 (Home hero `06` or `03`) is decided at the same preview; the plan builds `06`.
 
 ## Project Structure
@@ -239,7 +242,7 @@ Pure logic (validation, the gate) sits in `src/lib/contact/`, so it is unit-test
 
 ## Phase 0 and Phase 1 Outputs
 
-- `research.md`: all decisions, with rationale and alternatives. There were no `NEEDS CLARIFICATION` markers to resolve in either part. Part A has four items needing approval and Part B three (listed above).
+- `research.md`: all decisions, with rationale and alternatives. There were no `NEEDS CLARIFICATION` markers to resolve in either part. Three decisions are still open (listed above).
 - `data-model.md`: form entities, validation rules, the client state machine, the gate truth table; the Photo registry, every photo slot (changing and kept), and the shade tokens.
 - `contracts/contact-endpoint.md`, `contracts/contact-form-ui.md` and `contracts/photo-delivery-ui.md`.
 - `quickstart.md`: the automated scenario maps, the manual browser checks, the closed-gate check, go-live steps, and the before/after evidence for the photo refresh.
@@ -253,7 +256,7 @@ No change from the table above:
 - It covers every FR with a named test or a recorded check.
 - It leaves `motion.ts`, the colour tokens and every kept photo untouched.
 
-The only open items are the approvals listed above and the one deviation in Complexity Tracking, all explicit and none silently assumed.
+The only open items are the three decisions listed above, all explicit and none silently assumed.
 
 ## Risks
 
@@ -277,6 +280,7 @@ Part B:
 | Deviation | Why needed | Simpler alternative rejected because |
 |---|---|---|
 | New dev dependency `@axe-core/playwright` | SC-005 and SC-011 require automated WCAG 2.2 AA checks with 0 violations (`research.md` §12). | Hand-written ARIA assertions can't claim "0 violations"; Lighthouse CI is heavier and embeds the same rules. |
+| New dev dependency `sharp` 0.35.4 (approved by Vaz 2026-11-14) | `astro build` fails with "Could not find Sharp" under pnpm unless the project declares it; FR-IMG-006 needs Astro's image service at build time. | A pnpm hoisting setting would hide the dependency in config instead of declaring it. Not optimizing the photos fails FR-IMG-006 and SC-009. |
 | Replacement masters in `src/assets/photos/` instead of `public/images/site/` (constitution, Additional Constraints → Assets) | FR-IMG-006 requires AVIF/WebP/JPEG at several widths from Astro's built-in tooling, which only processes images imported from `src/` (`research.md` §17). | Keeping them in `public/` means either serving unoptimized files (fails FR-IMG-006 and SC-009) or committing about 100 generated variants and adding `sharp` as a direct dependency. The eleven kept photos stay in `public/`, so the constitution's rule still describes them. |
 
 The constitution itself is not edited by this feature. If Vaz wants the Assets line to mention `src/assets/` for optimized photos, that is a separate reviewed PR.

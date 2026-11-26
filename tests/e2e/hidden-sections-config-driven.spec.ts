@@ -2,7 +2,7 @@ import { readFileSync, writeFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { expect, test } from "@playwright/test";
 
-// Proves the hide/show logic in contracts/nav-and-hidden-sections.md is
+// Proves the hide/show logic in the hidden-sections table in specs/002-page-content-specification/README.md is
 // genuinely conditional, not permanently disabled code — mirrors
 // tests/e2e/path-card-config-driven.spec.ts's fixture-mutation pattern.
 // Every section this suite exercises today has no real content, so this

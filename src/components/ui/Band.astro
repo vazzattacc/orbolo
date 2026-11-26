@@ -4,17 +4,23 @@
  * scroll (motion.ts). Default slot sits top-left, `foot` bottom-right.
  */
 import type { HTMLAttributes } from "astro/types";
+import type { Photo as PhotoSource } from "@/assets/photos";
+import Photo from "./Photo.astro";
 
 interface Props extends HTMLAttributes<"section"> {
-  image: string;
+  /** A path into public/ (kept photo) or a replacement from src/assets/photos. */
+  image: string | PhotoSource;
+  /** CSS object-position for the photo's subject; `focusNarrow` applies at ≤ 991px. */
+  focus?: string;
+  focusNarrow?: string;
 }
 
-const { image, class: className, ...rest } = Astro.props;
+const { image, focus, focusNarrow, class: className, ...rest } = Astro.props;
 ---
 
 <section class:list={["band", className]} {...rest}>
-  <img class="band__bg" src={image} alt="" loading="lazy" decoding="async" />
+  <Photo class="band__bg" image={image} alt="" kind="band" focus={focus} focusNarrow={focusNarrow} />
   <div class="band__shade" aria-hidden="true"></div>
-  <div><slot /></div>
+  <div class="band__head"><slot /></div>
   {Astro.slots.has("foot") && <div class="band__foot" data-reveal><slot name="foot" /></div>}
 </section>

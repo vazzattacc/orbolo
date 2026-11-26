@@ -44,7 +44,19 @@
   --lime: var(--color-orbolo-lime);
   --forest-deep: var(--color-orbolo-forest-deep);
   --forest-light: var(--color-orbolo-forest-light);
-  --shade: rgba(54, 71, 43, 0.62);
+  /* Forest over photos (specs/005-contact-form, FR-IMG-008). Each value is an
+     opacity of forest, set from the worst case of a pure white photo behind
+     the text, so contrast holds for any photo:
+     --shade-text      behind paper text of any size, and large lime text
+                       (floors: 0.73 for paper at 4.5:1, 0.75 for large lime at 3:1)
+     --shade-text-lime behind normal-size lime text: the nav's current link
+                       at the top of a hero (floor 0.89 at 4.5:1)
+     --shade-clear     everywhere a photo carries no text
+     tests/e2e/photo-contrast.spec.ts fails if these drop below their floors. */
+  --forest-rgb: 54 71 43;
+  --shade-text: 0.76;
+  --shade-text-lime: 0.9;
+  --shade-clear: 0.06;
   --pad: max(18px, 2.2vw); /* one gutter for every element, whatever its font size */
   --ease: cubic-bezier(0.7, 0, 0.2, 1);
   --ease-out: cubic-bezier(0.2, 0.7, 0.2, 1);
@@ -132,15 +144,19 @@ img { display: block; max-width: 100%; }
 /* ---------- photo hero (Home, Invest, Beef, Land, Contact, 404) ---------- */
 .phero { position: relative; min-height: max(100svh, 44em); overflow: hidden; color: var(--paper); background: var(--forest); display: flex; flex-direction: column; }
 .phero__media { position: absolute; inset: 0; overflow: hidden; }
-.phero__media img { width: 100%; height: 100%; object-fit: cover; object-position: center 70%; transform-origin: 50% 90%; animation: heroDrift 24s ease-in-out infinite alternate; }
+.phero__media picture { position: absolute; inset: 0; }
+.phero__media img { width: 100%; height: 100%; object-fit: cover; object-position: var(--photo-focus, center 70%); transform-origin: 50% 90%; animation: heroDrift 24s ease-in-out infinite alternate; }
 @keyframes heroDrift { from { transform: scale(1); } to { transform: scale(1.07); } }
-/* light veil over the whole photo + dense forest where the text sits */
-.phero__shade { position: absolute; inset: 0; background:
-  radial-gradient(56% 46% at 12% 22%, rgba(54, 71, 43, 0.92), rgba(54, 71, 43, 0) 74%),
-  radial-gradient(42% 44% at 90% 72%, rgba(54, 71, 43, 0.84), rgba(54, 71, 43, 0) 74%),
-  linear-gradient(180deg, rgba(54, 71, 43, 0.82), rgba(54, 71, 43, 0.3) 12%, rgba(54, 71, 43, 0.08) 24%, rgba(54, 71, 43, 0.1) 62%, var(--forest) 100%); }
+/* The photo stays clear. This layer only carries the strip under the nav
+   (with the nav's own gradient it reaches --shade-text-lime behind the nav
+   links) and the blend into the forest section below. The shade behind the
+   hero's own text travels with that text: see "photo text pools" below. */
+.phero__shade { position: absolute; inset: 0; background: linear-gradient(180deg,
+  rgb(var(--forest-rgb) / 0.86) 0, rgb(var(--forest-rgb) / 0.86) 4.4em, rgb(var(--forest-rgb) / 0.6) 7em,
+  rgb(var(--forest-rgb) / 0.26) 10.5em, rgb(var(--forest-rgb) / var(--shade-clear)) 14em,
+  rgb(var(--forest-rgb) / var(--shade-clear)) 80%, var(--forest) 100%); }
 .phero__inner { position: relative; flex: 1; display: grid; grid-template-columns: 1.3fr 1fr; grid-template-rows: auto 1fr; gap: 2em var(--pad); padding: 8em var(--pad) 3.6em; }
-.phero__title { grid-column: 1 / -1; max-width: 64em; display: grid; gap: 0.5em; }
+.phero__title { grid-column: 1 / -1; justify-self: start; max-width: 64em; display: grid; gap: 0.5em; }
 .phero__title .h1 { max-width: 16em; }
 .phero__side { grid-column: 2; align-self: end; display: grid; gap: 1.6em; justify-items: start; max-width: 26em; }
 .phero--center .phero__inner { grid-template-columns: 1fr; place-items: center; text-align: center; }
@@ -170,7 +186,8 @@ img { display: block; max-width: 100%; }
 /* split 50/50: photo one side, text the other */
 .split { display: grid; grid-template-columns: 1fr 1fr; min-height: 100svh; }
 .split__media { position: relative; overflow: hidden; background: var(--forest); min-height: 60svh; }
-.split__media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.split__media picture { position: absolute; inset: 0; }
+.split__media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: var(--photo-focus, 50% 50%); }
 .split__media::before { content: ""; position: absolute; inset: 0 0 auto; height: 9em; z-index: 1; pointer-events: none; background: linear-gradient(180deg, rgba(54, 71, 43, 0.78), rgba(54, 71, 43, 0)); }
 .split__media::after { content: ""; position: absolute; inset: 55% 0 0; pointer-events: none; background: linear-gradient(transparent, rgba(54, 71, 43, 0.55)); }
 .split__over { position: absolute; left: var(--pad); right: var(--pad); bottom: 1.8em; z-index: 2; }
@@ -181,13 +198,33 @@ img { display: block; max-width: 100%; }
 
 /* full-bleed photo band */
 .band { position: relative; min-height: 100svh; overflow: hidden; color: var(--paper); padding: 7.4em var(--pad) 4em; display: flex; flex-direction: column; justify-content: space-between; gap: 3em; background: var(--forest); }
-.band__bg { position: absolute; inset: -8% 0; width: 100%; height: 116%; object-fit: cover; }
-.band__shade { position: absolute; inset: 0; background:
-  radial-gradient(60% 50% at 14% 20%, rgba(54, 71, 43, 0.9), rgba(54, 71, 43, 0) 72%),
-  radial-gradient(48% 46% at 86% 86%, rgba(54, 71, 43, 0.86), rgba(54, 71, 43, 0) 72%),
-  linear-gradient(180deg, rgba(54, 71, 43, 0.5), rgba(54, 71, 43, 0.3) 50%, rgba(54, 71, 43, 0.72)); }
+.band__bg { position: absolute; inset: -8% 0; width: 100%; height: 116%; object-fit: cover; object-position: var(--photo-focus, 50% 50%); }
+picture.band__bg > img { width: 100%; height: 100%; object-fit: cover; object-position: var(--photo-focus, 50% 50%); }
+/* a clear veil only; the band's text carries its own shade (photo text pools) */
+.band__shade { position: absolute; inset: 0; background: rgb(var(--forest-rgb) / var(--shade-clear)); }
 .band > :not(.band__bg):not(.band__shade) { position: relative; }
+.band__head { align-self: flex-start; max-width: 100%; }
 .band__foot { align-self: flex-end; width: min(100%, 30em); display: grid; gap: 1.3em; justify-items: start; }
+
+/* ---------- photo text pools (specs/005-contact-form, FR-IMG-008) ----------
+   Every block of text that sits on a photo brings its own forest shade: at
+   least --shade-text everywhere inside the block, feathered into the clear
+   photo around it. Because the shade follows the text instead of a fixed
+   spot in the viewport, it holds for any copy length, either language, any
+   screen and any photo.
+   The pool is one blurred rectangle, so it has no edge to see. A blur of σ
+   thins the rectangle near its border, so it reaches 2.5σ past the text and
+   starts 0.04 above the token: inside the text block it never drops below
+   --shade-text, corners included. */
+.phero__title, .phero__side, .phero__scroll, .band__head, .band__foot { isolation: isolate; }
+.phero__title, .phero__side { position: relative; }
+.phero__title::before, .phero__side::before, .phero__scroll::before, .band__head::before, .band__foot::before { content: ""; position: absolute; inset: -6.5em; z-index: -1; pointer-events: none; background: rgb(var(--forest-rgb) / calc(var(--shade-text) + 0.04)); filter: blur(2.6em); }
+/* Forced Colors Mode drops the pools along with every other author colour:
+   give the text a solid system-colour background there instead. */
+@media (forced-colors: active) {
+  .phero__title, .phero__side, .phero__scroll, .band__head, .band__foot { background-color: Canvas; }
+  .phero__title::before, .phero__side::before, .phero__scroll::before, .band__head::before, .band__foot::before { content: none; }
+}
 
 /* ---------- lists ---------- */
 .rows { width: 100%; }
@@ -235,8 +272,9 @@ img { display: block; max-width: 100%; }
 /* measured on the reference at 1440 and kept in vw: photos and squares meet
    corner to corner, the outer squares are cut by the section edge */
 .cta__collage { position: absolute; inset: 0; pointer-events: none; }
-.cta__collage img, .sq { position: absolute; aspect-ratio: 1; }
-.cta__collage img { object-fit: cover; }
+.cta__collage > img, .cta__collage > picture, .sq { position: absolute; aspect-ratio: 1; }
+.cta__collage img { object-fit: cover; object-position: var(--photo-focus, 50% 50%); }
+.cta__collage > picture > img { width: 100%; height: 100%; }
 .c1 { left: 54.4vw; top: 2.8vw; width: 9.1vw; }
 .c2 { left: 67.9vw; top: 11.9vw; width: 19.5vw; }
 .c3 { left: 87.5vw; top: 1.8vw; width: 10.1vw; }
@@ -278,7 +316,7 @@ img { display: block; max-width: 100%; }
 .path-card__image-wrap--fallback img { display: none; }
 .path-card__image-wrap--fallback { background-image: linear-gradient(160deg, var(--forest-light) 0%, var(--forest-deep) 100%); }
 
-/* PathCard flip (research.md §3): CSS 3D transform driven by the trigger's
+/* PathCard flip (spec 001 R3): CSS 3D transform driven by the trigger's
    aria-expanded state, gated to near-instant under reduced motion (FR-019). */
 .path-card__flipper { transform-style: preserve-3d; transition: transform 0.8s var(--ease); }
 .path-card__face { backface-visibility: hidden; -webkit-backface-visibility: hidden; }
@@ -292,6 +330,46 @@ img { display: block; max-width: 100%; }
 /* ---------- contact: mouse trail over the photo ---------- */
 .trail { position: absolute; inset: 0; pointer-events: none; }
 .trail i { position: absolute; width: 5vw; height: 5vw; opacity: 0; transition: opacity 0.3s ease-out; }
+
+/* ---------- contact form (specs/005-contact-form) ---------- */
+/* One column, a label above every control. Controls are transparent on
+   forest with a paper hairline (4.2:1 against forest, so the boundary meets
+   non-text contrast); lime marks focus and errors and is never body text.
+   Control text is at least 16px so iOS doesn't zoom on focus. */
+.cform { display: grid; gap: 2em; width: 100%; max-width: 38em; }
+.cform__field { display: grid; gap: 0.6em; min-width: 0; margin: 0; padding: 0; border: 0; }
+.cform__field > legend { padding: 0; margin-bottom: 0.6em; }
+.cform input:not([type="radio"], [type="checkbox"], [type="hidden"]), .cform textarea { width: 100%; padding: 0.8em 0.9em; font: inherit; font-size: max(16px, 1em); line-height: 1.45; color: var(--paper); background: transparent; border: 1.5px solid rgba(255, 253, 243, 0.55); border-radius: 0; appearance: none; }
+.cform textarea { display: block; min-height: 9em; resize: vertical; }
+.cform input:not([type="radio"], [type="checkbox"]):focus-visible, .cform textarea:focus-visible { border-color: var(--lime); }
+.cform [aria-invalid="true"]:is(input, textarea) { border-color: var(--lime); box-shadow: inset 4px 0 0 var(--lime); }
+.cform__hint { font-size: max(13px, 0.9em); }
+/* radio and checkbox: a hairline square that fills lime; 24px target, 44px row */
+.cform__choice { display: flex; align-items: center; gap: 0.8em; min-height: 44px; cursor: pointer; touch-action: manipulation; }
+.cform__choice input { flex: none; display: grid; place-content: center; width: 24px; height: 24px; margin: 0; background: transparent; border: 1.5px solid var(--paper); border-radius: 0; appearance: none; cursor: pointer; }
+.cform__choice input::before { content: ""; width: 12px; height: 12px; background: var(--lime); transform: scale(0); }
+.cform__choice input:checked::before { transform: scale(1); }
+.cform__choice input:checked, .cform__choice:hover input { border-color: var(--lime); }
+.cform input:not([type="radio"], [type="checkbox"]):hover:not(:focus-visible, [aria-invalid="true"]), .cform textarea:hover:not(:focus-visible, [aria-invalid="true"]) { border-color: var(--paper); }
+.cform__privacy a, .cform__summary a, .cform__failure a, .cform__link { color: inherit; text-decoration: underline; text-underline-offset: 0.2em; }
+.cform__privacy a:hover, .cform__summary a:hover, .cform__failure a:hover, .cform__link:hover { color: var(--lime); }
+.cform__send { display: flex; }
+/* errors: paper text with a lime square beside it, so colour is never the only signal */
+.cform__error { display: flex; align-items: baseline; gap: 0.6em; }
+.cform__error::before, .cform__summary li::before { content: ""; flex: none; width: 0.6em; height: 0.6em; background: var(--lime); }
+.cform__summary, .cform__failure { display: grid; gap: 0.9em; width: 100%; max-width: 38em; padding: 1.4em 1.5em; border: 1.5px solid var(--lime); }
+.cform__summary[hidden], .cform__failure[hidden] { display: none; }
+.cform__summary ul { display: grid; gap: 0.5em; margin: 0; padding: 0; list-style: none; }
+.cform__summary li { display: flex; align-items: baseline; gap: 0.6em; }
+.cform__summary a { display: inline-flex; align-items: center; min-height: 28px; }
+/* focus moved by the script must land below the fixed nav (WCAG 2.4.11) */
+.cform__summary, .cform :is(input, textarea, fieldset, legend) { scroll-margin-top: 8em; }
+/* honeypot: off-screen rather than display:none, which some bots skip */
+.contact-hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+@media (forced-colors: active) {
+  .cform__choice input { appearance: auto; }
+  .cform__choice input::before { content: none; }
+}
 
 /* ---------- footer ---------- */
 .footer { background: var(--forest); border-top: 1.5px solid var(--lime); padding: 4.2em var(--pad) 1.6em; color: var(--paper); overflow: hidden; }
@@ -321,7 +399,12 @@ img { display: block; max-width: 100%; }
   .phero__inner { grid-template-columns: 1fr; padding: 12em 1.4em 3em; } /* clears the two-row mobile nav */
   .phero__side { grid-column: 1; max-width: none; }
   .phero__scroll { display: none; }
-  .phero__shade { background: linear-gradient(180deg, rgba(54, 71, 43, 0.9) 0%, rgba(54, 71, 43, 0.78) 30%, rgba(54, 71, 43, 0.25) 50%, rgba(54, 71, 43, 0.6) 70%, var(--forest) 100%); }
+  /* the two-row nav is taller and its own gradient thinner at the second row */
+  .phero__shade { background: linear-gradient(180deg,
+    rgb(var(--forest-rgb) / 0.9) 0, rgb(var(--forest-rgb) / 0.9) 10.5em, rgb(var(--forest-rgb) / 0.5) 13em,
+    rgb(var(--forest-rgb) / var(--shade-clear)) 16em, rgb(var(--forest-rgb) / var(--shade-clear)) 82%, var(--forest) 100%); }
+  .phero__media img { object-position: var(--photo-focus-narrow, var(--photo-focus, center 70%)); }
+  .split__media img, .band__bg, picture.band__bg > img, .cta__collage img { object-position: var(--photo-focus-narrow, var(--photo-focus, 50% 50%)); }
 
   .strip { height: 4.2em; }
   .strip__word { font-size: 1.6em; }
@@ -365,6 +448,8 @@ img { display: block; max-width: 100%; }
   .path-card__stage, .path-card__flipper { min-height: 24em; }
 
   .prose-page { padding: 12em 1.4em 4.4em; }
+
+  .cform__summary, .cform :is(input, textarea, fieldset, legend) { scroll-margin-top: 12em; } /* two-row mobile nav */
 
   .footer__bottom { grid-template-columns: 1fr; justify-items: start; }
   .footer__legal { justify-self: start; }

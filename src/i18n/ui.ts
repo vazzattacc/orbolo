@@ -74,7 +74,7 @@ const en = {
   beef: {
     title: "Beef & Co — Orbolo",
     whatWeSell: "What we sell today",
-    whatWeSellAlt: "A light zebu cow in green pasture.",
+    whatWeSellAlt: "Brown cattle with bells, standing under a tree.",
     promise: "The promise",
     roadmap: "Roadmap",
     firstPick: "First pick",
@@ -87,7 +87,7 @@ const en = {
     title: "Education — Orbolo",
     tagline: "our own farm in the Gran Chaco",
     partnerRanches: "Partner ranches",
-    gappAlt: "A rider moves cattle across pasture.",
+    gappAlt: "A brown cow grazing on green pasture.",
     gappOperates: "Ganadería a Pasto operates across",
     ownLand: "Own land in Paraguay?",
     ownLandBody: "Bring your ranch into the system. Cattle graze under the trees, not instead of them.",
@@ -103,11 +103,6 @@ const en = {
     elTapir: "El Tapir, our own farm.",
     inTheSystem: "in the system.",
     gappAcross: "Ganadería a Pasto across",
-  },
-  contact: {
-    title: "Contact — Orbolo",
-    h1: "Contact",
-    body: "Own a herd, buy beef, or bring your land: this is where we talk. Our contact form is on its way.",
   },
 };
 
@@ -152,7 +147,8 @@ const es: UiStrings = {
     viewMore: (title) => `Ver más sobre ${title}`,
     discoverMore: "Descubrir más",
     back: "Volver",
-    flipBack: (title) => `Dar vuelta la tarjeta de ${title}`,
+    // starts with the visible label ("Volver") so the spoken name contains it (WCAG 2.5.3)
+    flipBack: (title) => `Volver: dar vuelta la tarjeta de ${title}`,
   },
   invest: {
     title: "Remote Rancher — Orbolo",
@@ -177,7 +173,7 @@ const es: UiStrings = {
   beef: {
     title: "Carne & Co — Orbolo",
     whatWeSell: "Qué vendemos hoy",
-    whatWeSellAlt: "Una vaca cebú clara en un potrero verde.",
+    whatWeSellAlt: "Ganado marrón con cencerros bajo un árbol.",
     promise: "La promesa",
     roadmap: "Hoja de ruta",
     firstPick: "Primera elección",
@@ -190,7 +186,7 @@ const es: UiStrings = {
     title: "Educación — Orbolo",
     tagline: "nuestra propia estancia en el Gran Chaco",
     partnerRanches: "Estancias asociadas",
-    gappAlt: "Un jinete arrea ganado por el potrero.",
+    gappAlt: "Una vaca marrón pastando en un potrero verde.",
     gappOperates: "Ganadería a Pasto trabaja en",
     ownLand: "¿Tienes tierra en Paraguay?",
     ownLandBody: "Suma tu estancia al sistema. El ganado pasta bajo los árboles, no en su lugar.",
@@ -206,11 +202,6 @@ const es: UiStrings = {
     elTapir: "El Tapir, nuestra propia estancia.",
     inTheSystem: "en el sistema.",
     gappAcross: "Ganadería a Pasto en",
-  },
-  contact: {
-    title: "Contacto — Orbolo",
-    h1: "Contacto",
-    body: "Ser dueño de un rodeo, comprar carne o sumar tu tierra: aquí es donde hablamos. Nuestro formulario de contacto llega pronto.",
   },
 };
 

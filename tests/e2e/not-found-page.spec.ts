@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test";
 
-// quickstart.md Scenario 1 — FR-404-001..004, SC-004
+// spec 003 — FR-404-001..004, SC-004
 
 test("requesting a non-existent path returns a real 404 status", async ({ page }) => {
   const response = await page.goto("/this-does-not-exist");

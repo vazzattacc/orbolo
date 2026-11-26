@@ -16,7 +16,7 @@ test.afterEach(() => {
   writeFileSync(PATHS_JSON, original);
 });
 
-// quickstart.md Scenario 5 — FR-008, FR-015: editing only the content
+// spec 001 — FR-008, FR-015: editing only the content
 // configuration is reflected on reload, with zero PathCard/PathGrid code
 // changes. This is an e2e test, not a Vitest unit test, because Astro
 // Content Collections are a build/dev-sync-time data source (see

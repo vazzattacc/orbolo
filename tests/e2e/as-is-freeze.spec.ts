@@ -8,7 +8,7 @@ import { expect, test } from "@playwright/test";
 // Layout.astro (Footer + SEO/meta/Plausible), Nav.astro (trailing-slash
 // bug fix), global.css (the approved #bfd55d token), and settings
 // files (additive fields, not rendered on these pages) differ from HEAD.
-// See research.md for the full record. This test is the forward-looking
+// The full record is in spec 003's git history. This test is the forward-looking
 // regression guard: it pins known-good title/heading text and asserts the
 // footer is appended below existing content, never interleaved into it.
 const PAGES = [

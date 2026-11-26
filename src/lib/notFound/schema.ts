@@ -1,7 +1,7 @@
 import { z } from "astro/zod";
 
 /**
- * Validation rules per specs/003-site-launch-essentials/data-model.md
+ * Validation rules per specs/003-site-launch-essentials/README.md
  * (NotFoundContent entity). Single-entry collection.
  */
 export const notFoundContentSchema = z.object({

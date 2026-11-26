@@ -1,7 +1,10 @@
 import { expect, test } from "@playwright/test";
 
-// quickstart.md Scenario 5 — FR-AN-001/002/003/004 (research.md §7).
-const ROUTES = ["/", "/invest", "/beef", "/land", "/about", "/contact"];
+// spec 003 — FR-AN-001/002/003/004 (spec 003 R7).
+// specs/005-contact-form (US4-AS1): the two thanks pages are counted like any
+// other page, by the same site-wide script. Each is its own URL, so Plausible
+// can hold one pageview goal per language.
+const ROUTES = ["/", "/invest", "/beef", "/land", "/about", "/contact", "/contact/thanks", "/es/contact/thanks"];
 
 test("the Plausible script tag is present on every page with the right domain and defer", async ({ page }) => {
   for (const route of ROUTES) {

@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test";
 
-// quickstart.md Scenario 4 — FR-006, FR-023, FR-024
+// spec 001 — FR-006, FR-023, FR-024
 test("activating Discover more navigates to the internal destination; Back returns home", async ({
   page,
 }) => {

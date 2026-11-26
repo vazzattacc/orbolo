@@ -21,7 +21,10 @@ for (const { path, label } of PAGES) {
   });
 }
 
-test("/contact renders as the stub page, not a 404", async ({ page }) => {
+// Until specs/005-contact-form this was a stub. Under `astro dev` the page
+// now shows the form in preview mode; the production build keeps the stub
+// until the publishing gate opens (contact-gate-production.spec.ts).
+test("/contact renders as the Contact page, not a 404", async ({ page }) => {
   const response = await page.goto("/contact");
   expect(response?.status()).toBeLessThan(400);
   await expect(page.getByRole("heading", { name: "Contact" })).toBeVisible();

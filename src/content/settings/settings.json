@@ -4,6 +4,7 @@
     "contractingEntityName": "Orbolo",
     "siteName": "Orbolo",
     "socialImagePath": "/images/social/og-default.png",
-    "socialImageAlt": "The Orbolo wordmark on a cream background."
+    "socialImageAlt": "The Orbolo wordmark on a cream background.",
+    "contactFormPrivacyApproved": false
   }
 ]

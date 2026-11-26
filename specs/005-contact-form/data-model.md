@@ -95,7 +95,7 @@ errorPage:              { title, h1, body, backLabel }      FR-PAGE-002
 
 | Field | Type | Default | Meaning |
 |---|---|---|---|
-| `contactEmail` | `z.email().optional()` | absent | The team inbox shown as the `mailto:` fallback in both languages (FR-UX-012). Absent until OQ-C1 is answered. |
+| `contactEmail` | `z.email().optional()` | absent | The team inbox shown as the `mailto:` fallback in both languages (FR-UX-012). Absent until OQ-C1 is answered. Not a gate condition: a person checks it at go-live. If it is absent while the form is live, the failure message and the error page omit the email sentence. |
 | `contactFormPrivacyApproved` | `z.boolean()` | `false` | Vaz/counsel approved the privacy line and the Privacy-page section for the form (FR-LEG5-002, OQ-C3). |
 
 `getContactSettings()` is added to `settings-repository.ts`, beside `getSocialPreviewDefaults()`.
@@ -110,21 +110,21 @@ type GateInput = {
   isDev: boolean;                        // import.meta.env.DEV
   preview: boolean;                      // CONTACT_FORM_PREVIEW
   privacyApproved: boolean;              // settings.contactFormPrivacyApproved
-  privacyPagePublished: boolean;         // getLegalDocument("privacy") !== undefined
-  contactEmail: string | undefined;      // settings.contactEmail
+  contactEmail: string | undefined;      // settings.contactEmail (passed through, not a condition)
 };
 
 type ContactFormGate =
   | { live: false }
-  | { live: true; endpoint: string; contactEmail: string; preview: boolean };
+  | { live: true; endpoint: string; contactEmail: string | undefined; preview: boolean };
 ```
 
 | Condition | Production build (`isDev = false`) | Dev with `preview = true` |
 |---|---|---|
 | endpoint set | required | required |
 | privacyApproved | required | waived |
-| privacyPagePublished | required | waived |
-| contactEmail set | required | falls back to `contact@example.com` |
+| contactEmail set | not a condition; passed through as is | falls back to `contact@example.com` |
+
+Revised 2026-11-14: the gate has the two conditions of FR-GATE-001 only (spec Clarifications). A published Privacy page and a set team email are go-live checks made by a person (`quickstart.md` §4).
 
 - `preview` is ignored unless `isDev`.
 - When the gate is live with `preview: true`, the page shows `previewNote`.

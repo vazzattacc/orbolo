@@ -5,20 +5,26 @@
  * slot for a heading laid over the photo.
  */
 import type { HTMLAttributes } from "astro/types";
+import type { Photo as PhotoSource } from "@/assets/photos";
+import Photo from "./Photo.astro";
 
 interface Props extends HTMLAttributes<"section"> {
-  image: string;
+  /** A path into public/ (kept photo) or a replacement from src/assets/photos. */
+  image: string | PhotoSource;
   alt: string;
+  /** CSS object-position for the photo's subject; `focusNarrow` applies at ≤ 991px. */
+  focus?: string;
+  focusNarrow?: string;
   reverse?: boolean;
   sketch?: boolean;
 }
 
-const { image, alt, reverse = false, sketch = false, class: className, ...rest } = Astro.props;
+const { image, alt, focus, focusNarrow, reverse = false, sketch = false, class: className, ...rest } = Astro.props;
 ---
 
 <section class:list={["split", { "split--reverse": reverse }, className]} {...rest}>
   <div class="split__media">
-    <img src={image} alt={alt} loading="lazy" decoding="async" />
+    <Photo image={image} alt={alt} kind="split" focus={focus} focusNarrow={focusNarrow} />
     {Astro.slots.has("over") && <div class="split__over"><slot name="over" /></div>}
   </div>
   <div class="split__text">

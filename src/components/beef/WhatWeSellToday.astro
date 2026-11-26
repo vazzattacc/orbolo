@@ -1,4 +1,5 @@
 ---
+import { photos } from "@/assets/photos";
 import Split from "@/components/ui/Split.astro";
 import { useI18n } from "@/i18n";
 
@@ -12,7 +13,7 @@ const { body, reviewNote, noFullHistoryNote } = Astro.props;
 const { t } = useI18n(Astro.url);
 ---
 
-<Split image="/images/site/zebu-close.jpg" alt={t.beef.whatWeSellAlt} aria-labelledby="what-we-sell-heading">
+<Split image={photos.cowsBells} focus="50% 40%" alt={t.beef.whatWeSellAlt} aria-labelledby="what-we-sell-heading">
   <h2 id="what-we-sell-heading" class="h2 t-lime" data-split>{t.beef.whatWeSell}</h2>
   <Fragment slot="foot">
     <p class="lede">{body}</p>

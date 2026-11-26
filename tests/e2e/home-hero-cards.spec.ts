@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test";
 
-// quickstart.md Scenario 1 — FR-001, FR-002
+// spec 001 — FR-001, FR-002
 test("hero renders first; scrolling reveals exactly 3 audience cards", async ({ page }) => {
   await page.goto("/");
 

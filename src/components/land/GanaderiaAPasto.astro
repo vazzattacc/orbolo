@@ -1,4 +1,5 @@
 ---
+import { photos } from "@/assets/photos";
 import MetricValue from "@/components/shared/MetricValue.astro";
 import Split from "@/components/ui/Split.astro";
 import { useI18n } from "@/i18n";
@@ -12,7 +13,7 @@ const { body, hectaresMetricKey } = Astro.props;
 const { t } = useI18n(Astro.url);
 ---
 
-<Split image="/images/site/rider-green.jpg" alt={t.land.gappAlt} aria-labelledby="gapp-heading" sketch>
+<Split image={photos.cowGrazing} focus="40% 50%" alt={t.land.gappAlt} aria-labelledby="gapp-heading" sketch>
   <h2 id="gapp-heading" class="h2 t-paper" data-split>Ganadería a Pasto</h2>
   <Fragment slot="foot">
     <p class="lede">{body}</p>

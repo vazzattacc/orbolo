@@ -1,4 +1,5 @@
 ---
+import { photos } from "@/assets/photos";
 import CtaCollage from "@/components/ui/CtaCollage.astro";
 import Btn from "@/components/ui/Btn.astro";
 import { useI18n } from "@/i18n";
@@ -19,7 +20,8 @@ const { t } = useI18n(Astro.url);
 <CtaCollage
   aria-label={t.beef.getInTouch}
   class="sec--rule"
-  images={["/images/site/orbolo-cattle-shade.jpg", "/images/site/rider-green.jpg", "/images/site/brahman-four.jpg"]}
+  images={["/images/site/orbolo-cattle-shade.jpg", photos.cowGrazing, "/images/site/brahman-four.jpg"]}
+  focus={[undefined, "42% 47%", undefined]}
 >
   <p class="h2 t-paper max-w-[8em]" aria-hidden="true" data-split>{t.beef.getInTouch}</p>
   <Fragment slot="buttons">

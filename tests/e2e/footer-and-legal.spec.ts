@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test";
 
-// quickstart.md Scenario 3 — FR-LEG-001..007
+// spec 003 — FR-LEG-001..007
 
 test("the footer renders on every page, below all content, with only approved links", async ({ page }) => {
   for (const route of ["/", "/invest", "/beef", "/land", "/contact"]) {
@@ -8,7 +8,7 @@ test("the footer renders on every page, below all content, with only approved li
     const footer = page.getByRole("contentinfo", { name: "Legal" });
     await expect(footer).toBeVisible();
 
-    // Neither Privacy nor Terms is approved yet (research.md §12) — the
+    // Neither Privacy nor Terms is approved yet (spec 003 R12) — the
     // footer must render with zero links, not a dead link to either.
     await expect(footer.getByRole("link")).toHaveCount(0);
   }

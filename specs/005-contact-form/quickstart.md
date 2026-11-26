@@ -6,7 +6,7 @@ Contracts: `contracts/contact-endpoint.md`, `contracts/contact-form-ui.md` and `
 
 ## Prerequisites
 
-- `pnpm install`. This also installs `@axe-core/playwright`, if approved (`research.md` §12).
+- `pnpm install`. This also installs the two dev dependencies added by this feature: `@axe-core/playwright` (`research.md` §12) and `sharp` (needed by `astro build` for the photos).
 - `.env.development` is committed with the reserved `.test` endpoint and `CONTACT_FORM_PREVIEW=true`. No secrets, and no real server is needed.
 
 ## 1. Everything automated
@@ -105,7 +105,7 @@ Expected result: green. Run one scenario alone with `npx playwright test <file>`
 |---|---|---|---|
 | 14 | Every FR-IMG-002 file is byte-identical to its pinned hash | FR-IMG-002, SC-012 | `tests/unit/kept-photos.test.ts` |
 | 15 | EN and ES, 390 px and 1440 px: each replaced slot shows its replacement and it has decoded; each kept placement, Contact and 404 show their current file; no page repeats a photo | FR-IMG-001/002/003, FR-IMG-TEST-001, US5-AS1/2/3 | `tests/e2e/photo-slots.spec.ts` |
-| 16 | One `fetchpriority="high"` per page and it is the hero; no lazy hero; no `low`/`auto`; AVIF and WebP sources with `srcset` + `sizes`; reserved dimensions; below-the-fold photos lazy; layout shift 0; the LCP element is the hero photo | FR-IMG-006/007, FR-IMG-TEST-002, SC-010 (automated part) | `tests/e2e/photo-delivery.spec.ts` |
+| 16 | One `fetchpriority="high"` per page and it is the hero; no lazy hero; no `low`/`auto`; AVIF and WebP sources with `srcset` + `sizes`; reserved dimensions; below-the-fold photos lazy; layout identical with photos blocked and loaded; the hero photo is the only image requested at high priority | FR-IMG-006/007, FR-IMG-TEST-002, SC-010 (automated part) | `tests/e2e/photo-delivery.spec.ts` |
 | 17 | Production build: AVIF served; ≤ 200 KB at 390 px (3×); ≤ 450 KB at 1440 px (1× and 2×); nothing over 2560 px or 1 MB | SC-009, US5-AS4 | `tests/e2e/photo-budget-production.spec.ts` (project `production-build`) |
 | 18 | Text over photos: 4.5:1, or 3:1 for large text, against the real photo and against white; seven hero pages, EN and ES, 390 px and 1440 px; results attached as JSON | FR-IMG-008, FR-IMG-TEST-003, SC-011 | `tests/e2e/photo-contrast.spec.ts` |
 | 19 | Forced colours: text blocks over photos have a `Canvas` background and stay readable; nothing sets `forced-color-adjust: none` | FR-IMG-008, US5-AS6 | `tests/e2e/photo-forced-colors.spec.ts` |

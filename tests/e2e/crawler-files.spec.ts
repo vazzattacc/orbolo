@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test";
 
-// quickstart.md Scenario 2 — FR-SEO-007/008, SC-005, SC-006
+// spec 003 — FR-SEO-007/008, SC-005, SC-006
 
 test("robots.txt allows all crawlers and references the sitemap", async ({ request }) => {
   const response = await request.get("/robots.txt");

@@ -1,0 +1,31 @@
+---
+import { localeStaticPaths, useI18n } from "@/i18n";
+import Layout from "@/components/Layout.astro";
+import Btn from "@/components/ui/Btn.astro";
+import PhotoHero from "@/components/ui/PhotoHero.astro";
+import { getContactFormGate, getContactPage } from "@/lib/contact/contact-repository";
+
+// FR-GATE-001: while the gate is closed this page is not built at all, so it
+// 404s and can't be linked by accident. Not indexed and not in the sitemap
+// (pageMeta `contactThanks*`, indexable: false). Its page view is the
+// Plausible goal for a completed enquiry (FR-AN5-001).
+export async function getStaticPaths() {
+  const gate = await getContactFormGate();
+  return gate.live ? localeStaticPaths() : [];
+}
+
+const { locale } = useI18n(Astro.url);
+const { thanks } = await getContactPage(locale);
+---
+
+<Layout title={thanks.title}>
+  <PhotoHero image="/images/site/brahman-four.jpg" center>
+    <h1 class="h1 h1--xl t-paper" data-split>
+      {thanks.h1}
+    </h1>
+    <p class="lede">{thanks.body}</p>
+    <div>
+      <Btn href="/" label={thanks.homeLabel} variant="paper" />
+    </div>
+  </PhotoHero>
+</Layout>

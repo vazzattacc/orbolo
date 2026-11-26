@@ -1,63 +1,77 @@
 {
-  "source": "http://localhost:4321/",
+  "source": "http://localhost:4321/ (also /beef and /contact; captured 2026-11-15 at 1440x900)",
   "tokens": {
     "spacing": {
-      "scale": [8, 12, 16, 24, 32, 40, 80, 96],
-      "base_unit": 8
+      "scale": [12.44, 19.35, 22.12, 27.65, 31.68, 49.77, 85.71, 102.3],
+      "base_unit": 13.824,
+      "note": "em multiples of a 0.96vw base (13.824px at 1440); gutter --pad = max(18px, 2.2vw); section padding 6.2em"
     },
     "typography": {
-      "families": ["Helvetica Neue (body)", "Arial Narrow (title/label)", "Trebuchet MS (subtitle/heading)"],
+      "families": ["Orbolo Title (HeliosExt)", "Orbolo Text (Suisse Intl)", "Orbolo Serif (Roslindale)", "Orbolo Script (Verbena)"],
       "scale": [
-        { "role": "h1", "size": "48px", "weight": "400", "family": "Trebuchet MS" },
-        { "role": "h2", "size": "30px", "weight": "400", "family": "Trebuchet MS" },
-        { "role": "h3", "size": "24px", "weight": "400", "family": "Trebuchet MS" },
-        { "role": "body", "size": "18px", "weight": "400", "family": "Helvetica Neue" },
-        { "role": "eyebrow-label", "size": "14px", "weight": "600", "family": "Arial Narrow" }
+        { "role": "h1--xl", "size": "63.59px", "weight": "700", "family": "Orbolo Title" },
+        { "role": "h1", "size": "48.38px", "weight": "700", "family": "Orbolo Title" },
+        { "role": "h2", "size": "37.32px", "weight": "700", "family": "Orbolo Title" },
+        { "role": "script tagline", "size": "34.56px", "weight": "400", "family": "Orbolo Script" },
+        { "role": "h3 / card title", "size": "33.18px", "weight": "400", "family": "Orbolo Serif" },
+        { "role": "strip word", "size": "30.41px", "weight": "400", "family": "Orbolo Serif" },
+        { "role": "lede", "size": "17.97px", "weight": "400", "family": "Orbolo Text" },
+        { "role": "copy", "size": "14.93px", "weight": "400", "family": "Orbolo Text" },
+        { "role": "button label", "size": "11.06px", "weight": "400", "family": "Orbolo Text" },
+        { "role": "caps label", "size": "10.78px", "weight": "400", "family": "Orbolo Text" },
+        { "role": "caps small", "size": "9.40px", "weight": "400", "family": "Orbolo Text" }
       ]
     },
     "colors": [
-      { "role": "background", "value": "#F8F4E9" },
-      { "role": "text-primary / fill", "value": "#516B3E" },
-      { "role": "text-on-fill", "value": "#F8F4E9" },
-      { "role": "accent (interaction-only, never resting-state)", "value": "#BFD55D" }
+      { "role": "background (every section)", "value": "#36472B" },
+      { "role": "text-primary", "value": "#FFFDF3" },
+      { "role": "accent: alternate headings, current link, flags, hairlines, checked controls", "value": "#BFD55D" },
+      { "role": "collage square / image fallback", "value": "#4A6342" },
+      { "role": "collage square", "value": "#263518" },
+      { "role": "shade behind text on photos", "value": "rgba(54, 71, 43, 0.76)" },
+      { "role": "shade behind normal-size lime text (nav strip)", "value": "rgba(54, 71, 43, 0.90)" },
+      { "role": "veil over photo areas without text", "value": "rgba(54, 71, 43, 0.06)" }
     ],
-    "radius": ["16px", "pill (9999px)"],
-    "shadows": ["rgba(0,0,0,0.1) 0px 1px — single layer, PathCard faces only"],
+    "radius": ["0px"],
+    "shadows": ["0 1.6em 2.4em -1.4em rgba(0,0,0,0.5) (path-card photo only)"],
     "image_ratios": [
-      { "usage": "hero", "ratio": "~3.2:1 (full-bleed background)" },
-      { "usage": "logo", "ratio": "2.26:1" },
-      { "usage": "card (photographed)", "ratio": "1.00:1" }
+      { "usage": "photo hero, landscape screens", "ratio": "3:2" },
+      { "usage": "photo hero, portrait screens", "ratio": "2:3" },
+      { "usage": "split photo", "ratio": "3:4 / 2:3" },
+      { "usage": "band photo", "ratio": "3:2 / 16:10" },
+      { "usage": "collage photo", "ratio": "1:1" },
+      { "usage": "path card thumbnail", "ratio": "3:2" }
     ],
-    "grid": { "max_width": "none detected (full 1440px viewport at capture)", "columns": 3, "gutter": "32px" }
+    "grid": { "max_width": "none (full bleed, 31.68px gutter)", "columns": 2, "gutter": "31.68px", "note": "hero 1.3fr/1fr; editorial 1fr/1fr; path cards 3 columns" }
   },
   "taste": [
     {
-      "name": "Accent-at-Interaction-Only",
-      "trigger": "A third brand color (#BFD55D) was approved for use, but it measures 1.48:1 against the cream background — unreadable as a resting fill or text color",
-      "decision": "Confined it entirely to moments the visitor causes (hover fills, a flip-revealed border) over using it anywhere in the page's idle state",
-      "reason": "A color that only appears because you did something reads as feedback, not decoration — it confirms the action registered without asking anyone to read text on a 1.48:1 background",
-      "evidence": ["0% static-area presence for #BFD55D in the DOM color sample", "token exists in global.css but never surfaces at rest"]
+      "name": "The photograph is the only light in the room",
+      "trigger": "When the site needed to feel brighter and warmer without breaking the forest identity",
+      "decision": "Kept every section on forest and let bright daylight photos carry the lightness, over introducing a cream or white section background",
+      "reason": "A single dark ground makes each photo read like a window onto the pasture; a light section would compete with the photos and turn them back into rectangles on a page",
+      "evidence": ["forest is 77.6% / 79.1% / 99.5% of background area on Home / Beef / Contact", "no gray or cream value anywhere", "replaced heroes are sunlit pasture (Home, Invest) and a sunlit corral (Beef)"]
     },
     {
-      "name": "Two-Radius System",
-      "trigger": "Needing to distinguish \"this is a container\" from \"this is an action\" across dozens of repeated components",
-      "decision": "Every rounded corner is exactly 16px or a full pill over a graduated radius scale",
-      "reason": "Two shapes are enough vocabulary to be instantly legible without thinking; a third intermediate radius asks the eye to classify a distinction nobody needs",
-      "evidence": ["effects.radii: 16px (9×) and pill/9999px (6×) are the only two values site-wide"]
+      "name": "Darkness only where the words are",
+      "trigger": "When bright skies sat behind white titles and caps labels",
+      "decision": "Pooled forest behind each block of text and left the rest of the photo almost bare, over darkening the whole photo evenly",
+      "reason": "Readers need contrast exactly under the letters and nowhere else; an even overlay buys legibility by dimming the very photo meant to lift the mood",
+      "evidence": ["--shade-text 0.76 vs --shade-clear 0.06", "lowest measured text contrast 4.76:1 over a pure white photo", "Contact hero shows clear pasture between the title pool and the side-text pool"]
     },
     {
-      "name": "Single Weight Pair",
-      "trigger": "A page with 6 distinct font sizes already had hierarchy machinery available from size alone",
-      "decision": "Exactly two font weights (400, 600) over a fuller ladder that would let size, weight, and color all carry hierarchy independently",
-      "reason": "Stacking weight variation on an already-wide size range multiplies how many \"looks\" a reader parses as meaningfully different; two weights keeps emphasis legible at a glance",
-      "evidence": ["weightDistribution: 400 (24×) everywhere; 600 (9×) used only for the 3 uppercase eyebrow labels"]
+      "name": "No boxes, no depth",
+      "trigger": "When grouping buttons, form fields, cards and FAQs",
+      "decision": "Built every component from 1.5px hairlines on a flat surface, over rounded cards with shadows",
+      "reason": "A ranch and its paperwork feel closer to a printed field ledger than to an app; flat lines keep attention on the content and the photos instead of on component chrome",
+      "evidence": ["border-radius 0px on all 3 pages", "one shadow site-wide (path-card photo, 3 instances)", "button = 1.5px box with two 4x4px dots", "form inputs are hairline boxes with a square lime check"]
     },
     {
-      "name": "Alignment as Mode-Switch",
-      "trigger": "The page mixes two reading modes — \"receive one statement\" (hero) and \"compare three things\" (audience cards)",
-      "decision": "Center-aligned every full-bleed singular block over left-aligning everything inside a bounded card, rather than one alignment site-wide",
-      "reason": "Centering signals \"just read this\"; left-alignment signals \"this is a list item, compare it to its neighbors\" — alignment tells the visitor which mode to switch into before reading a word",
-      "evidence": ["hero/heading/footer text-align: center", "PathCard title/description text-align: left"]
+      "name": "Big signposts, small print",
+      "trigger": "When ordering headings, labels and body text",
+      "decision": "Jumped from 37-64px uppercase titles straight to 11-18px text, over a graduated scale with intermediate sizes",
+      "reason": "Visitors skim a marketing page by its titles; a large gap makes each title an unmistakable stop, and everything under it reads as the detail you choose to read",
+      "evidence": ["63.6 -> 48.4 -> 37.3px (1.30x steps), then 37.3 -> 18.0px (2.08x)", "weights 400 and 700 only; 700 reserved for Orbolo Title"]
     }
   ]
 }

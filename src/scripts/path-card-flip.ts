@@ -1,5 +1,5 @@
 /**
- * Flip/disclosure interaction for PathCard (research.md §2, §6). A small
+ * Flip/disclosure interaction for PathCard (spec 001 R2, R6). A small
  * vanilla-TS script, not a mounted island framework, per FR-025.
  *
  * The server-rendered markup ships with NO tabindex overrides, so "Discover

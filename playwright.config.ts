@@ -18,6 +18,7 @@ export default defineConfig({
         /reduced-motion\.spec\.ts/,
         /path-card-config-driven\.spec\.ts/,
         /hidden-sections-config-driven\.spec\.ts/,
+        /-production\.spec\.ts$/,
       ],
     },
     {
@@ -27,12 +28,22 @@ export default defineConfig({
         /reduced-motion\.spec\.ts/,
         /path-card-config-driven\.spec\.ts/,
         /hidden-sections-config-driven\.spec\.ts/,
+        /-production\.spec\.ts$/,
       ],
     },
     {
       name: "reduced-motion",
       use: { ...devices["Desktop Chrome"], reducedMotion: "reduce" },
       testMatch: /reduced-motion\.spec\.ts/,
+    },
+    {
+      // specs/005-contact-form: tests what actually ships, against a real
+      // `astro build` served by scripts/ensure-production-preview.mjs on
+      // :4322 — the closed contact-form gate (FR-GATE-001 / SC-007) and the
+      // photo byte budgets (SC-009). Only *-production.spec.ts files run here.
+      name: "production-build",
+      use: { ...devices["Desktop Chrome"], baseURL: "http://localhost:4322" },
+      testMatch: /-production\.spec\.ts$/,
     },
     {
       // Mutates the shared src/content/paths/paths.json fixture, whose

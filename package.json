@@ -12,12 +12,13 @@
     "typecheck": "astro check",
     "pretest:unit": "node scripts/warm-content-store.mjs",
     "test:unit": "vitest run",
-    "pretest:e2e": "node scripts/ensure-dev-server.mjs",
+    "pretest:e2e": "node scripts/ensure-dev-server.mjs && node scripts/ensure-production-preview.mjs",
     "test:e2e": "playwright test",
     "verify": "astro check && eslint . && pnpm run test:unit && pnpm run test:e2e"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.10",
+    "@axe-core/playwright": "^4.14.0",
     "@eslint/js": "^10.0.1",
     "@playwright/test": "^1.63.0",
     "@types/node": "^22.9.0",
@@ -29,6 +30,7 @@
     "postcss": "^8.4.49",
     "prettier": "^3.9.8",
     "prettier-plugin-astro": "^1.0.1",
+    "sharp": "0.35.4",
     "typescript": "^5.6.3",
     "typescript-eslint": "^8.70.0",
     "vitest": "^5.0.1"

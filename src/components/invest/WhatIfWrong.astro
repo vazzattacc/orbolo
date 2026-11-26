@@ -20,7 +20,8 @@ const { t } = useI18n(Astro.url);
     {
       categories.map((category, i) => (
         <div class="card">
-          <span class="card__tag caps caps--sm">{t.invest.risk} {String(i + 1).padStart(2, "0")}</span>
+          {/* a <dt>, not a <span>: inside a <dl> group only <dt>/<dd> are allowed (WCAG 1.3.1) */}
+          <dt class="card__tag caps caps--sm">{t.invest.risk} {String(i + 1).padStart(2, "0")}</dt>
           <dt class="h3">{category.label}</dt>
           <dd class="copy m-0">{category.body}</dd>
         </div>

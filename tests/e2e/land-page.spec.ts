@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test";
 
-// quickstart.md Scenario 3 — FR-LAND-001..004, SC-001
+// spec 002 — FR-LAND-001..004, SC-001
 
 test.describe("Land page", () => {
   test("El Tapir, Ganadería a Pasto, and Work-with-us all render", async ({ page }) => {

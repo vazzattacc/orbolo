@@ -1,9 +1,9 @@
 import { z } from "astro/zod";
 
 /**
- * Validation rules per specs/002-page-content-specification/data-model.md
+ * Validation rules per specs/002-page-content-specification/README.md
  * (Metric entity). `id` is the file() loader's entry identity and doubles
- * as the lookup key data-model.md calls "key" — there is no separate field
+ * as the metric lookup key ("key" in spec 002 R2) — there is no separate field
  * for it, to avoid two names for the same value.
  *
  * FR-GEN-005: every displayed number needs a visible date + source. This

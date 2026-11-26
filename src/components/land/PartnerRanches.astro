@@ -11,7 +11,7 @@ const allRanches =
   ranchSlugs && ranchSlugs.length > 0
     ? (await getRanches()).filter((ranch) => ranchSlugs.includes(ranch.id))
     : [];
-// Public-layer fields only — see contracts/nav-and-hidden-sections.md.
+// Public-layer fields only — see the hidden-sections table in specs/002-page-content-specification/README.md.
 const { t } = useI18n(Astro.url);
 ---
 

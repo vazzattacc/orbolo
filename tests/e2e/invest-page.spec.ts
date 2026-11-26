@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test";
 
-// quickstart.md Scenario 1 — FR-INV-001..013, SC-001, SC-006, SC-011
+// spec 002 — FR-INV-001..013, SC-001, SC-006, SC-011
 
 test.describe("Invest page", () => {
   test("every section with real content renders, in order", async ({ page }) => {

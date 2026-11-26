@@ -1,4 +1,5 @@
 ---
+import { photos } from "@/assets/photos";
 import { localeStaticPaths, useI18n } from "@/i18n";
 import Layout from "@/components/Layout.astro";
 import PathGrid from "@/components/home/PathGrid.astro";
@@ -17,7 +18,7 @@ const stripLoop = [...stripWords, ...stripWords, ...stripWords, ...stripWords];
 ---
 
 <Layout title={t.home.title}>
-  <PhotoHero image="/images/site/hero-mist.jpg" class="hero" scrollCue>
+  <PhotoHero image={photos.pastureHerd} focus="50% 62%" focusNarrow="50% 55%" class="hero" scrollCue>
     <h1 class="h1 t-paper" data-split>
       {t.home.h1}
     </h1>

@@ -12,7 +12,7 @@ const allRanches =
     ? (await getRanches()).filter((ranch) => ranchSlugs.includes(ranch.id))
     : [];
 // Public pipeline cards are scoped to exactly the slugs this page names —
-// see contracts/nav-and-hidden-sections.md: the whole section is absent
+// see the hidden-sections table in specs/002-page-content-specification/README.md: the whole section is absent
 // (not just empty) when there's nothing real to show (OQ-008).
 const { t } = useI18n(Astro.url);
 ---

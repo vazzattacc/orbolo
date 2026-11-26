@@ -4,7 +4,7 @@ import { useI18n } from "@/i18n";
 
 // FR-LEG-001: a link renders only when its destination page actually
 // ships — getLegalDocument() already collapses "missing" and "not yet
-// approved" into the same undefined signal (research.md §5), so this
+// approved" into the same undefined signal (spec 003 R5), so this
 // component never re-checks an `approved` flag itself.
 const privacy = await getLegalDocument("privacy");
 const terms = await getLegalDocument("terms");

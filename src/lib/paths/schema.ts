@@ -1,7 +1,7 @@
 import { z } from "astro/zod";
 
 /**
- * Validation rules per specs/001-orbolo-path-selection/data-model.md.
+ * Validation rules per specs/001-orbolo-path-selection/README.md.
  * Shared by src/content.config.ts (the live `paths` collection) and by
  * tests/unit/path-repository.test.ts (schema-only validation tests), so the
  * "malformed content fails loudly at build time" contract (FR-023) doesn't

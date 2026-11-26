@@ -1,4 +1,5 @@
 ---
+import { photos } from "@/assets/photos";
 import PhotoHero from "@/components/ui/PhotoHero.astro";
 
 interface Props {
@@ -9,7 +10,7 @@ interface Props {
 const { headline, allianceNote } = Astro.props;
 ---
 
-<PhotoHero image="/images/site/orbolo-grassfed.jpg" scrollCue>
+<PhotoHero image={photos.corralCow} focus="50% 35%" focusNarrow="50% 40%" scrollCue>
   <h1 class="h1 t-paper" data-split>{headline}</h1>
   <Fragment slot="side">
     <p class="caps">{allianceNote}</p>

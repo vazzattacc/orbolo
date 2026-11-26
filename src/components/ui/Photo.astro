@@ -1,0 +1,150 @@
+---
+/**
+ * One shell photo (PhotoHero, Band, Split, CtaCollage). Not a shell itself:
+ * the shells use it so the delivery rules live in one place
+ * (specs/005-contact-form/contracts/photo-delivery-ui.md).
+ *
+ * - A path string is a kept photo in public/: one <img>, as before.
+ * - A `Photo` is a replacement from src/assets/photos: a <picture> with AVIF
+ *   and WebP sources and a JPEG fallback, in several widths. Where the photo
+ *   has a wide and a tall frame, portrait phones and tablets get the tall one.
+ *
+ * `sizes` states how wide the image is actually drawn. These photos fill
+ * their box with object-fit: cover, so that is the larger of the box's width
+ * and the box's height times the photo's aspect ratio, never just "100vw".
+ *
+ * The hero photo is the page's LCP image: fetchpriority="high" and never
+ * lazy. Every other photo is lazy and leaves priority to the browser.
+ *
+ * `class` goes on the outermost element (the <picture>, or the <img> for a
+ * kept photo): motion.ts and global.css position and animate that element.
+ */
+import type { ImageMetadata } from "astro";
+import { getImage } from "astro:assets";
+import type { Photo } from "@/assets/photos";
+
+type Kind = "hero" | "band" | "split" | "collage";
+
+interface Props {
+  image: string | Photo;
+  alt: string;
+  kind: Kind;
+  /** CSS object-position: where the photo's subject sits. */
+  focus?: string;
+  /** The same, at ≤ 991px. */
+  focusNarrow?: string;
+  class?: string;
+}
+
+const { image, alt, kind, focus, focusNarrow, class: className } = Astro.props;
+
+// SC-009 is tested against these: a phone never needs more than the tall
+// 1080 rung, and nothing wider than 2560 is ever produced.
+const WIDTHS: Record<Kind, { wide: number[]; tall: number[] }> = {
+  hero: { wide: [960, 1440, 1920, 2560], tall: [480, 720, 1080] },
+  band: { wide: [960, 1440, 1920, 2560], tall: [480, 720, 1080] },
+  split: { wide: [960, 1440, 1920, 2560], tall: [480, 720, 1080, 1440] },
+  collage: { wide: [480, 720], tall: [480, 720] },
+};
+const QUALITY = { avif: 45, webp: 70, jpeg: 80 } as const;
+const TALL_MEDIA = "(max-width: 991px) and (orientation: portrait)";
+
+/** The drawn width of a cover photo: box width, or box height × aspect ratio, whichever is larger. */
+function sizesFor(frame: ImageMetadata, narrow: boolean): string {
+  const vh = (boxHeight: number) => `${Math.round((boxHeight * frame.width) / frame.height)}vh`;
+  switch (kind) {
+    case "hero": // 100vw × 100svh
+      return `max(100vw, ${vh(100)})`;
+    case "band": // 100vw × 116% of 100svh (90svh on small screens): global.css .band__bg
+      return `max(100vw, ${vh(narrow ? 104 : 116)})`;
+    case "split": // 50vw × 100svh; one column and 62svh on small screens
+      return `(max-width: 991px) max(100vw, ${vh(62)}), max(50vw, ${vh(100)})`;
+    case "collage": // a square: 19.5vw, or 73% of the column on small screens
+      return "(max-width: 991px) 73vw, 20vw";
+  }
+}
+
+async function ladder(frame: ImageMetadata, narrow: boolean) {
+  const widths = WIDTHS[kind][narrow ? "tall" : "wide"].filter((w) => w <= frame.width);
+  const [avif, webp, jpeg] = await Promise.all(
+    (["avif", "webp", "jpeg"] as const).map((format) =>
+      getImage({
+        src: frame,
+        widths,
+        width: widths[Math.min(1, widths.length - 1)],
+        format,
+        quality: QUALITY[format],
+      }),
+    ),
+  );
+  return { frame, sizes: sizesFor(frame, narrow), avif, webp, jpeg };
+}
+
+const priority =
+  kind === "hero" ? ({ fetchpriority: "high" } as const) : ({ loading: "lazy" } as const);
+const style =
+  [focus && `--photo-focus: ${focus}`, focusNarrow && `--photo-focus-narrow: ${focusNarrow}`]
+    .filter(Boolean)
+    .join("; ") || undefined;
+
+const photo = typeof image === "string" ? undefined : image;
+if (photo && !photo.wide && !photo.tall) {
+  throw new Error(`Photo "${photo.name}" has no frame`);
+}
+// Split and collage boxes are portrait or square on every screen, so they take
+// the tall frame alone. Hero and band change shape with the screen, so they
+// take the wide frame and, for portrait screens, the tall one as well.
+const tallOnly = kind === "split" || kind === "collage";
+const mainFrame = photo
+  ? tallOnly
+    ? (photo.tall ?? photo.wide)
+    : (photo.wide ?? photo.tall)
+  : undefined;
+const main = mainFrame ? await ladder(mainFrame, mainFrame === photo?.tall) : undefined;
+const tall = !tallOnly && photo?.wide && photo.tall ? await ladder(photo.tall, true) : undefined;
+---
+
+{typeof image === "string" ? (
+  <img
+    class={className}
+    src={image}
+    alt={alt}
+    decoding="async"
+    data-photo={image
+      .split("/")
+      .pop()
+      ?.replace(/\.[^.]+$/, "")}
+    style={style}
+    {...priority}
+  />
+) : (
+  main && (
+    <picture class={className}>
+      {tall &&
+        (["avif", "webp", "jpeg"] as const).map((format) => (
+          <source
+            media={TALL_MEDIA}
+            type={`image/${format}`}
+            srcset={tall[format].srcSet.attribute}
+            sizes={tall.sizes}
+            width={tall.frame.width}
+            height={tall.frame.height}
+          />
+        ))}
+      <source type="image/avif" srcset={main.avif.srcSet.attribute} sizes={main.sizes} />
+      <source type="image/webp" srcset={main.webp.srcSet.attribute} sizes={main.sizes} />
+      <img
+        src={main.jpeg.src}
+        srcset={main.jpeg.srcSet.attribute}
+        sizes={main.sizes}
+        width={main.frame.width}
+        height={main.frame.height}
+        alt={alt}
+        decoding="async"
+        data-photo={image.name}
+        style={style}
+        {...priority}
+      />
+    </picture>
+  )
+)}

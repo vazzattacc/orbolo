@@ -1,10 +1,10 @@
 import { z } from "astro/zod";
 
 /**
- * Validation rules per specs/003-site-launch-essentials/data-model.md
+ * Validation rules per specs/003-site-launch-essentials/README.md
  * (PageMeta entity). `canonicalUrl` is deliberately NOT a field here — it's
  * computed from `route` + Astro's `site` config at render time, never
- * stored, so it can't drift from astro.config.mjs (research.md §8).
+ * stored, so it can't drift from astro.config.mjs (spec 003 R8).
  */
 export const pageMetaSchema = z.object({
   id: z.string().regex(/^[a-z][a-zA-Z0-9]*$/, "id must be a lowercase-leading camelCase slug"),

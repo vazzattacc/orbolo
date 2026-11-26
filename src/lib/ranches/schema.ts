@@ -1,10 +1,10 @@
 import { z } from "astro/zod";
 
 /**
- * Validation rules per specs/002-page-content-specification/data-model.md
+ * Validation rules per specs/002-page-content-specification/README.md
  * (RanchCard entity). Public-layer fields only — exact ranch name, exact
  * location, owner, and contracts are explicitly out of scope for these
- * public pages (spec.md §7) and have no field here to accidentally leak
+ * public pages (brief §7) and have no field here to accidentally leak
  * through.
  */
 export const ranchStatusEnum = z.enum([

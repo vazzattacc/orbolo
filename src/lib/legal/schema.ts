@@ -1,7 +1,7 @@
 import { z } from "astro/zod";
 
 /**
- * Validation rules per specs/003-site-launch-essentials/data-model.md
+ * Validation rules per specs/003-site-launch-essentials/README.md
  * (LegalDocument entity). Zero, one, or two entries — absence is a valid,
  * expected state (FR-LEG-004), not an error.
  */

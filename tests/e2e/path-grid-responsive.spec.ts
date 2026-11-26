@@ -14,7 +14,7 @@ async function columnCount(page: import("@playwright/test").Page) {
   });
 }
 
-// quickstart.md Scenario 9 — FR-012, FR-013
+// spec 001 — FR-012, FR-013
 test("desktop shows a 3-column grid, not a scaled clone of a single-column layout", async ({ page }) => {
   await page.setViewportSize(desktop);
   await page.goto("/");

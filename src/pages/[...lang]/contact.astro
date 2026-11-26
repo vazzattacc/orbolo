@@ -1,18 +1,33 @@
 ---
 import { localeStaticPaths, useI18n } from "@/i18n";
 import Layout from "@/components/Layout.astro";
+import ContactForm from "@/components/contact/ContactForm.astro";
+import Edit from "@/components/ui/Edit.astro";
 import PhotoHero from "@/components/ui/PhotoHero.astro";
+import { getContactFormGate, getContactPage } from "@/lib/contact/contact-repository";
 
 export const getStaticPaths = localeStaticPaths;
-const { t } = useI18n(Astro.url);
-
+const { locale } = useI18n(Astro.url);
+const content = await getContactPage(locale);
+// FR-GATE-001: closed → the stub that was here before the form existed.
+const gate = await getContactFormGate();
 ---
 
-<Layout title={t.contact.title}>
+<Layout title={content.title}>
   <PhotoHero image="/images/site/brahman-four.jpg" trail>
-    <h1 class="h1 h1--xl t-paper" data-split>{t.contact.h1}</h1>
+    <h1 class="h1 h1--xl t-paper" data-split>{content.h1}</h1>
     <Fragment slot="side">
-      <p class="lede">{t.contact.body}</p>
+      <p class="lede">{gate.live ? content.intro : content.stubBody}</p>
     </Fragment>
   </PhotoHero>
+  {
+    gate.live && (
+      <Edit aria-labelledby="contact-form-heading">
+        <h2 slot="head" id="contact-form-heading" class="h2 t-lime" data-split>
+          {content.form.heading}
+        </h2>
+        <ContactForm content={content} endpoint={gate.endpoint} contactEmail={gate.contactEmail} preview={gate.preview} />
+      </Edit>
+    )
+  }
 </Layout>

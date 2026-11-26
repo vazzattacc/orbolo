@@ -5,7 +5,7 @@ import { legalDocumentSchema } from "../../src/lib/legal/schema";
 describe("getLegalDocument", () => {
   it("returns undefined for an entry that exists but isn't approved yet", async () => {
     // Both privacy and terms are fetched but approved: false as of this
-    // test (FR-LEG-007) — see research.md §12.
+    // test (FR-LEG-007) — see spec 003 R12.
     const privacy = await getLegalDocument("privacy");
     const terms = await getLegalDocument("terms");
     expect(privacy).toBeUndefined();

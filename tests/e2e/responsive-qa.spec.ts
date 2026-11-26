@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test";
 
-// quickstart.md Scenario 4 — FR-QA-004/FR-GEN3-001: no horizontal overflow
+// spec 003 — FR-QA-004/FR-GEN3-001: no horizontal overflow
 // and link tap targets >= 44x44 CSS px, across five widths.
 const WIDTHS = [360, 390, 768, 1024, 1440];
 

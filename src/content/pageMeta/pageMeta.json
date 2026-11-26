@@ -70,5 +70,29 @@
     "route": "/es/contact",
     "description": "Habla con Orbolo para ser dueño de un rodeo como Remote Rancher, comprar carne paraguaya a pasto o sumar tu tierra a una alianza de pastoreo manejado.",
     "indexable": true
+  },
+  {
+    "id": "contactThanks",
+    "route": "/contact/thanks",
+    "description": "Confirmation that your message to Orbolo has arrived and that the team will reply by email.",
+    "indexable": false
+  },
+  {
+    "id": "contactThanksEs",
+    "route": "/es/contact/thanks",
+    "description": "Confirmación de que tu mensaje a Orbolo llegó y de que el equipo te responderá por correo electrónico.",
+    "indexable": false
+  },
+  {
+    "id": "contactError",
+    "route": "/contact/error",
+    "description": "Your message to Orbolo did not go through. Write to the team by email or go back to the contact page.",
+    "indexable": false
+  },
+  {
+    "id": "contactErrorEs",
+    "route": "/es/contact/error",
+    "description": "Tu mensaje a Orbolo no se envió. Escribe al equipo por correo electrónico o vuelve a la página de contacto.",
+    "indexable": false
   }
 ]

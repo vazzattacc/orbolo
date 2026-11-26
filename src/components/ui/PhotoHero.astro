@@ -6,22 +6,28 @@
  * page's mouse trail (motion.ts).
  */
 import type { HTMLAttributes } from "astro/types";
+import type { Photo as PhotoSource } from "@/assets/photos";
 import { useI18n } from "@/i18n";
+import Photo from "./Photo.astro";
 
 interface Props extends HTMLAttributes<"section"> {
-  image: string;
+  /** A path into public/ (kept photo) or a replacement from src/assets/photos. */
+  image: string | PhotoSource;
+  /** CSS object-position for the photo's subject; `focusNarrow` applies at ≤ 991px. */
+  focus?: string;
+  focusNarrow?: string;
   center?: boolean;
   trail?: boolean;
   scrollCue?: boolean;
 }
 
-const { image, center = false, trail = false, scrollCue = false, class: className, ...rest } = Astro.props;
+const { image, focus, focusNarrow, center = false, trail = false, scrollCue = false, class: className, ...rest } = Astro.props;
 const { t } = useI18n(Astro.url);
 ---
 
 <section class:list={["phero", { "phero--center": center }, className]} data-trail={trail ? "" : undefined} {...rest}>
   <div class="phero__media" aria-hidden="true">
-    <img src={image} alt="" fetchpriority="high" decoding="async" />
+    <Photo image={image} alt="" kind="hero" focus={focus} focusNarrow={focusNarrow} />
   </div>
   <div class="phero__shade" aria-hidden="true"></div>
   <div class="phero__inner">

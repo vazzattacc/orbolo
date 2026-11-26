@@ -11,7 +11,7 @@ interface Props {
   title: string;
   /**
    * Overrides the automatic pageMeta lookup (keyed by route) — used only by
-   * the 404 page, which is deliberately not a pageMeta entry (data-model.md).
+   * the 404 page, which is deliberately not a pageMeta entry (spec 003 R8).
    * Every other page leaves this unset and gets its description/indexable
    * state from pageMeta automatically, keyed off Astro.url.pathname.
    */
@@ -90,7 +90,7 @@ const alternates = {
       }, 3000);
     </script>
 
-    <!-- FR-AN-001/002/003/004 (research.md §7): Plausible's own domain
+    <!-- FR-AN-001/002/003/004 (spec 003 R7): Plausible's own domain
          matching means a view is only ever recorded when the request
          really came from orbolo.com — no env-conditional logic needed for
          local/preview hosts to stay silent. -->

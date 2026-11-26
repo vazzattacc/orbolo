@@ -3,9 +3,11 @@ import { bodyTextOutsideRegenerativeException } from "./approved-exceptions";
 
 // SC-002, SC-003, SC-004 — FR-GEN-003, FR-GEN-005, FR-BEEF-010.
 
-const PAGES = ["/invest", "/beef", "/land", "/about"];
+// "/contact" added 2026-11-14 (specs/005-contact-form, FR-GEN5-003): in dev
+// preview it renders the form, so the form's copy is scanned too.
+const PAGES = ["/invest", "/beef", "/land", "/about", "/contact"];
 
-// §B2.6 banned-word list (spec.md FR-GEN-003). "premium" is excluded here —
+// §B2.6 banned-word list (spec 002 FR-GEN-003). "premium" is excluded here —
 // it's only banned as a price claim, which needs contextual judgement a
 // plain substring scan can't make; the other 11 are unconditional.
 const BANNED_WORDS = [

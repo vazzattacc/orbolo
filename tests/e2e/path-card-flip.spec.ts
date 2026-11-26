@@ -5,7 +5,7 @@ test.beforeEach(async ({ page }) => {
   await page.locator("[data-path-card]").first().scrollIntoViewIfNeeded();
 });
 
-// quickstart.md Scenario 2 — FR-004
+// spec 001 — FR-004
 test("clicking a card's front face flips it open, revealing description and Discover more", async ({
   page,
 }) => {
@@ -24,7 +24,7 @@ test("clicking a card's front face flips it open, revealing description and Disc
   await expect(page).toHaveURL(/\/$/);
 });
 
-// quickstart.md Scenario 3 — FR-005
+// spec 001 — FR-005
 test("clicking a flipped card anywhere other than Discover more flips it back", async ({ page }) => {
   const card = page.locator("[data-path-card]").first();
   const trigger = card.locator("[data-path-card-trigger]");

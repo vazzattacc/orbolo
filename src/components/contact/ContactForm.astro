@@ -1,0 +1,216 @@
+---
+/**
+ * The enquiry form (specs/005-contact-form). Native first: without
+ * JavaScript it posts to the endpoint as an ordinary form and the browser's
+ * own required/type/length checks apply (FR-UX-010). With JavaScript,
+ * src/scripts/contact-form.ts takes over validation, sending and the
+ * failure states. Every id, name and data-* hook below is the contract in
+ * specs/005-contact-form/contracts/contact-form-ui.md; tests rely on them.
+ *
+ * All wording comes in through `content` (contact.json). Nothing here knows
+ * a label or a message.
+ */
+import Btn from "@/components/ui/Btn.astro";
+import { useI18n } from "@/i18n";
+import type { ContactPage } from "@/lib/contact/schema";
+import { LIMITS, TOPICS } from "@/lib/contact/validation";
+
+interface Props {
+  content: ContactPage;
+  endpoint: string;
+  /** Unset only if go-live skipped it; the failure state then omits the email sentence. */
+  contactEmail: string | undefined;
+  preview: boolean;
+}
+
+const { content, endpoint, contactEmail, preview } = Astro.props;
+const { locale, path } = useI18n(Astro.url);
+const { form, errors, failure } = content;
+const { fields } = form;
+
+const remaining = (n: number) => fields.message.remaining.replace("{n}", String(n));
+const [emailLeadBefore, emailLeadAfter = ""] = failure.emailLead.split("{email}");
+
+// Read by contact-form.ts, so no wording lives in TypeScript (FR-GEN5-002).
+const messages = {
+  errors: {
+    name: errors.name,
+    email: errors.email,
+    phone: errors.phone,
+    organisation: errors.organisation,
+    topic: errors.topic,
+    message: errors.message,
+  },
+  titlePrefix: errors.titlePrefix,
+  inlinePrefix: errors.inlinePrefix,
+  sendLabel: form.send.label,
+  sending: form.send.sending,
+  remaining: fields.message.remaining,
+  failure: { generic: failure.generic, rateLimited: failure.rateLimited },
+  thanksPath: path("/contact/thanks"),
+};
+// "<" can't end the script element early
+const messagesJson = JSON.stringify(messages).replace(/</g, "\\u003c");
+---
+
+{preview && (
+  <p class="flag caps caps--sm" data-contact-preview>
+    {content.previewNote}
+  </p>
+)}
+
+<div class="cform__summary" data-contact-summary tabindex="-1" hidden>
+  <h2 class="h3">{errors.summaryHeading}</h2>
+  <ul role="list"></ul>
+</div>
+
+<form
+  class="cform"
+  data-contact-form
+  method="post"
+  action={endpoint}
+  data-astro-reload
+  aria-labelledby="contact-form-heading"
+>
+  <div class="cform__field">
+    <label class="caps" for="contact-name">
+      {fields.name.label}
+    </label>
+    <input
+      id="contact-name"
+      name="name"
+      type="text"
+      autocomplete="name"
+      required
+      maxlength={LIMITS.name.max}
+    />
+  </div>
+
+  <div class="cform__field">
+    <label class="caps" for="contact-email">
+      {fields.email.label}
+    </label>
+    <input
+      id="contact-email"
+      name="email"
+      type="email"
+      autocomplete="email"
+      required
+      maxlength={LIMITS.email.max}
+      spellcheck="false"
+    />
+  </div>
+
+  <div class="cform__field">
+    <label class="caps" for="contact-phone">
+      {fields.phone.label} {form.optionalMarker}
+    </label>
+    <input
+      id="contact-phone"
+      name="phone"
+      type="tel"
+      autocomplete="tel"
+      maxlength={LIMITS.phone.max}
+      aria-describedby={fields.phone.hint ? "contact-phone-hint" : undefined}
+    />
+    {fields.phone.hint && (
+      <p class="cform__hint" id="contact-phone-hint">
+        {fields.phone.hint}
+      </p>
+    )}
+  </div>
+
+  <div class="cform__field">
+    <label class="caps" for="contact-organisation">
+      {fields.organisation.label} {form.optionalMarker}
+    </label>
+    <input
+      id="contact-organisation"
+      name="organisation"
+      type="text"
+      autocomplete="organization"
+      maxlength={LIMITS.organisation.max}
+    />
+  </div>
+
+  <fieldset
+    class="cform__field"
+    id="contact-topic"
+    role="radiogroup"
+    aria-labelledby="contact-topic-legend"
+    aria-required="true"
+  >
+    <legend class="caps" id="contact-topic-legend">
+      {form.topic.legend}
+    </legend>
+    {TOPICS.map((code, i) => (
+      <label class="cform__choice">
+        <input
+          type="radio"
+          name="topic"
+          value={code}
+          id={i === 0 ? "contact-topic-first" : undefined}
+          required
+        />
+        <span>{form.topic.options[code]}</span>
+      </label>
+    ))}
+  </fieldset>
+
+  <div class="cform__field">
+    <label class="caps" for="contact-message">
+      {fields.message.label}
+    </label>
+    <textarea
+      id="contact-message"
+      name="message"
+      rows="6"
+      required
+      minlength={LIMITS.message.min}
+      maxlength={LIMITS.message.max}
+      aria-describedby="contact-message-remaining"
+    ></textarea>
+    <p class="cform__hint" id="contact-message-remaining" data-contact-remaining>
+      {remaining(LIMITS.message.max)}
+    </p>
+    <p class="sr-only" aria-live="polite" data-contact-remaining-live></p>
+  </div>
+
+  <label class="cform__choice">
+    <input id="contact-callMe" name="callMe" type="checkbox" value="true" />
+    <span>{fields.callMe.label}</span>
+  </label>
+
+  {/* Honeypot (FR-FIELD-003): off-screen, out of the tab order and the accessibility tree; bots fill it. */}
+  <div class="contact-hp" aria-hidden="true">
+    <input name="website" type="text" tabindex="-1" autocomplete="off" />
+  </div>
+  <input type="hidden" name="locale" value={locale} />
+  <input type="hidden" name="page" value={path("/contact")} />
+  <input type="hidden" name="renderedAt" value="" />
+
+  <p class="cform__privacy" data-contact-privacy>
+    {form.privacyLine.text} <a href="/privacy">{form.privacyLine.linkLabel}</a>
+  </p>
+
+  <div class="cform__send">
+    <Btn type="submit" label={form.send.label} variant="light" data-contact-send />
+    <p class="sr-only" role="status" aria-live="polite" data-contact-status></p>
+  </div>
+
+  <div class="cform__failure" data-contact-failure hidden>
+    <p data-contact-failure-text></p>
+    {contactEmail && (
+      <p>
+        {emailLeadBefore}
+        <a href={`mailto:${contactEmail}`}>{contactEmail}</a>
+        {emailLeadAfter}
+      </p>
+    )}
+  </div>
+</form>
+
+<script type="application/json" data-contact-messages set:html={messagesJson}></script>
+<script>
+  import "@/scripts/contact-form";
+</script>

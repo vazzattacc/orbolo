@@ -1,7 +1,7 @@
 # Editing `paths.json`
 
 This file is the sole content source for the Home page's audience-selection
-cards. See `specs/001-orbolo-path-selection/data-model.md` for the full
+cards. See `specs/001-orbolo-path-selection/README.md` for the full
 field contract and validation rules; summary:
 
 | Field | Required | Notes |

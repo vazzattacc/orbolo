@@ -1,7 +1,7 @@
 import { expect, test } from "@playwright/test";
 import { bodyTextOutsideRegenerativeException } from "./approved-exceptions";
 
-// quickstart.md Scenario 2 — FR-BEEF-001..010, SC-001, SC-003
+// spec 002 — FR-BEEF-001..010, SC-001, SC-003
 
 test.describe("Beef page", () => {
   test("every section with real content renders, in order", async ({ page }) => {

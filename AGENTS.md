@@ -9,12 +9,12 @@ Marketing site for Orbolo (grass-fed cattle and beef from Paraguay's Gran Chaco)
 ## Which document wins
 
 1. `.specify/memory/constitution.md`: process, stack, architecture. It overrides everything else.
-2. `CLAUDE.md` "Design Taste" (2026-10-10): the current visual design (forest / paper / lime). The constitution's _Colors_ constraint and the README's _Design tokens_ section still describe the old cream design and are stale. For design, follow `CLAUDE.md`. The constitution is amended only by a reviewed PR, so flag the conflict rather than editing it.
+2. `CLAUDE.md` "Design Taste" (2026-10-10): the current visual design (forest / paper / lime). The constitution's _Colors_ constraint still describes the old cream design and is stale. For design, follow `CLAUDE.md`. The constitution is amended only by a reviewed PR, so flag the conflict rather than editing it.
 3. `README.md`: orientation notes. Where it disagrees with the code, trust the code.
 
 ## How work arrives: two modes
 
-**Spec-driven (features).** New pages, new sections, new content types, structural refactors, or anything the user asks to spec. Use the Spec Kit flow: `/speckit-specify` → `/speckit-clarify` → `/speckit-plan` → `/speckit-tasks` → `/speckit-implement`. Stop for the user's approval after each step. Specs live in `specs/NNN-name/`, and the active one is in `.specify/feature.json`.
+**Spec-driven (features).** New pages, new sections, new content types, structural refactors, or anything the user asks to spec. Use the Spec Kit flow: `/speckit-specify` → `/speckit-clarify` → `/speckit-plan` → `/speckit-tasks` → `/speckit-implement`. Stop for the user's approval after each step. Specs live in `specs/NNN-name/`, and the active one is in `.specify/feature.json`. Once a feature ships and its gates close, condense its folder into one `README.md` (rules still in force, FR → test map, decisions labelled R1…, open items) and delete the rest; git history keeps the originals.
 
 **Direct requests (minor changes).** When the user asks for a specific change in chat (copy edit, style tweak, bug fix, moving strings around), do it directly, without a spec. Every rule below still applies, including verification. Stop and suggest the spec flow first if the request turns out to need any of these:
 
@@ -28,7 +28,7 @@ If you do proceed with a change that contradicts a spec, say which requirement i
 ## Content rules
 
 - **All user-facing text lives in JSON**: `src/content/<name>/<name>.json`. It is read only through `src/lib/<name>/<name>-repository.ts`, with its Zod schema in `src/lib/<name>/schema.ts` and the collection registered in `src/content.config.ts`. Components never import JSON or `astro:content` directly, and never hard-code copy. New copy goes into JSON, never into `.astro` or `.ts` files.
-- **Known gap:** `src/i18n/ui.ts` still holds the nav, footer, buttons, section headings, image alt texts, the Home hero and the Contact page text. A few labels are also hard-coded in `src/pages/privacy.astro` and `src/pages/terms.astro`. Don't add to either. Moving them into JSON is pending.
+- **Known gap:** `src/i18n/ui.ts` still holds the nav, footer, buttons, section headings, image alt texts and the Home hero. (The Contact page text moved to `src/content/contact/contact.json` on 2026-11-14.) A few labels are also hard-coded in `src/pages/privacy.astro` and `src/pages/terms.astro`. Don't add to either. Moving them into JSON is pending.
 - **Both languages:** every localized string exists in English and Spanish, as JSON entries `<id>` and `<id>-es`. Privacy, Terms and 404 are English only.
 - **Never invent data.** No made-up numbers, names, prices or "example" figures. If a fact doesn't exist yet, the section is hidden: no placeholder, no "coming soon". Every number renders with its date and source through `src/components/shared/MetricValue.astro`.
 - **Legal wording:**
@@ -84,7 +84,7 @@ src/components/ui/               PhotoHero, Split, Edit, Band, CtaCollage, Btn
 src/components/<page>/           page sections
 src/scripts/motion.ts            all motion
 public/images/<section>/         site imagery, referenced by path from JSON
-specs/                           Spec Kit features + _shared/references (client brief)
+specs/                           Spec Kit features (shipped ones = one README.md) + _shared/references (client brief)
 .specify/references/             storyline, ecosystem protocol, Remote Rancher doc, moodboard images
 tests/unit, tests/e2e            Vitest, Playwright
 ```

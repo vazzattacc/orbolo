@@ -4,13 +4,21 @@
  * photos and forest squares meeting corner to corner on the right.
  */
 import type { HTMLAttributes } from "astro/types";
+import type { Photo as PhotoSource } from "@/assets/photos";
+import Photo from "./Photo.astro";
+
+type CollageImage = string | PhotoSource;
 
 interface Props extends HTMLAttributes<"section"> {
-  images?: [string, string, string];
+  /** Paths into public/ (kept photos) or replacements from src/assets/photos. */
+  images?: [CollageImage, CollageImage, CollageImage];
+  /** CSS object-position per image, in the same order. */
+  focus?: [string?, string?, string?];
 }
 
 const {
   images = ["/images/site/orbolo-cattle-shade.jpg", "/images/site/florian.jpg", "/images/site/orbolo-walk.jpg"],
+  focus = [],
   class: className,
   ...rest
 } = Astro.props;
@@ -22,9 +30,9 @@ const {
     {Astro.slots.has("buttons") && <div class="cta__btns"><slot name="buttons" /></div>}
   </div>
   <div class="cta__collage" aria-hidden="true">
-    <img class="c1" src={images[0]} alt="" loading="lazy" />
-    <img class="c2" src={images[1]} alt="" loading="lazy" />
-    <img class="c3" src={images[2]} alt="" loading="lazy" />
+    <Photo class="c1" image={images[0]} alt="" kind="collage" focus={focus[0]} />
+    <Photo class="c2" image={images[1]} alt="" kind="collage" focus={focus[1]} />
+    <Photo class="c3" image={images[2]} alt="" kind="collage" focus={focus[2]} />
     <span class="sq sq1"></span><span class="sq sq2"></span><span class="sq sq3"></span>
   </div>
 </section>
